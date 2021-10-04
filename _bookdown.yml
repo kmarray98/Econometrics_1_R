@@ -1,0 +1,7 @@
+book_filename: "Introduction to R for Econometrics"
+chapter_name: "Chapter "
+repo: https://github.com/kmarray98/Introduction_to_R_for_econometrics.github.io
+output_dir: docs
+rmd_files: ["index.Rmd", "02--Foundations.Rmd", "03--Working_with_data.Rmd",
+            "04--Modelling_with_packages.Rmd", "05--Workflow.Rmd", "06--Advanced_Material.Rmd"]
+new_session: yes
