@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Introduction to R for Econometrics</title>
+  <meta name="description" content="Introduction to R for Econometrics" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Introduction to R for Econometrics" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Introduction to R for Econometrics" />
+  
+  
+  
+
+<meta name="author" content="Kieran Marray" />
+
+
+<meta name="date" content="2021-10-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="reading-analysing-and-manipulating-data.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/d3-3.5.6/d3.min.js"></script>
+<link href="libs/profvis-0.3.6.9000/profvis.css" rel="stylesheet" />
+<script src="libs/profvis-0.3.6.9000/profvis.js"></script>
+<script src="libs/profvis-0.3.6.9000/scroll.js"></script>
+<link href="libs/highlight-6.2.0/textmate.css" rel="stylesheet" />
+<script src="libs/highlight-6.2.0/highlight.js"></script>
+<script src="libs/profvis-binding-0.3.7/profvis.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Introduction to R for Econometrics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="overview.html"><a href="overview.html#motivation"><i class="fa fa-check"></i><b>1.1</b> Motivation</a></li>
+<li class="chapter" data-level="1.2" data-path="overview.html"><a href="overview.html#contents"><i class="fa fa-check"></i><b>1.2</b> Contents</a></li>
+<li class="chapter" data-level="1.3" data-path="overview.html"><a href="overview.html#why-r"><i class="fa fa-check"></i><b>1.3</b> Why R?</a></li>
+<li class="chapter" data-level="1.4" data-path="overview.html"><a href="overview.html#downloading-r-and-rstudio"><i class="fa fa-check"></i><b>1.4</b> Downloading R and RStudio</a></li>
+<li class="chapter" data-level="1.5" data-path="overview.html"><a href="overview.html#further-reading"><i class="fa fa-check"></i><b>1.5</b> Further reading</a></li>
+<li class="chapter" data-level="1.6" data-path="overview.html"><a href="overview.html#vectors"><i class="fa fa-check"></i><b>1.6</b> Vectors</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="overview.html"><a href="overview.html#atomic-vectors"><i class="fa fa-check"></i><b>1.6.1</b> Atomic vectors</a></li>
+<li class="chapter" data-level="1.6.2" data-path="overview.html"><a href="overview.html#lists"><i class="fa fa-check"></i><b>1.6.2</b> Lists</a></li>
+<li class="chapter" data-level="1.6.3" data-path="overview.html"><a href="overview.html#working-with-vectors"><i class="fa fa-check"></i><b>1.6.3</b> Working with vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="overview.html"><a href="overview.html#functions"><i class="fa fa-check"></i><b>1.7</b> Functions</a></li>
+<li class="chapter" data-level="1.8" data-path="overview.html"><a href="overview.html#iteration"><i class="fa fa-check"></i><b>1.8</b> Iteration</a></li>
+<li class="chapter" data-level="1.9" data-path="overview.html"><a href="overview.html#style"><i class="fa fa-check"></i><b>1.9</b> Style</a>
+<ul>
+<li class="chapter" data-level="1.9.1" data-path="overview.html"><a href="overview.html#file-names"><i class="fa fa-check"></i><b>1.9.1</b> File names</a></li>
+<li class="chapter" data-level="1.9.2" data-path="overview.html"><a href="overview.html#object-names"><i class="fa fa-check"></i><b>1.9.2</b> Object names</a></li>
+<li class="chapter" data-level="1.9.3" data-path="overview.html"><a href="overview.html#syntax"><i class="fa fa-check"></i><b>1.9.3</b> Syntax</a></li>
+<li class="chapter" data-level="1.9.4" data-path="overview.html"><a href="overview.html#commenting"><i class="fa fa-check"></i><b>1.9.4</b> Commenting</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html"><i class="fa fa-check"></i><b>2</b> Reading, analysing, and manipulating data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#reading-in-datasets-as-dataframes"><i class="fa fa-check"></i><b>2.1</b> Reading in datasets as dataframes</a></li>
+<li class="chapter" data-level="2.2" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#slicing-dataframes"><i class="fa fa-check"></i><b>2.2</b> Slicing dataframes</a></li>
+<li class="chapter" data-level="2.3" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#basic-summary-statistics"><i class="fa fa-check"></i><b>2.3</b> Basic summary statistics</a></li>
+<li class="chapter" data-level="2.4" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#summarising-with-the-tidyverse---dplyr-and-ggplot2"><i class="fa fa-check"></i><b>2.4</b> Summarising with the tidyverse - dplyr and ggplot2</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#dplyr"><i class="fa fa-check"></i><b>2.4.1</b> Dplyr</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="modelling-1---estimators-from-packages.html"><a href="modelling-1---estimators-from-packages.html"><i class="fa fa-check"></i><b>3</b> Modelling 1 - estimators from packages</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="modelling-1---estimators-from-packages.html"><a href="modelling-1---estimators-from-packages.html#linear-regression-with-lm"><i class="fa fa-check"></i><b>3.1</b> Linear regression with <code>lm()</code></a></li>
+<li class="chapter" data-level="3.2" data-path="modelling-1---estimators-from-packages.html"><a href="modelling-1---estimators-from-packages.html#computing-covariance-matrices-with-sandwich"><i class="fa fa-check"></i><b>3.2</b> Computing covariance matrices with <code>sandwich</code></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="workflow.html"><a href="workflow.html"><i class="fa fa-check"></i><b>4</b> Workflow</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="workflow.html"><a href="workflow.html#regression-tables-with-stargazer"><i class="fa fa-check"></i><b>4.1</b> Regression tables with Stargazer</a></li>
+<li class="chapter" data-level="4.2" data-path="workflow.html"><a href="workflow.html#general-tables-with-xtable"><i class="fa fa-check"></i><b>4.2</b> General tables with XTable</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="advanced-programming-techniques.html"><a href="advanced-programming-techniques.html"><i class="fa fa-check"></i><b>5</b> Advanced programming techniques</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="advanced-programming-techniques.html"><a href="advanced-programming-techniques.html#advanced-iteration-and-monte-carlo-simulation"><i class="fa fa-check"></i><b>5.1</b> Advanced iteration and Monte-Carlo simulation</a></li>
+<li class="chapter" data-level="5.2" data-path="advanced-programming-techniques.html"><a href="advanced-programming-techniques.html#optimisation"><i class="fa fa-check"></i><b>5.2</b> Optimisation</a></li>
+<li class="chapter" data-level="5.3" data-path="advanced-programming-techniques.html"><a href="advanced-programming-techniques.html#profiling"><i class="fa fa-check"></i><b>5.3</b> Profiling</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to R for Econometrics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Introduction to R for Econometrics</h1>
+<p class="author"><em>Kieran Marray</em></p>
+<p class="date"><em>2021-10-03</em></p>
+</div>
+<div id="overview" class="section level1" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Overview</h1>
+<div id="motivation" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Motivation</h2>
+<p>This is a short introduction to R to go with the first year econometrics courses at the
+Tinbergen Institute. It is aimed at people who are relatively new to R, or programming in general.</p>
+<p>The goal is to give you enough of knowledge of the fundamentals of R to write and
+adapt code to fit econometric models to data, and to simulate your own data, working
+alone or with others. You will be able to easily read in data into a dataframe, plot it,
+manipulate it into the form you want, fit models based on routines others have built,
+and present the reults in a nice format. Most importantly, when things inevitably go wrong,
+you will be able to begin to interpret error
+messages and adapt others’ solutions you might find on websites like StackOverflow
+to fit your needs. Of course, you will not be able to do this perfectly to begin
+with. There is no substitute for experience. But hopefully this
+introduction will give you a good start.</p>
+<p>We do not focus on telling you how to program specific estimators. You can easily
+look these up online. But, it is
+hard to actually implement an estimator in a programming language without knowing
+how the language works or how to work
+with data in that language. When, you inevitably make an error or have to adapt
+the code you found online you will be stuck.</p>
+<p>I have written these notes based of the experience of others in my cohort.
+Many people had not done any programming before entering graduate school, or
+only used basic programs like Stata. This made every single assignment a lot harder,
+and much more work than it has to be for them. The questions are enough without struggling to
+program the estimators as well.
+Being able to flexibly write your own code pays large dividends.</p>
+<p>This is a work in progress, and certainly not a definitive guide to R. If you see
+something that is wrong or that would be useful to add, please let me know.</p>
+</div>
+<div id="contents" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Contents</h2>
+<p>In the first section, we introduce the basics of the R language In the second, we
+go through some basic data analysis and cleaning: how to store data, plot it, extract variables etc.
+In the third, we go through how to implement models using packages - sets of functions that other
+people in the community have developed. We do this using the linear regression object, as it
+is the core that many of the functions you will implement is built around. At the end of this
+section, we list many sets of functions that others have written that may help you
+in your assignments. In the fourth, we
+show how to take the results of our estimators and automatically generate nice reports.
+In the fifth section, we cover some more advanced material that might be useful
+if you would like to do more complicated things with R like programming your own
+estimators.</p>
+</div>
+<div id="why-r" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Why R?</h2>
+<p>R is a free, open-source programming language specifically designed for statistical
+programming. It is a great language to use for econometrics, data science, and statistics,
+as it combines the best parts of both ‘pure’ programming languages like Julia
+with the best parts of pre-built statistical software like Stata. R centers around
+packages - sets of functions built by others in the community that you can load
+and use yourself. This means that, unlike say Julia, you can easily find a routine
+with good documentation that someone else has built to fit whatever econometric
+model you want without having to program it yourself. But R is an actual programming
+language unlike Stata or SPSS. Thus, you can write your own routines or perform basic data analysis
+without it causing you a massive headache.</p>
+<p>R is very widely used in academia and industry, for example in companies
+like Google and Uber. This means that
+there is a large and vibrant community of R programmers online who are keen to
+help others with their problems. They answer
+questions, organise conferences, and even make podcasts where they talk about
+data science and/or coffee <a href="https://nssdeviations.com/" class="uri">https://nssdeviations.com/</a> .</p>
+</div>
+<div id="downloading-r-and-rstudio" class="section level2" number="1.4">
+<h2><span class="header-section-number">1.4</span> Downloading R and RStudio</h2>
+<p>To use R, you first need to download it. I recommend downloading the latest
+release from here <a href="https://cran.r-project.org/src/base/R-4/" class="uri">https://cran.r-project.org/src/base/R-4/</a>. You should also
+use an IDE (interactive development environment) to program in R initially. I
+recommend downloading RStudio <a href="https://www.rstudio.com/products/rstudio/" class="uri">https://www.rstudio.com/products/rstudio/</a> .</p>
+</div>
+<div id="further-reading" class="section level2" number="1.5">
+<h2><span class="header-section-number">1.5</span> Further reading</h2>
+<p>There are many great R resources online. In particular, the Chief Scientist at
+RStudio, Hadley Wickham, makes lots of good guides to R available for free on
+his website <a href="http://hadley.nz/.I" class="uri">http://hadley.nz/.I</a> recommend checking out ‘R for Data
+Science.’ Once you have done some programming in R,
+‘Advanced R’ is a really thorough overview of all the intricacies. RStudio publish
+some great R cheatsheets <a href="https://www.rstudio.com/resources/cheatsheets/" class="uri">https://www.rstudio.com/resources/cheatsheets/</a>. For econometrics,
+Nick Huntingdon-Klein has a great collection of resources
+on his website <a href="https://nickchk.com/econometrics.html" class="uri">https://nickchk.com/econometrics.html</a>.</p>
+<pre><code>
+&lt;!--chapter:end:index.Rmd--&gt;
+
+# Foundations
+
+Here we go over the basic commands in R, and how R is meant to be used. R is a &#39;vectorised&#39;
+programming language - it is fastest when you perform operations on vectors.
+to work best with vectorised operations. This is different to other languages you might
+have encountered like Python which are object-oriented. Consequently, it is better
+to put your data in vectors, and perform operations on vectors, as opposed to 
+using loops. We will explain this in more detail later.
+
+These details might seem irrelevant for now. They are very useful, however, for
+understanding what comes next. 
+
+## Objects
+
+The first thing you need to know is how to create objects with names. This is how
+you store things in memory to use them later. In R, 
+this is done using a a left arrow. We are going to create a string - a sequence
+of symbols between double quotes - and store it with a name. 
+
+
+```r
+rm(list = ls())
+
+
+# Ignore the thing above for now - I will explain what that is doing later
+
+first_string &lt;- &quot;hello_world!&quot;</code></pre>
+<p>Double quotes denote strings. We have done two things. Firstly we create an
+object, the string hello_world!. Then, we bind it to the name first_string. Note that the first character
+in the name cannot be a number. string_3 is admissible, but 3_string is not. So now
+if we want to access that string, we can type</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="overview.html#cb2-1" aria-hidden="true" tabindex="-1"></a>first_string</span></code></pre></div>
+<pre><code>## [1] &quot;hello_world!&quot;</code></pre>
+<p>and R gives us the string.</p>
+<p>We can manually take a look at the objects we have stored in memory. Open RStudio
+and take a look at the top right of your screen. There should be a pane called ‘environment.’
+This is a record of every single object you have stored in your working memory.
+You should now see an object called first_string. If you
+click on it, you can see what the object is. Note that the first character
+in the name cannot be a number. string_3 is admissible, but 3_string is not.</p>
+<p>Sometimes, we will want to remove an object from our working memory. We can
+do this using <code>rm</code>, which removes an object from your environment. If, for example,
+we wanted to remove <code>first_string</code> we would type</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="overview.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(first_string)</span></code></pre></div>
+<p>Note that R does not do this automatically when we run a new script. Thus, at
+the beginning of each script, we should clear the environment. We do this by
+running <code>rm(list=ls())</code> as the very first line of the script. This is what we did at
+the very beginning of this section. Otherwise, it is
+very easy to introduce errors by accidentally using variables defined in another script
+in a current script.</p>
+</div>
+<div id="vectors" class="section level2" number="1.6">
+<h2><span class="header-section-number">1.6</span> Vectors</h2>
+<p>Vectors are the most important type of object in R. Funamentally, a vector is an
+ordered set of values like strings or numbers. Vectors will be the basis of the objects
+we use to store data later. We create them by putting
+elements in between c(), separated by commas.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="overview.html#cb5-1" aria-hidden="true" tabindex="-1"></a>first_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</span></code></pre></div>
+<p>The elements of a vector are ordered. R stores them in the order in which we
+pass them. Thus, 0 is the first element of our vector, 1 is the second and so on.</p>
+<p>There are two types of vector: atomic vectors, and lists. The difference is that
+in an atomic vector, all the elements must be of the same type. In a list, the elements
+can be of different types. For ease, we will start by going over the basics of atomic
+vectors. Then, we will move on to lists.</p>
+<div id="atomic-vectors" class="section level3" number="1.6.1">
+<h3><span class="header-section-number">1.6.1</span> Atomic vectors</h3>
+<p>There are four common types of atomic vector you will come across (plus two other
+rare types, that we can safely ignore for now). These are logicals, doubles,
+integers, and characters.</p>
+<p>Logicals are vectors of logical operators - things
+that are either <code>TRUE</code>, or <code>FALSE</code>.
+We can create logicals based on conditions using the <code>==</code> sign. <code>==</code> returns <code>TRUE</code>
+if the objects on both sides are exactly equal to each other, and <code>FALSE</code> otherwise.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="overview.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># creating some logical conditions</span></span>
+<span id="cb6-2"><a href="overview.html#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="overview.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">==</span><span class="dv">4</span></span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="overview.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;cat&quot;</span><span class="sc">==</span><span class="st">&quot;dog&quot;</span></span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="overview.html#cb10-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="st">&quot;cat&quot;</span></span>
+<span id="cb10-2"><a href="overview.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;cat&quot;</span><span class="sc">==</span> f</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>This will come in very handy when we want to select some variables based on the
+values of other variables, as we commonly do.</p>
+<p>We can also write <code>TRUE</code>, <code>FALSE</code> more succinctly as <code>T</code>,<code>F</code>.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="overview.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Two equivalent ways of writing logicals</span></span>
+<span id="cb12-2"><a href="overview.html#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="overview.html#cb12-3" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span><span class="sc">+</span><span class="dv">1</span><span class="sc">==</span><span class="dv">2</span>)<span class="sc">==</span><span class="cn">TRUE</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="overview.html#cb14-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span><span class="sc">+</span><span class="dv">1</span><span class="sc">==</span><span class="dv">2</span>)<span class="sc">==</span>T</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="overview.html#cb16-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span><span class="sc">+</span><span class="dv">1</span><span class="sc">==</span><span class="dv">3</span>)<span class="sc">==</span><span class="cn">FALSE</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="overview.html#cb18-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span><span class="sc">+</span><span class="dv">1</span><span class="sc">==</span><span class="dv">3</span>)<span class="sc">==</span>F</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Integer is what is sounds like - a vector of integers.
+We use doubles to represent numbers that may not be integers. A double can be
+any type of number, including integers and decimals (or ‘floating point’ numbers
+as programmers often call them). We can generate a vector containing a range of integers
+by passing a starting integer, followed by a colon, followed by the final integer.
+Finally, character vectors are vectors of strings.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="overview.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lets make a vector of each type</span></span>
+<span id="cb20-2"><a href="overview.html#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="overview.html#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="overview.html#cb20-4" aria-hidden="true" tabindex="-1"></a>first_log_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb20-5"><a href="overview.html#cb20-5" aria-hidden="true" tabindex="-1"></a>first_int_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb20-6"><a href="overview.html#cb20-6" aria-hidden="true" tabindex="-1"></a>int_range_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb20-7"><a href="overview.html#cb20-7" aria-hidden="true" tabindex="-1"></a>first_double_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.1</span>, <span class="fl">2.2</span>, <span class="fl">3.3</span>)</span>
+<span id="cb20-8"><a href="overview.html#cb20-8" aria-hidden="true" tabindex="-1"></a>first_char_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;my&quot;</span>, <span class="st">&quot;first&quot;</span>, <span class="st">&quot;character&quot;</span>, <span class="st">&quot;vector&quot;</span>)</span></code></pre></div>
+<p><code>typeof()</code> tells you the type of your vector, and <code>length()</code> tells you how
+many elements are in it.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="overview.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Looking the type of the first vector, and length of the second</span></span>
+<span id="cb21-2"><a href="overview.html#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="overview.html#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(first_log_vec)</span></code></pre></div>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="overview.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(first_int_vec)</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<p>You can merge two atomic vectors by putting them in a larger vector</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="overview.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># creating two small vectors</span></span>
+<span id="cb25-2"><a href="overview.html#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="overview.html#cb25-3" aria-hidden="true" tabindex="-1"></a>vec_1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb25-4"><a href="overview.html#cb25-4" aria-hidden="true" tabindex="-1"></a>vec_2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
+<span id="cb25-5"><a href="overview.html#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="overview.html#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># merging them into one big vector</span></span>
+<span id="cb25-7"><a href="overview.html#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="overview.html#cb25-8" aria-hidden="true" tabindex="-1"></a>big_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(vec_1, vec_2)</span></code></pre></div>
+</div>
+<div id="lists" class="section level3" number="1.6.2">
+<h3><span class="header-section-number">1.6.2</span> Lists</h3>
+<p>A list is a vector comprised of elements of multiple types.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="overview.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># making a list</span></span>
+<span id="cb26-2"><a href="overview.html#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="overview.html#cb26-3" aria-hidden="true" tabindex="-1"></a>first_list <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;hello_world!&quot;</span>, <span class="dv">1</span>)</span></code></pre></div>
+<p>We can turn something into a list explicitly by using <code>list</code>.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="overview.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># making a list more explicitly</span></span>
+<span id="cb27-2"><a href="overview.html#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="overview.html#cb27-3" aria-hidden="true" tabindex="-1"></a>second_list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="st">&quot;hello_world!&quot;</span>, <span class="dv">1</span>)</span></code></pre></div>
+<p>Lists are very useful in practice because they can be recursive - elements of lists
+can be other lists or vectors, and the list does not flatten this into a single
+object like atomic vectors do.</p>
+<p>An example of where this is useful in econometrics, which we will see in section 4,
+is collecting standard errors for different regression specifications. When we
+create a regression table, we often want to pass a list of standard errors to
+tell us how precise our estimates are. Yet, we also want to keep the standard errors
+of each model together so we do not mix standard errors of different models up.
+A way we can achieve this is by storing the standard errors for each model in its
+own vector, and then placing those vectors into a list.</p>
+<p>We can, also, flatten lists - remove the nested structure - if we want to by
+using <code>unlist</code>. Again, we will see how this is useful later.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="overview.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># demonstrating the nested structure in lists</span></span>
+<span id="cb28-2"><a href="overview.html#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="overview.html#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># imagine these are the two outputs of standard errors from our variance-covariance</span></span>
+<span id="cb28-4"><a href="overview.html#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># matrix</span></span>
+<span id="cb28-5"><a href="overview.html#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="overview.html#cb28-6" aria-hidden="true" tabindex="-1"></a>se_1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.4</span>, <span class="fl">0.5</span>)</span>
+<span id="cb28-7"><a href="overview.html#cb28-7" aria-hidden="true" tabindex="-1"></a>se_2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.4</span>, <span class="fl">0.5</span>, <span class="fl">0.6</span>, <span class="fl">0.7</span>)</span>
+<span id="cb28-8"><a href="overview.html#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="overview.html#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co"># now lets create a list with a nested structure</span></span>
+<span id="cb28-10"><a href="overview.html#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="overview.html#cb28-11" aria-hidden="true" tabindex="-1"></a>se_list <span class="ot">&lt;-</span> <span class="fu">list</span>(se_1, se_2)</span>
+<span id="cb28-12"><a href="overview.html#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="overview.html#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="co"># now if we take a look at the list, we can see the nested structure</span></span>
+<span id="cb28-14"><a href="overview.html#cb28-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-15"><a href="overview.html#cb28-15" aria-hidden="true" tabindex="-1"></a>se_list</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] 0.3 0.4 0.5
+## 
+## [[2]]
+## [1] 0.4 0.5 0.6 0.7</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="overview.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># selecting the first or second element of the list will give us</span></span>
+<span id="cb30-2"><a href="overview.html#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the coresponding vector. </span></span>
+<span id="cb30-3"><a href="overview.html#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="overview.html#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Now, imagine we want to flatten the list i.e remove the nested structure</span></span>
+<span id="cb30-5"><a href="overview.html#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="overview.html#cb30-6" aria-hidden="true" tabindex="-1"></a>flattened_se_list <span class="ot">&lt;-</span> <span class="fu">unlist</span>(se_list)</span>
+<span id="cb30-7"><a href="overview.html#cb30-7" aria-hidden="true" tabindex="-1"></a>flattened_se_list</span></code></pre></div>
+<pre><code>## [1] 0.3 0.4 0.5 0.4 0.5 0.6 0.7</code></pre>
+</div>
+<div id="working-with-vectors" class="section level3" number="1.6.3">
+<h3><span class="header-section-number">1.6.3</span> Working with vectors</h3>
+<p>As mentioned above, vectors have an order. We can use this ordering to select
+elements of vectors. This is called `slicing’. We do this
+by putting square brackets after the name of the vector, containing positions of
+elements within the vector. You can select a single
+element of the vector by putting a single number in the brackets that corresponds
+to the position of that element in the vector. You can select the nth to n+kth
+element of the vector by passing n:n+k.
+You can create any combination of those elements by passing the positions
+of the elements you want to select as a vector.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="overview.html#cb32-1" aria-hidden="true" tabindex="-1"></a>big_vec[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="overview.html#cb34-1" aria-hidden="true" tabindex="-1"></a>big_vec[<span class="dv">6</span>]</span></code></pre></div>
+<pre><code>## [1] 6</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="overview.html#cb36-1" aria-hidden="true" tabindex="-1"></a>big_vec[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>]</span></code></pre></div>
+<pre><code>## [1] 2 3</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="overview.html#cb38-1" aria-hidden="true" tabindex="-1"></a>big_vec[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">6</span>)]</span></code></pre></div>
+<pre><code>## [1] 1 2 3 6</code></pre>
+<p>We can add, subtract, multiply, and divide numbers using +, -, *, /. These also
+work for vectors. They perform the operations on the vectors elementwise.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="overview.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using some basic mathematical operators</span></span>
+<span id="cb40-2"><a href="overview.html#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="overview.html#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co"># on integers/doubles</span></span>
+<span id="cb40-4"><a href="overview.html#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">+</span><span class="dv">1</span></span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="overview.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1-1</span></span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="overview.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">*</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="overview.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">/</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 0.5</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="overview.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># on vectors</span></span>
+<span id="cb48-2"><a href="overview.html#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-3"><a href="overview.html#cb48-3" aria-hidden="true" tabindex="-1"></a>big_vec <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div>
+<pre><code>## [1] 2 3 4 5 6 7</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="overview.html#cb50-1" aria-hidden="true" tabindex="-1"></a>big_vec <span class="sc">-</span> <span class="dv">1</span></span></code></pre></div>
+<pre><code>## [1] 0 1 2 3 4 5</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="overview.html#cb52-1" aria-hidden="true" tabindex="-1"></a>big_vec<span class="sc">*</span> <span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1]  2  4  6  8 10 12</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="overview.html#cb54-1" aria-hidden="true" tabindex="-1"></a>big_vec <span class="sc">/</span> <span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 0.5 1.0 1.5 2.0 2.5 3.0</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="overview.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># notice that each of these returns a vector of results, where each element is </span></span>
+<span id="cb56-2"><a href="overview.html#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the result of the operation on the element of the previous vector.</span></span></code></pre></div>
+<p>In practice, you will see many vectors that contain missing values. R denotes
+missing values with NA. R also has a useful command to find these missing values.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="overview.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lets look for some missing values</span></span>
+<span id="cb57-2"><a href="overview.html#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-3"><a href="overview.html#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="co"># here&#39;s a vector with a missing value</span></span>
+<span id="cb57-4"><a href="overview.html#cb57-4" aria-hidden="true" tabindex="-1"></a>missing_value_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="cn">NA</span>,<span class="dv">4</span>,<span class="dv">5</span>)</span>
+<span id="cb57-5"><a href="overview.html#cb57-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-6"><a href="overview.html#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="co"># now lets see where that missing value is</span></span>
+<span id="cb57-7"><a href="overview.html#cb57-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-8"><a href="overview.html#cb57-8" aria-hidden="true" tabindex="-1"></a><span class="fu">is.na</span>(missing_value_vec)</span></code></pre></div>
+<pre><code>## [1] FALSE FALSE  TRUE FALSE FALSE</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="overview.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(<span class="fu">is.na</span>(missing_value_vec) <span class="sc">==</span> T)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="overview.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">all</span>(<span class="fu">is.na</span>(missing_value_vec) <span class="sc">==</span> T)</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p><code>is.na()</code> returns a logical vector of the same length as the original vector.
+Each element corresponds to the element in the original vector. It returns
+TRUE if this is missing, else <code>FALSE</code>. The <code>any()</code> and <code>all()</code> commands tell us
+if any or all of the elements of a vector satisfy a logical respectively. The first
+returns <code>TRUE</code> if at least one of the elements of the vector satisfies the logical,
+else <code>FALSE</code>. The second returns <code>TRUE</code> if all of the elements of the vector satisfies the logical,
+else <code>FALSE</code>.
+We can combine these with <code>is.na()</code>
+to screen for NAs. Notice that in the middle, we have specified a logical condition
+using ==.</p>
+<p>Vectors can also have attributes - metadata that we attach to the vector object.
+The most important of these to know are names and dimensions. R constructs objects that we
+will use later like matrices are dataframes as multi-dimensional vectors.</p>
+</div>
+</div>
+<div id="functions" class="section level2" number="1.7">
+<h2><span class="header-section-number">1.7</span> Functions</h2>
+<p>It is very easy to define functions in R. They are particularly useful in R because
+they allow you to iterate in a vectorised way by <code>apply</code>ing. We will see this later.
+We store functions as
+objects with the function name as their name. We follow this by the command
+<code>function()</code>. The arguments to <code>function' are the arguments of the function. We enclose the body of the function in curly brackets. At the end of the function, we specify</code>return()`, where the variables in brackets are those that will be
+returned by the function.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="overview.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lets define our first function - squaring</span></span>
+<span id="cb63-2"><a href="overview.html#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="co"># This takes a numeric argument `x&#39; and returns its</span></span>
+<span id="cb63-3"><a href="overview.html#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="co"># square</span></span>
+<span id="cb63-4"><a href="overview.html#cb63-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-5"><a href="overview.html#cb63-5" aria-hidden="true" tabindex="-1"></a>square_things <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb63-6"><a href="overview.html#cb63-6" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> x<span class="sc">**</span><span class="dv">2</span></span>
+<span id="cb63-7"><a href="overview.html#cb63-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(y)</span>
+<span id="cb63-8"><a href="overview.html#cb63-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb63-9"><a href="overview.html#cb63-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-10"><a href="overview.html#cb63-10" aria-hidden="true" tabindex="-1"></a><span class="co"># I could have also written this in one line as return(x**2) of course</span></span>
+<span id="cb63-11"><a href="overview.html#cb63-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-12"><a href="overview.html#cb63-12" aria-hidden="true" tabindex="-1"></a><span class="co"># now lets square something</span></span>
+<span id="cb63-13"><a href="overview.html#cb63-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-14"><a href="overview.html#cb63-14" aria-hidden="true" tabindex="-1"></a><span class="fu">square_things</span>(<span class="dv">22</span>)</span></code></pre></div>
+<pre><code>## [1] 484</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="overview.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">square_things</span>(<span class="dv">7</span>)</span></code></pre></div>
+<pre><code>## [1] 49</code></pre>
+<p>Of course, we can nest functions if we want to chain some operation and write that
+in an efficient way.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="overview.html#cb67-1" aria-hidden="true" tabindex="-1"></a>square_things_add_two <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb67-2"><a href="overview.html#cb67-2" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">square_things</span>(x) <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb67-3"><a href="overview.html#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(y)</span>
+<span id="cb67-4"><a href="overview.html#cb67-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb67-5"><a href="overview.html#cb67-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-6"><a href="overview.html#cb67-6" aria-hidden="true" tabindex="-1"></a><span class="fu">square_things_add_two</span>(<span class="dv">7</span>)</span></code></pre></div>
+<pre><code>## [1] 51</code></pre>
+<p>Notice that all the objects we define within the function are ‘local’ - they do
+not exist in our environment outside of that function. Thus, if we try to get y
+outside of the function above, it will return nothing (or worse, something else
+we have called y that we do not want!). Objects we define outside of functions,
+by contrast, are global – they exist in the whole environment.</p>
+</div>
+<div id="iteration" class="section level2" number="1.8">
+<h2><span class="header-section-number">1.8</span> Iteration</h2>
+<p>Imagine we want to apply some operation to lots of things - for example squaring
+a vector of numbers. Applying an operation to each of those things is called
+‘iteration.’ We can iterate in R using <code>for' and</code>while’ loops as you might have
+seen in other programming languages.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="overview.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># making a for or while loop in R</span></span>
+<span id="cb69-2"><a href="overview.html#cb69-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-3"><a href="overview.html#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">range</span>(<span class="dv">0</span>,<span class="dv">10</span>)){</span>
+<span id="cb69-4"><a href="overview.html#cb69-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(i<span class="sc">**</span><span class="dv">2</span>)</span>
+<span id="cb69-5"><a href="overview.html#cb69-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] 0
+## [1] 100</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="overview.html#cb71-1" aria-hidden="true" tabindex="-1"></a>j <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb71-2"><a href="overview.html#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (j <span class="sc">&lt;</span> <span class="dv">10</span>){</span>
+<span id="cb71-3"><a href="overview.html#cb71-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(j<span class="sc">**</span><span class="dv">2</span>)</span>
+<span id="cb71-4"><a href="overview.html#cb71-4" aria-hidden="true" tabindex="-1"></a>  j <span class="ot">&lt;-</span> j<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb71-5"><a href="overview.html#cb71-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] 0
+## [1] 1
+## [1] 4
+## [1] 9
+## [1] 16
+## [1] 25
+## [1] 36
+## [1] 49
+## [1] 64
+## [1] 81</code></pre>
+<p>R is, however, a vectorised programming language - it is designed to perform
+operations directly to vectors. Looping does not do this. When we write a loop,
+we take an object in the set of objects we want to iterate over, and apply the
+operation directly to that object. This suggests a quicker and more robust way
+to do this - store the objects we want to iterate over as some sort of vector, and
+perform the operation directly on the vector.</p>
+<p>More precisely, we should iterate by designing a function, setting up a vectorised object,
+and applying the function directly to the vectorised object. In R, we do this using the <code>apply</code>
+family of functions, and it is called <code>apply</code>ing.</p>
+<p>There are four of these functions - <code>sapply</code>, <code>lapply</code>, <code>apply</code>, and <code>tapply</code>.
+The most common to use are <code>lapply</code> and <code>sapply</code>.
+<code>lapply</code> takes a list, a function,
+and a vector of additional arguments to the function. It applies the function to
+each value of the original list, given the parameters, and returns the list of
+those values. <code>sapply</code> takes a vector, a function,
+and a vector of additional arguments to the function. It applies the function to
+each value of the original vector, given the parameters, and returns the vector of
+those values.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="overview.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># examples of iteration by applying</span></span>
+<span id="cb73-2"><a href="overview.html#cb73-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-3"><a href="overview.html#cb73-3" aria-hidden="true" tabindex="-1"></a>vec_of_numbers <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb73-4"><a href="overview.html#cb73-4" aria-hidden="true" tabindex="-1"></a>squares_vec <span class="ot">&lt;-</span> <span class="fu">sapply</span>(vec_of_numbers, <span class="at">FUN=</span>square_things)</span>
+<span id="cb73-5"><a href="overview.html#cb73-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-6"><a href="overview.html#cb73-6" aria-hidden="true" tabindex="-1"></a>list_of_numbers <span class="ot">&lt;-</span> <span class="fu">as.list</span>(<span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>))</span>
+<span id="cb73-7"><a href="overview.html#cb73-7" aria-hidden="true" tabindex="-1"></a>sqaures_list <span class="ot">&lt;-</span> <span class="fu">lapply</span>(list_of_numbers, <span class="at">FUN=</span>square_things)</span>
+<span id="cb73-8"><a href="overview.html#cb73-8" aria-hidden="true" tabindex="-1"></a><span class="co"># notice that we can get the same thing as above by flattening the list</span></span>
+<span id="cb73-9"><a href="overview.html#cb73-9" aria-hidden="true" tabindex="-1"></a>squares_vec_2 <span class="ot">&lt;-</span> <span class="fu">unlist</span>(sqaures_list)</span></code></pre></div>
+<p><code>apply</code> and <code>tapply</code> are less common to use. <code>apply</code> does the same as <code>lapply</code>
+and <code>sapply</code> above, but takes in and returns a <code>data.frame</code> or <code>matrix</code> instead
+of a list or vector. We will learn what those objects are in the next and fifth
+section respectively. <code>tapply</code> takes in a vector containing factor variables and
+computes a function for another vector by the levels of the factors. This can be
+very useful for summarising data - for example taking means by groups.</p>
+<p><code>apply</code>ing is much more efficient for most operations than a loop. Of course, for small
+operations, there is a trade off between run time and developer time. Often it is
+easier to just write a loop. We cover some more efficient iteration methods in
+section five if you are interested to learn more.</p>
+</div>
+<div id="style" class="section level2" number="1.9">
+<h2><span class="header-section-number">1.9</span> Style</h2>
+<p>Now you know how to write some R, it is important to know how to present it in
+a nice way. Writing readable code is very important for a couple of reasons. Firstly,
+others might read your code. Secondly, your future self will almost certainly
+read your code. In either case, we want that person to be able to find and interpret
+it easily. The usual style in R is based on the Google Style guide for R
+<a href="https://google.github.io/styleguide/Rguide.html" class="uri">https://google.github.io/styleguide/Rguide.html</a>. We base this section on the
+synopsis by Hadley Wickham at <a href="http://adv-r.had.co.nz/Style.html" class="uri">http://adv-r.had.co.nz/Style.html</a> .</p>
+<p>Here, I quickly go over the main points. Doing so takes practice.
+As always with style guides, do what we say and not what we do.</p>
+<div id="file-names" class="section level3" number="1.9.1">
+<h3><span class="header-section-number">1.9.1</span> File names</h3>
+<p>File names should be meaningful - so if our script does x we should call it <code>do_x.R</code>.
+If running scripts in order, prefix with numbers e.g <code>1-do_x.R</code>, <code>2-do_y.R</code>.</p>
+</div>
+<div id="object-names" class="section level3" number="1.9.2">
+<h3><span class="header-section-number">1.9.2</span> Object names</h3>
+<p>Object names should be lower case - so <code>xyz</code> as opposed to <code>Xyz</code> or <code>XYZ</code>. Separate
+words in a name with <code>_</code> - so <code>x_vec</code> as opposed to <code>xvec</code>. Variable names should
+be nouns, function names should be verbs. Names should be concise but meaningful.
+Do not name your object the same as an inbuilt object - like <code>list</code>. At best it will
+confuse your reader. At worst, you can overwrite the inbuilt name in your environment
+and cause a load of problems for yourself.</p>
+</div>
+<div id="syntax" class="section level3" number="1.9.3">
+<h3><span class="header-section-number">1.9.3</span> Syntax</h3>
+<p>Spacing should be as in English - so spaces after commas, mathematical symbols and
+so on. The exceptions to this are for colons, variables within brackets - so <code>(x)</code>
+not <code>( x )</code>, or if it leads your code to line up in a nicer way. Try to keep code
+within 80 spaces from the beginning of the line. This means that it will fit on
+a single sheet of A4 paper if you need to save it to a document. RStudio places
+a vertical line in the editor at 80 spaces in that you can use to measure this.
+When we use curly brackets, the second curly bracket should go on its own line
+unless it is followed by <code>else</code>.</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="overview.html#cb74-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb74-2"><a href="overview.html#cb74-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-3"><a href="overview.html#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (x<span class="sc">==</span><span class="dv">3</span>){</span>
+<span id="cb74-4"><a href="overview.html#cb74-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;X is three!&quot;</span>)</span>
+<span id="cb74-5"><a href="overview.html#cb74-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb74-6"><a href="overview.html#cb74-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;X is not three :(&quot;</span>) </span>
+<span id="cb74-7"><a href="overview.html#cb74-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;X is three!&quot;</code></pre>
+<p>Indent in the same block with two spaces, except when you are indenting an
+argument within brackets. Then, indent to the beginning of the arguments.</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="overview.html#cb76-1" aria-hidden="true" tabindex="-1"></a>very_very_long_function<span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">a=</span> <span class="st">&quot;very_very_very_very_very_long_argument&quot;</span>,</span>
+<span id="cb76-2"><a href="overview.html#cb76-2" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">b=</span> <span class="st">&quot;another argument&quot;</span>){</span>
+<span id="cb76-3"><a href="overview.html#cb76-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">print</span>(a))</span>
+<span id="cb76-4"><a href="overview.html#cb76-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="commenting" class="section level3" number="1.9.4">
+<h3><span class="header-section-number">1.9.4</span> Commenting</h3>
+<p>Comment your code! Caring about commenting seems silly, but is actually very
+very important. It is very hard to interpret someone else’s or your own past
+code without commenting. Comment frequently using the <code>#</code>. Comments should
+explain what the function or line of code is doing.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="overview.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># now lets create a variable that stores the string &quot;hello_world&quot;</span></span>
+<span id="cb77-2"><a href="overview.html#cb77-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-3"><a href="overview.html#cb77-3" aria-hidden="true" tabindex="-1"></a>hello_world_string <span class="ot">&lt;-</span> <span class="st">&quot;hello_world&quot;</span></span>
+<span id="cb77-4"><a href="overview.html#cb77-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-5"><a href="overview.html#cb77-5" aria-hidden="true" tabindex="-1"></a><span class="co"># lets print it</span></span>
+<span id="cb77-6"><a href="overview.html#cb77-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-7"><a href="overview.html#cb77-7" aria-hidden="true" tabindex="-1"></a>hello_world_string</span></code></pre></div>
+<pre><code>## [1] &quot;hello_world&quot;</code></pre>
+<p>Break scripts into sections, and delimit these sections with <code>#</code> followed by
+a name saying what the section is doing, followed by <code>---</code> up to 80 spaces in.
+A common thing to do is to first have a section where you read in the data, then
+one containing all of your functions, and then one where you run your models (which
+you may or may not break into further sections. At the beginning of a script,
+add a line explaining what the code is doing and the name of the person who made
+it.</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="overview.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example section breaks for an assignment with a series of questions</span></span>
+<span id="cb79-2"><a href="overview.html#cb79-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-3"><a href="overview.html#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Code for assignment 1</span></span>
+<span id="cb79-4"><a href="overview.html#cb79-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Your group name</span></span>
+<span id="cb79-5"><a href="overview.html#cb79-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-6"><a href="overview.html#cb79-6" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span>
+<span id="cb79-7"><a href="overview.html#cb79-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-8"><a href="overview.html#cb79-8" aria-hidden="true" tabindex="-1"></a><span class="co"># reading in  data -------------------------------------------------------------</span></span>
+<span id="cb79-9"><a href="overview.html#cb79-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-10"><a href="overview.html#cb79-10" aria-hidden="true" tabindex="-1"></a><span class="co"># code for reading in our data</span></span>
+<span id="cb79-11"><a href="overview.html#cb79-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-12"><a href="overview.html#cb79-12" aria-hidden="true" tabindex="-1"></a><span class="co"># functions --------------------------------------------------------------------</span></span>
+<span id="cb79-13"><a href="overview.html#cb79-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-14"><a href="overview.html#cb79-14" aria-hidden="true" tabindex="-1"></a><span class="co"># whatever functions we want to use</span></span>
+<span id="cb79-15"><a href="overview.html#cb79-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-16"><a href="overview.html#cb79-16" aria-hidden="true" tabindex="-1"></a><span class="co"># question 1 -------------------------------------------------------------------</span></span>
+<span id="cb79-17"><a href="overview.html#cb79-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-18"><a href="overview.html#cb79-18" aria-hidden="true" tabindex="-1"></a><span class="co"># code where we compute what we need for question 1</span></span>
+<span id="cb79-19"><a href="overview.html#cb79-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-20"><a href="overview.html#cb79-20" aria-hidden="true" tabindex="-1"></a><span class="co"># question 2 -------------------------------------------------------------------</span></span>
+<span id="cb79-21"><a href="overview.html#cb79-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-22"><a href="overview.html#cb79-22" aria-hidden="true" tabindex="-1"></a><span class="co"># code where we compute what we need for question 2</span></span></code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="reading-analysing-and-manipulating-data.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Introduction to R for Econometrics.pdf", "Introduction to R for Econometrics.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

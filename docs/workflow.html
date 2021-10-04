@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Workflow | Introduction to R for Econometrics</title>
+  <meta name="description" content="Chapter 5 Workflow | Introduction to R for Econometrics" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Workflow | Introduction to R for Econometrics" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Workflow | Introduction to R for Econometrics" />
+  
+  
+  
+
+<meta name="author" content="Kieran Marray" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="estimating-models.html"/>
+<link rel="next" href="advanced-programming-techniques.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/d3-3.5.6/d3.min.js"></script>
+<link href="libs/profvis-0.3.6.9000/profvis.css" rel="stylesheet" />
+<script src="libs/profvis-0.3.6.9000/profvis.js"></script>
+<script src="libs/profvis-0.3.6.9000/scroll.js"></script>
+<link href="libs/highlight-6.2.0/textmate.css" rel="stylesheet" />
+<script src="libs/highlight-6.2.0/highlight.js"></script>
+<script src="libs/profvis-binding-0.3.7/profvis.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Introduction to R for Econometrics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#motivation"><i class="fa fa-check"></i><b>1.1</b> Motivation</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#contents"><i class="fa fa-check"></i><b>1.2</b> Contents</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#why-r"><i class="fa fa-check"></i><b>1.3</b> Why R?</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#downloading-r-and-rstudio"><i class="fa fa-check"></i><b>1.4</b> Downloading R and RStudio</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#further-reading"><i class="fa fa-check"></i><b>1.5</b> Further reading</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="foundations.html"><a href="foundations.html"><i class="fa fa-check"></i><b>2</b> Foundations</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="foundations.html"><a href="foundations.html#objects"><i class="fa fa-check"></i><b>2.1</b> Objects</a></li>
+<li class="chapter" data-level="2.2" data-path="foundations.html"><a href="foundations.html#vectors"><i class="fa fa-check"></i><b>2.2</b> Vectors</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="foundations.html"><a href="foundations.html#atomic-vectors"><i class="fa fa-check"></i><b>2.2.1</b> Atomic vectors</a></li>
+<li class="chapter" data-level="2.2.2" data-path="foundations.html"><a href="foundations.html#lists"><i class="fa fa-check"></i><b>2.2.2</b> Lists</a></li>
+<li class="chapter" data-level="2.2.3" data-path="foundations.html"><a href="foundations.html#working-with-vectors"><i class="fa fa-check"></i><b>2.2.3</b> Working with vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="foundations.html"><a href="foundations.html#functions"><i class="fa fa-check"></i><b>2.3</b> Functions</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="foundations.html"><a href="foundations.html#functions-from-packages"><i class="fa fa-check"></i><b>2.3.1</b> Functions from packages</a></li>
+<li class="chapter" data-level="2.3.2" data-path="foundations.html"><a href="foundations.html#defining-your-own-function"><i class="fa fa-check"></i><b>2.3.2</b> Defining your own function</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="foundations.html"><a href="foundations.html#iteration"><i class="fa fa-check"></i><b>2.4</b> Iteration</a></li>
+<li class="chapter" data-level="2.5" data-path="foundations.html"><a href="foundations.html#style"><i class="fa fa-check"></i><b>2.5</b> Style</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="foundations.html"><a href="foundations.html#file-names"><i class="fa fa-check"></i><b>2.5.1</b> File names</a></li>
+<li class="chapter" data-level="2.5.2" data-path="foundations.html"><a href="foundations.html#object-names"><i class="fa fa-check"></i><b>2.5.2</b> Object names</a></li>
+<li class="chapter" data-level="2.5.3" data-path="foundations.html"><a href="foundations.html#syntax"><i class="fa fa-check"></i><b>2.5.3</b> Syntax</a></li>
+<li class="chapter" data-level="2.5.4" data-path="foundations.html"><a href="foundations.html#commenting"><i class="fa fa-check"></i><b>2.5.4</b> Commenting</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html"><i class="fa fa-check"></i><b>3</b> Reading, analysing, and manipulating data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#reading-in-datasets-as-dataframes"><i class="fa fa-check"></i><b>3.1</b> Reading in datasets as dataframes</a></li>
+<li class="chapter" data-level="3.2" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#slicing-dataframes"><i class="fa fa-check"></i><b>3.2</b> Slicing dataframes</a></li>
+<li class="chapter" data-level="3.3" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#basic-summary-statistics"><i class="fa fa-check"></i><b>3.3</b> Basic summary statistics</a></li>
+<li class="chapter" data-level="3.4" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#summarising-with-the-tidyverse---dplyr-and-ggplot2"><i class="fa fa-check"></i><b>3.4</b> Summarising with the tidyverse - dplyr and ggplot2</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#dplyr"><i class="fa fa-check"></i><b>3.4.1</b> Dplyr</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="estimating-models.html"><a href="estimating-models.html"><i class="fa fa-check"></i><b>4</b> Estimating models</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="estimating-models.html"><a href="estimating-models.html#modelling-with-functions"><i class="fa fa-check"></i><b>4.1</b> Modelling with functions</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="estimating-models.html"><a href="estimating-models.html#linear-regression-with-lm"><i class="fa fa-check"></i><b>4.1.1</b> Linear regression with <code>lm()</code></a></li>
+<li class="chapter" data-level="4.1.2" data-path="estimating-models.html"><a href="estimating-models.html#computing-covariance-matrices-with-sandwich"><i class="fa fa-check"></i><b>4.1.2</b> Computing covariance matrices with <code>sandwich</code></a></li>
+<li class="chapter" data-level="4.1.3" data-path="estimating-models.html"><a href="estimating-models.html#useful-packages-for-econometrics"><i class="fa fa-check"></i><b>4.1.3</b> Useful packages for econometrics</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="estimating-models.html"><a href="estimating-models.html#matrix-algebra"><i class="fa fa-check"></i><b>4.2</b> Matrix algebra</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="workflow.html"><a href="workflow.html"><i class="fa fa-check"></i><b>5</b> Workflow</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="workflow.html"><a href="workflow.html#regression-tables-with-stargazer"><i class="fa fa-check"></i><b>5.1</b> Regression tables with Stargazer</a></li>
+<li class="chapter" data-level="5.2" data-path="workflow.html"><a href="workflow.html#general-tables-with-xtable"><i class="fa fa-check"></i><b>5.2</b> General tables with XTable</a></li>
+<li class="chapter" data-level="5.3" data-path="workflow.html"><a href="workflow.html#writing-documents-with-rmarkdown"><i class="fa fa-check"></i><b>5.3</b> Writing documents with RMarkdown</a></li>
+<li class="chapter" data-level="5.4" data-path="workflow.html"><a href="workflow.html#sharing-code-using-rstudio-projects"><i class="fa fa-check"></i><b>5.4</b> Sharing code using RStudio projects</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="advanced-programming-techniques.html"><a href="advanced-programming-techniques.html"><i class="fa fa-check"></i><b>6</b> Advanced programming techniques</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="advanced-programming-techniques.html"><a href="advanced-programming-techniques.html#advanced-iteration-and-monte-carlo-simulation"><i class="fa fa-check"></i><b>6.1</b> Advanced iteration and Monte-Carlo simulation</a></li>
+<li class="chapter" data-level="6.2" data-path="advanced-programming-techniques.html"><a href="advanced-programming-techniques.html#optimisation"><i class="fa fa-check"></i><b>6.2</b> Optimisation</a></li>
+<li class="chapter" data-level="6.3" data-path="advanced-programming-techniques.html"><a href="advanced-programming-techniques.html#profiling"><i class="fa fa-check"></i><b>6.3</b> Profiling</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to R for Econometrics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="workflow" class="section level1" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Workflow</h1>
+<p>We have computed our models. Now we need to write up our results and put them
+in nice tables. If you want to do this from scratch, it can be really annoying.
+If you do not believe me, try writing the regression tables out by hand in TeX
+. Furthermore, you have to do it every time you
+change your model, change variables, or fix a bug. You might also be working in
+a group, where you want to share your code with each other, edit it collaboratively
+and so on.</p>
+<p>Luckily, we can automate this all in R!</p>
+<p>Below, we first go through how to automatically
+output journal-quality LaTeX or HTML tables in R every time you run your code, and
+to share code across teams. This gives us two ways of nicely automating our workflow.
+Firstly, if you want
+to write your document in a LaTeX, you can install a local LaTeX editor on
+your machine (I personally prefer TeXMaker <a href="https://www.xm1math.net/texmaker/" class="uri">https://www.xm1math.net/texmaker/</a>) and
+output TeX tables to the same location you store your TeX file. Then, whenever you
+run your code, it will also update the tables in your LaTeX document. Otherwise,
+we can actually write the entire document in R as something called an RMarkdown
+file (like these notes). Then, as we have here, we can write our report and code
+in the same document and thus see our tables and so on directly in the document.</p>
+<p>We first cover how to automate creating tables using Stargazer. We then demonstrate
+how to do it for a general dataframe using XTable. We do not have the space to
+do RMarkdown justice here, so take a look at the introductory files on their
+website <a href="https://rmarkdown.rstudio.com/lesson-1.html" class="uri">https://rmarkdown.rstudio.com/lesson-1.html</a>.</p>
+<div id="regression-tables-with-stargazer" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Regression tables with Stargazer</h2>
+<p>When we have our lm-type output object, and our standard errors, we want to
+put them in a nice regression table with the appropriate specification tests
+that we can put in our report or paper. Typically, this will be a LaTeX table.
+The most common way to automat this is the <code>stargazer</code> package we saw
+briefly earlier. It is very flexible, giving us lots of choice
+what to include or exclude, and supports both Tex and HTML tables.</p>
+<p>The basic command in stargazer is <code>stargazer()</code>. This is the command to create
+the table. As the first argument, we pass a single regression model or a list
+of regression models. If we pass a list of regression models, it will automatically
+put each model in its own column in the table.</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="workflow.html#cb176-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span></code></pre></div>
+<pre><code>## 
+## Please cite as:</code></pre>
+<pre><code>##  Hlavac, Marek (2018). stargazer: Well-Formatted Regression and Summary Statistics Tables.</code></pre>
+<pre><code>##  R package version 5.2.2. https://CRAN.R-project.org/package=stargazer</code></pre>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="workflow.html#cb180-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To download the original data, go to</span></span>
+<span id="cb180-2"><a href="workflow.html#cb180-2" aria-hidden="true" tabindex="-1"></a><span class="co"># https://scholar.harvard.edu/files/dell/files/nationbuilding.pdf</span></span>
+<span id="cb180-3"><a href="workflow.html#cb180-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The file we will use is there as `firstclose_post.dta&#39;</span></span>
+<span id="cb180-4"><a href="workflow.html#cb180-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb180-5"><a href="workflow.html#cb180-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
+<span id="cb180-6"><a href="workflow.html#cb180-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
+<span id="cb180-7"><a href="workflow.html#cb180-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb180-8"><a href="workflow.html#cb180-8" aria-hidden="true" tabindex="-1"></a><span class="co">#setwd(&quot;C://Users//kiera//OneDrive//Documents//Tinbergen MPhil//Econometrics_1_TA//intro_R_TI&quot;)</span></span>
+<span id="cb180-9"><a href="workflow.html#cb180-9" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">read.csv</span>(<span class="st">&quot;vietnam_war.csv&quot;</span>, <span class="at">stringsAsFactors =</span> F))</span>
+<span id="cb180-10"><a href="workflow.html#cb180-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb180-11"><a href="workflow.html#cb180-11" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">&quot;md_ab_square&quot;</span>]] <span class="ot">&lt;-</span> df[[<span class="st">&quot;md_ab&quot;</span>]]<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb180-12"><a href="workflow.html#cb180-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb180-13"><a href="workflow.html#cb180-13" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(fr_strikes_mean <span class="sc">~</span> md_ab <span class="sc">+</span> md_ab_square, <span class="at">data=</span>df)</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="workflow.html#cb181-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(m2, <span class="at">type=</span><span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+fr_strikes_mean
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+md_ab
+</td>
+<td>
+-0.304<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.043)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+md_ab_square
+</td>
+<td>
+-11.375<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.345)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.306<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+12,207
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.082
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.082
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+0.295 (df = 12204)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+543.513<sup>***</sup> (df = 2; 12204)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<p>By default, stargazer returns the code for a LaTeX table object with the basic
+standard errors. These look like the tables you see in journals. Here, we use
+html output to integrate it into the document.</p>
+<p>There are many, many different arguments we can specify to change the style of
+the table, titles and variable names, what we include or omit, and different
+standard errors. Go and look at the package vignette at <a href="https://cran.r-project.org/web/packages/stargazer/vignettes/stargazer.pdf" class="uri">https://cran.r-project.org/web/packages/stargazer/vignettes/stargazer.pdf</a>
+for a list of all of the arguments and commands. In the code section below, we will
+demonstrate some of the most common and useful ones.</p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="workflow.html#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lets use the m2 and m_time models from before to demonstrate how Stargazer</span></span>
+<span id="cb182-2"><a href="workflow.html#cb182-2" aria-hidden="true" tabindex="-1"></a><span class="co"># works</span></span>
+<span id="cb182-3"><a href="workflow.html#cb182-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb182-4"><a href="workflow.html#cb182-4" aria-hidden="true" tabindex="-1"></a><span class="co"># now lets use factors to add year fixed effects</span></span>
+<span id="cb182-5"><a href="workflow.html#cb182-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb182-6"><a href="workflow.html#cb182-6" aria-hidden="true" tabindex="-1"></a>m_time <span class="ot">&lt;-</span><span class="fu">lm</span>(fr_strikes_mean <span class="sc">~</span> <span class="fu">as.factor</span>(yr) <span class="sc">+</span>md_ab <span class="sc">+</span> md_ab_square, <span class="at">data=</span>df)</span>
+<span id="cb182-7"><a href="workflow.html#cb182-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb182-8"><a href="workflow.html#cb182-8" aria-hidden="true" tabindex="-1"></a>m2_HAC_ses <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcovHAC</span>(m2)))</span>
+<span id="cb182-9"><a href="workflow.html#cb182-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb182-10"><a href="workflow.html#cb182-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb182-11"><a href="workflow.html#cb182-11" aria-hidden="true" tabindex="-1"></a><span class="co"># lets add some labels to start with and report coefficients with two digits</span></span>
+<span id="cb182-12"><a href="workflow.html#cb182-12" aria-hidden="true" tabindex="-1"></a><span class="co"># these need to be written in the appropriate TeX </span></span>
+<span id="cb182-13"><a href="workflow.html#cb182-13" aria-hidden="true" tabindex="-1"></a><span class="co"># write all backslashes &#39;\&#39; as &#39;\\&#39; instead</span></span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="workflow.html#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(m2, <span class="at">title =</span> <span class="st">&quot;Effect of closeness to threshold on airstrike intensity in South Vietnamese hamlets&quot;</span>,</span>
+<span id="cb183-2"><a href="workflow.html#cb183-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">dep.var.caption =</span> <span class="st">&quot;Dependent variable: Mean foreign airstrikes&quot;</span>,</span>
+<span id="cb183-3"><a href="workflow.html#cb183-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">intercept.bottom=</span>T, <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb183-4"><a href="workflow.html#cb183-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">covariate.labels =</span> <span class="fu">c</span>(<span class="st">&quot;$</span><span class="sc">\\</span><span class="st">text{Distance}^{2}$&quot;</span>, <span class="st">&quot;$</span><span class="sc">\\</span><span class="st">text{Distance}$^{2}&quot;</span>), <span class="at">type=</span><span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<table style="text-align:center">
+<caption>
+<strong>Effect of closeness to threshold on airstrike intensity in South Vietnamese hamlets</strong>
+</caption>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+Dependent variable: Mean foreign airstrikes
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+fr_strikes_mean
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Distance<sup>2</sup>
+</td>
+<td>
+-0.30<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.04)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Distance<sup>2</sup>
+</td>
+<td>
+-11.38<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.35)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.31<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+12,207
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+0.29 (df = 12204)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+543.51<sup>***</sup> (df = 2; 12204)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="workflow.html#cb184-1" aria-hidden="true" tabindex="-1"></a><span class="co"># now lets manually specify the cutoffs for significance stars</span></span>
+<span id="cb184-2"><a href="workflow.html#cb184-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb184-3"><a href="workflow.html#cb184-3" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(m2, <span class="at">title =</span> <span class="st">&quot;Effect of closeness to threshold on airstrike intensity in South Vietnamese hamlets&quot;</span>,</span>
+<span id="cb184-4"><a href="workflow.html#cb184-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">dep.var.caption =</span> <span class="st">&quot;Dependent variable: Mean foreign airstrikes&quot;</span>,</span>
+<span id="cb184-5"><a href="workflow.html#cb184-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">intercept.bottom=</span>T, <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb184-6"><a href="workflow.html#cb184-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">covariate.labels =</span> <span class="fu">c</span>(<span class="st">&quot;$</span><span class="sc">\\</span><span class="st">text{Distance}^{2}$&quot;</span>, <span class="st">&quot;$</span><span class="sc">\\</span><span class="st">text{Distance}$^{2}&quot;</span>),</span>
+<span id="cb184-7"><a href="workflow.html#cb184-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">star.cutoffs =</span> <span class="fu">c</span>(<span class="fl">0.05</span>,<span class="fl">0.01</span>,<span class="fl">0.001</span>), <span class="at">type=</span><span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<table style="text-align:center">
+<caption>
+<strong>Effect of closeness to threshold on airstrike intensity in South Vietnamese hamlets</strong>
+</caption>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+Dependent variable: Mean foreign airstrikes
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+fr_strikes_mean
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Distance<sup>2</sup>
+</td>
+<td>
+-0.30<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.04)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Distance<sup>2</sup>
+</td>
+<td>
+-11.38<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.35)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.31<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+12,207
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+0.29 (df = 12204)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+543.51<sup>***</sup> (df = 2; 12204)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.05; <sup><strong></sup>p&lt;0.01; <sup></strong></em></sup>p&lt;0.001
+</td>
+</tr>
+</table>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="workflow.html#cb185-1" aria-hidden="true" tabindex="-1"></a><span class="co"># now we can add some different standard errors - our HAC standard errors from</span></span>
+<span id="cb185-2"><a href="workflow.html#cb185-2" aria-hidden="true" tabindex="-1"></a><span class="co"># before</span></span>
+<span id="cb185-3"><a href="workflow.html#cb185-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb185-4"><a href="workflow.html#cb185-4" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(m2, <span class="at">title =</span> <span class="st">&quot;Effect of closeness to threshold on airstrike intensity in South Vietnamese hamlets&quot;</span>,</span>
+<span id="cb185-5"><a href="workflow.html#cb185-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">dep.var.caption =</span> <span class="st">&quot;Dependent variable: Mean foreign airstrikes&quot;</span>,</span>
+<span id="cb185-6"><a href="workflow.html#cb185-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">intercept.bottom=</span>T, <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb185-7"><a href="workflow.html#cb185-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">covariate.labels =</span> <span class="fu">c</span>(<span class="st">&quot;$</span><span class="sc">\\</span><span class="st">text{Distance}^{2}$&quot;</span>, <span class="st">&quot;$</span><span class="sc">\\</span><span class="st">text{Distance}$^{2}&quot;</span>),</span>
+<span id="cb185-8"><a href="workflow.html#cb185-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">star.cutoffs =</span> <span class="fu">c</span>(<span class="fl">0.05</span>,<span class="fl">0.01</span>,<span class="fl">0.001</span>), <span class="at">se.list =</span> m2_HAC_ses, <span class="at">type=</span><span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<table style="text-align:center">
+<caption>
+<strong>Effect of closeness to threshold on airstrike intensity in South Vietnamese hamlets</strong>
+</caption>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+Dependent variable: Mean foreign airstrikes
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+fr_strikes_mean
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Distance<sup>2</sup>
+</td>
+<td>
+-0.30<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.04)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Distance<sup>2</sup>
+</td>
+<td>
+-11.38<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.35)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.31<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+12,207
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+0.29 (df = 12204)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+543.51<sup>***</sup> (df = 2; 12204)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.05; <sup><strong></sup>p&lt;0.01; <sup></strong></em></sup>p&lt;0.001
+</td>
+</tr>
+</table>
+<table style="text-align:center">
+<caption>
+<strong>Effect of closeness to threshold on airstrike intensity in South Vietnamese hamlets</strong>
+</caption>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Distance<sup>2</sup>
+</td>
+<td>
+Distance<sup>2</sup>
+</td>
+<td>
+md_ab_square
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+0.01
+</td>
+<td>
+0.06
+</td>
+<td>
+0.64
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</table>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="workflow.html#cb186-1" aria-hidden="true" tabindex="-1"></a><span class="co"># now lets add another regression - including the time dummies - and choose</span></span>
+<span id="cb186-2"><a href="workflow.html#cb186-2" aria-hidden="true" tabindex="-1"></a><span class="co"># not to display the dummies as they look messy</span></span>
+<span id="cb186-3"><a href="workflow.html#cb186-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb186-4"><a href="workflow.html#cb186-4" aria-hidden="true" tabindex="-1"></a>m_list <span class="ot">&lt;-</span> <span class="fu">as.list</span>(m2, m_time)</span>
+<span id="cb186-5"><a href="workflow.html#cb186-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb186-6"><a href="workflow.html#cb186-6" aria-hidden="true" tabindex="-1"></a><span class="co"># computing some HAC standard errors for these models</span></span>
+<span id="cb186-7"><a href="workflow.html#cb186-7" aria-hidden="true" tabindex="-1"></a>m_time_HAC_ses <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">vcovHAC</span>(m_time)))</span>
+<span id="cb186-8"><a href="workflow.html#cb186-8" aria-hidden="true" tabindex="-1"></a>ses <span class="ot">&lt;-</span> <span class="fu">as.list</span>(m2_HAC_ses, m_time_HAC_ses)</span>
+<span id="cb186-9"><a href="workflow.html#cb186-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb186-10"><a href="workflow.html#cb186-10" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(m_list, <span class="at">title =</span> <span class="st">&quot;Effect of closeness to threshold on airstrike intensity in South Vietnamese hamlets&quot;</span>,</span>
+<span id="cb186-11"><a href="workflow.html#cb186-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">dep.var.caption =</span> <span class="st">&quot;Dependent variable: Mean foreign airstrikes&quot;</span>,</span>
+<span id="cb186-12"><a href="workflow.html#cb186-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">column.labels =</span> <span class="fu">c</span>(<span class="st">&quot;No time trend&quot;</span>, <span class="st">&quot;Time trend&quot;</span>),</span>
+<span id="cb186-13"><a href="workflow.html#cb186-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">intercept.bottom=</span>T, <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb186-14"><a href="workflow.html#cb186-14" aria-hidden="true" tabindex="-1"></a>          <span class="at">covariate.labels =</span> <span class="fu">c</span>(<span class="st">&quot;$</span><span class="sc">\\</span><span class="st">text{Distance}^{2}$&quot;</span>, <span class="st">&quot;$</span><span class="sc">\\</span><span class="st">text{Distance}$^{2}&quot;</span>),</span>
+<span id="cb186-15"><a href="workflow.html#cb186-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">star.cutoffs =</span> <span class="fu">c</span>(<span class="fl">0.05</span>,<span class="fl">0.01</span>,<span class="fl">0.001</span>), <span class="at">se.list =</span> ses, <span class="at">omit=</span><span class="st">&quot;yr&quot;</span>, <span class="at">type=</span><span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<table style="text-align:center">
+<caption>
+<strong>Effect of closeness to threshold on airstrike intensity in South Vietnamese hamlets</strong>
+</caption>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+Dependent variable: Mean foreign airstrikes
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+fr_strikes_mean
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+No time trend
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Distance<sup>2</sup>
+</td>
+<td>
+-0.30<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.04)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Distance<sup>2</sup>
+</td>
+<td>
+-11.38<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.35)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.31<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+12,207
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+0.29 (df = 12204)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+543.51<sup>***</sup> (df = 2; 12204)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.05; <sup><strong></sup>p&lt;0.01; <sup></strong></em></sup>p&lt;0.001
+</td>
+</tr>
+</table>
+<table style="text-align:center">
+<caption>
+<strong>Effect of closeness to threshold on airstrike intensity in South Vietnamese hamlets</strong>
+</caption>
+<tr>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td>
+0.01
+</td>
+</tr>
+<tr>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</table>
+<table style="text-align:center">
+<caption>
+<strong>Effect of closeness to threshold on airstrike intensity in South Vietnamese hamlets</strong>
+</caption>
+<tr>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td>
+0.06
+</td>
+</tr>
+<tr>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</table>
+<table style="text-align:center">
+<caption>
+<strong>Effect of closeness to threshold on airstrike intensity in South Vietnamese hamlets</strong>
+</caption>
+<tr>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td>
+0.64
+</td>
+</tr>
+<tr>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</table>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="workflow.html#cb187-1" aria-hidden="true" tabindex="-1"></a><span class="co"># finally, lets output it as a tex file called &#39;reg_table.tex&#39;</span></span>
+<span id="cb187-2"><a href="workflow.html#cb187-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb187-3"><a href="workflow.html#cb187-3" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(m_list, <span class="at">out=</span><span class="st">&quot;reg_table.tex&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Effect of closeness to threshold on airstrike intensity in South Vietnamese hamlets&quot;</span>,</span>
+<span id="cb187-4"><a href="workflow.html#cb187-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">dep.var.caption =</span> <span class="st">&quot;Dependent variable: Mean foreign airstrikes&quot;</span>,</span>
+<span id="cb187-5"><a href="workflow.html#cb187-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">column.labels =</span> <span class="fu">c</span>(<span class="st">&quot;No time trend&quot;</span>, <span class="st">&quot;Time trend&quot;</span>),</span>
+<span id="cb187-6"><a href="workflow.html#cb187-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">intercept.bottom=</span>T, <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb187-7"><a href="workflow.html#cb187-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">covariate.labels =</span> <span class="fu">c</span>(<span class="st">&quot;$</span><span class="sc">\\</span><span class="st">text{Distance}^{2}$&quot;</span>, <span class="st">&quot;$</span><span class="sc">\\</span><span class="st">text{Distance}$^{2}&quot;</span>),</span>
+<span id="cb187-8"><a href="workflow.html#cb187-8" aria-hidden="true" tabindex="-1"></a>          <span class="at">star.cutoffs =</span> <span class="fu">c</span>(<span class="fl">0.05</span>,<span class="fl">0.01</span>,<span class="fl">0.001</span>), <span class="at">se.list =</span> ses, <span class="at">omit=</span><span class="st">&quot;yr&quot;</span>, <span class="at">type=</span><span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<table style="text-align:center">
+<caption>
+<strong>Effect of closeness to threshold on airstrike intensity in South Vietnamese hamlets</strong>
+</caption>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+Dependent variable: Mean foreign airstrikes
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+fr_strikes_mean
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+No time trend
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Distance<sup>2</sup>
+</td>
+<td>
+-0.30<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.04)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Distance<sup>2</sup>
+</td>
+<td>
+-11.38<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.35)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+0.31<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+12,207
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.08
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+0.29 (df = 12204)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+543.51<sup>***</sup> (df = 2; 12204)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.05; <sup><strong></sup>p&lt;0.01; <sup></strong></em></sup>p&lt;0.001
+</td>
+</tr>
+</table>
+<table style="text-align:center">
+<caption>
+<strong>Effect of closeness to threshold on airstrike intensity in South Vietnamese hamlets</strong>
+</caption>
+<tr>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td>
+0.01
+</td>
+</tr>
+<tr>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</table>
+<table style="text-align:center">
+<caption>
+<strong>Effect of closeness to threshold on airstrike intensity in South Vietnamese hamlets</strong>
+</caption>
+<tr>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td>
+0.06
+</td>
+</tr>
+<tr>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</table>
+<table style="text-align:center">
+<caption>
+<strong>Effect of closeness to threshold on airstrike intensity in South Vietnamese hamlets</strong>
+</caption>
+<tr>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td>
+0.64
+</td>
+</tr>
+<tr>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+</table>
+</div>
+<div id="general-tables-with-xtable" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> General tables with XTable</h2>
+<p>We might want to print something other than a regression table though as a LaTeX
+table. In general, we can compute lots of different things we might want to show
+our readers. If we can compute them, we can put them in a data frame. We just
+need a way to turn the dataframe into a nice LaTeX or HTML table. The <code>xtable</code>
+package allows us to do so.</p>
+<p>The <code>xtable</code> package is built around the <code>xtable()</code> function. This function
+creates a nice table in the format we want. Then, we need to <code>print()</code> it. This
+allows us to save it as a file in the type of our choice. Again, there are lots
+of arguments to both functions. We do not go through them all here - instead read
+the documentation for the functions if you are interested.</p>
+<p>We will demonstrate the functionality by creating a balancing table for some of
+our data using the <code>RCT</code> package,</p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="workflow.html#cb188-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lets construct a balancing table for hamlets occupied by the US Army vs USMC</span></span>
+<span id="cb188-2"><a href="workflow.html#cb188-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb188-3"><a href="workflow.html#cb188-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RCT)</span></code></pre></div>
+<pre><code>## Warning: package &#39;RCT&#39; was built under R version 4.0.5</code></pre>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="workflow.html#cb190-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(xtable)</span>
+<span id="cb190-2"><a href="workflow.html#cb190-2" aria-hidden="true" tabindex="-1"></a>df_mar <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">read.csv</span>(<span class="st">&quot;marines_hamlet.csv&quot;</span>))</span>
+<span id="cb190-3"><a href="workflow.html#cb190-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb190-4"><a href="workflow.html#cb190-4" aria-hidden="true" tabindex="-1"></a><span class="co"># creating a balacing table using the balance_table function from RCT</span></span>
+<span id="cb190-5"><a href="workflow.html#cb190-5" aria-hidden="true" tabindex="-1"></a><span class="co"># first argument is the data frame containing all our variables we want</span></span>
+<span id="cb190-6"><a href="workflow.html#cb190-6" aria-hidden="true" tabindex="-1"></a><span class="co"># to check, and the second argument is our treatment variable</span></span>
+<span id="cb190-7"><a href="workflow.html#cb190-7" aria-hidden="true" tabindex="-1"></a><span class="co"># lets store it as a dataframe, and rename the columns so they look a bit</span></span>
+<span id="cb190-8"><a href="workflow.html#cb190-8" aria-hidden="true" tabindex="-1"></a><span class="co"># nicer</span></span>
+<span id="cb190-9"><a href="workflow.html#cb190-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb190-10"><a href="workflow.html#cb190-10" aria-hidden="true" tabindex="-1"></a>sum_tbl <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">balance_table</span>(df_mar[,<span class="fu">c</span>(<span class="dv">4</span><span class="sc">:</span><span class="dv">7</span>, <span class="dv">9</span><span class="sc">:</span><span class="dv">12</span>, <span class="dv">42</span>)], <span class="st">&quot;treat&quot;</span>))</span>
+<span id="cb190-11"><a href="workflow.html#cb190-11" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(sum_tbl) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Variable&quot;</span>, <span class="st">&quot;Mean - USMC hamlets&quot;</span>, <span class="st">&quot;Mean - US Army hamlets&quot;</span>,</span>
+<span id="cb190-12"><a href="workflow.html#cb190-12" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;P-value for difference in means&quot;</span>)</span>
+<span id="cb190-13"><a href="workflow.html#cb190-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb190-14"><a href="workflow.html#cb190-14" aria-hidden="true" tabindex="-1"></a><span class="co"># now lets store our balancing table in a nice format using the xtable </span></span>
+<span id="cb190-15"><a href="workflow.html#cb190-15" aria-hidden="true" tabindex="-1"></a><span class="co"># function</span></span>
+<span id="cb190-16"><a href="workflow.html#cb190-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb190-17"><a href="workflow.html#cb190-17" aria-hidden="true" tabindex="-1"></a>xtab <span class="ot">&lt;-</span> <span class="fu">xtable</span>(sum_tbl, <span class="at">caption=</span><span class="st">&quot;Balancing table&quot;</span>, <span class="at">digits=</span><span class="dv">2</span>)</span>
+<span id="cb190-18"><a href="workflow.html#cb190-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb190-19"><a href="workflow.html#cb190-19" aria-hidden="true" tabindex="-1"></a><span class="co"># finally, lets store it as a TeX file using `print`</span></span>
+<span id="cb190-20"><a href="workflow.html#cb190-20" aria-hidden="true" tabindex="-1"></a><span class="co"># First argument has to be the xtable object</span></span>
+<span id="cb190-21"><a href="workflow.html#cb190-21" aria-hidden="true" tabindex="-1"></a><span class="co"># file argument gives the file name</span></span>
+<span id="cb190-22"><a href="workflow.html#cb190-22" aria-hidden="true" tabindex="-1"></a><span class="co"># we can change the location in our computer by changing the</span></span>
+<span id="cb190-23"><a href="workflow.html#cb190-23" aria-hidden="true" tabindex="-1"></a><span class="co"># working directory with setwd(file_path_as_string)</span></span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="workflow.html#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(xtab, <span class="at">include.rownames=</span><span class="cn">FALSE</span>, <span class="at">file=</span><span class="st">&quot;sum_tbl.tex&quot;</span>)</span></code></pre></div>
+</div>
+<div id="writing-documents-with-rmarkdown" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Writing documents with RMarkdown</h2>
+<p>Markdown is the R way of creating a notebook - chunks of code set between chunks
+of text, compiled in Tex or HTML form. It is similar to a Jupyter Notebook for Python.
+Markdown is a very nice way to present code and results together for an assignment
+or technical document. For more detail, see ‘R Markdown - the Definitive Guide’
+<a href="https://bookdown.org/yihui/rmarkdown/" class="uri">https://bookdown.org/yihui/rmarkdown/</a> .</p>
+<p>Start by installing the package <code>rmarkdown</code> - run <code>install.packages('rmarkdown')</code>
+in the console. To open a markdown document in RStudio, go to file.</p>
+<p><img src="markdown_file.PNG" /></p>
+<p>Click on ‘file.’ You will see a drop-down menu. You can select either ‘R Notebook’
+or ‘R Markdown.’ ‘R Notebook,’ is a newer version of the Markdown document, so
+generally use this.</p>
+<p>Then you will see a screen like the following with a white background, punctuated
+by grey chunks.</p>
+<p><img src="rmarkdown_init.PNG" /></p>
+<p>The white space is where you write text. Add headers by putting <code>#</code>, <code>##</code>, or <code>###</code> ahead of sections
+of text.</p>
+<p>The grey chunks are where you can
+write your code. Add new chunks of code using the ‘insert’ button on the top
+right of the screen. Run and test individual chunks by pressing the play button
+on the top right of the chunk.</p>
+<p><img src="rmarkdown_plot.PNG" /></p>
+<p>When you are ready to compile the whole document, knit it by pressing the ‘knit’
+button on the top left. knit the file, it runs the code, and presents the output together in either
+a pdf document with Tex (if you have Tex installed on your machine), or a HTML
+document. If you output something in your code, like a graph, R will display
+it below the code.</p>
+</div>
+<div id="sharing-code-using-rstudio-projects" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> Sharing code using RStudio projects</h2>
+<p>We often use multiple files for a single piece of work. There might be files
+containing data, scripts doing different things, or README files to explain what
+everything does. To work effectively, we need to keep track of where everything
+is. RStudio has a built in way of doing this using something called a ‘project.’
+Put simply, if you create your scripts inside a project, it will put them all in
+the same place so that we can run them all together effectively.</p>
+<p>To start a project, click on ‘file’ and select a ‘new project.’</p>
+<p><img src="project_file.PNG" /></p>
+<p>You can then create a new project in a new directory, or an existing
+directory.</p>
+<p><img src="project_select.PNG" /></p>
+<p>Once you create the project, you can save your files or open new scripts within
+that project. Instead of directly opening a file, you can now open the project
+which contains all the correct scripts and the correct directory.
+If you set up RStudio accounts, you can share your projects with
+other people by going to ‘file’ and ‘share project.’ Then you can each edit the
+same files at the same time collaboratively without overwriting each others’ work.
+If you want to, you can set this up as a GitHub repository. Github is beyond the
+scope of this guide, but you should learn how to do this.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="estimating-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="advanced-programming-techniques.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Introduction to R for Econometrics.pdf", "Introduction to R for Econometrics.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

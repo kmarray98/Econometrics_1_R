@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Advanced programming techniques | Introduction to R for Econometrics</title>
+  <meta name="description" content="Chapter 6 Advanced programming techniques | Introduction to R for Econometrics" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Advanced programming techniques | Introduction to R for Econometrics" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Advanced programming techniques | Introduction to R for Econometrics" />
+  
+  
+  
+
+<meta name="author" content="Kieran Marray" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="workflow.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/d3-3.5.6/d3.min.js"></script>
+<link href="libs/profvis-0.3.6.9000/profvis.css" rel="stylesheet" />
+<script src="libs/profvis-0.3.6.9000/profvis.js"></script>
+<script src="libs/profvis-0.3.6.9000/scroll.js"></script>
+<link href="libs/highlight-6.2.0/textmate.css" rel="stylesheet" />
+<script src="libs/highlight-6.2.0/highlight.js"></script>
+<script src="libs/profvis-binding-0.3.7/profvis.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Introduction to R for Econometrics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#motivation"><i class="fa fa-check"></i><b>1.1</b> Motivation</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#contents"><i class="fa fa-check"></i><b>1.2</b> Contents</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#why-r"><i class="fa fa-check"></i><b>1.3</b> Why R?</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#downloading-r-and-rstudio"><i class="fa fa-check"></i><b>1.4</b> Downloading R and RStudio</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#further-reading"><i class="fa fa-check"></i><b>1.5</b> Further reading</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="foundations.html"><a href="foundations.html"><i class="fa fa-check"></i><b>2</b> Foundations</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="foundations.html"><a href="foundations.html#objects"><i class="fa fa-check"></i><b>2.1</b> Objects</a></li>
+<li class="chapter" data-level="2.2" data-path="foundations.html"><a href="foundations.html#vectors"><i class="fa fa-check"></i><b>2.2</b> Vectors</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="foundations.html"><a href="foundations.html#atomic-vectors"><i class="fa fa-check"></i><b>2.2.1</b> Atomic vectors</a></li>
+<li class="chapter" data-level="2.2.2" data-path="foundations.html"><a href="foundations.html#lists"><i class="fa fa-check"></i><b>2.2.2</b> Lists</a></li>
+<li class="chapter" data-level="2.2.3" data-path="foundations.html"><a href="foundations.html#working-with-vectors"><i class="fa fa-check"></i><b>2.2.3</b> Working with vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="foundations.html"><a href="foundations.html#functions"><i class="fa fa-check"></i><b>2.3</b> Functions</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="foundations.html"><a href="foundations.html#functions-from-packages"><i class="fa fa-check"></i><b>2.3.1</b> Functions from packages</a></li>
+<li class="chapter" data-level="2.3.2" data-path="foundations.html"><a href="foundations.html#defining-your-own-function"><i class="fa fa-check"></i><b>2.3.2</b> Defining your own function</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="foundations.html"><a href="foundations.html#iteration"><i class="fa fa-check"></i><b>2.4</b> Iteration</a></li>
+<li class="chapter" data-level="2.5" data-path="foundations.html"><a href="foundations.html#style"><i class="fa fa-check"></i><b>2.5</b> Style</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="foundations.html"><a href="foundations.html#file-names"><i class="fa fa-check"></i><b>2.5.1</b> File names</a></li>
+<li class="chapter" data-level="2.5.2" data-path="foundations.html"><a href="foundations.html#object-names"><i class="fa fa-check"></i><b>2.5.2</b> Object names</a></li>
+<li class="chapter" data-level="2.5.3" data-path="foundations.html"><a href="foundations.html#syntax"><i class="fa fa-check"></i><b>2.5.3</b> Syntax</a></li>
+<li class="chapter" data-level="2.5.4" data-path="foundations.html"><a href="foundations.html#commenting"><i class="fa fa-check"></i><b>2.5.4</b> Commenting</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html"><i class="fa fa-check"></i><b>3</b> Reading, analysing, and manipulating data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#reading-in-datasets-as-dataframes"><i class="fa fa-check"></i><b>3.1</b> Reading in datasets as dataframes</a></li>
+<li class="chapter" data-level="3.2" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#slicing-dataframes"><i class="fa fa-check"></i><b>3.2</b> Slicing dataframes</a></li>
+<li class="chapter" data-level="3.3" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#basic-summary-statistics"><i class="fa fa-check"></i><b>3.3</b> Basic summary statistics</a></li>
+<li class="chapter" data-level="3.4" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#summarising-with-the-tidyverse---dplyr-and-ggplot2"><i class="fa fa-check"></i><b>3.4</b> Summarising with the tidyverse - dplyr and ggplot2</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#dplyr"><i class="fa fa-check"></i><b>3.4.1</b> Dplyr</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="estimating-models.html"><a href="estimating-models.html"><i class="fa fa-check"></i><b>4</b> Estimating models</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="estimating-models.html"><a href="estimating-models.html#modelling-with-functions"><i class="fa fa-check"></i><b>4.1</b> Modelling with functions</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="estimating-models.html"><a href="estimating-models.html#linear-regression-with-lm"><i class="fa fa-check"></i><b>4.1.1</b> Linear regression with <code>lm()</code></a></li>
+<li class="chapter" data-level="4.1.2" data-path="estimating-models.html"><a href="estimating-models.html#computing-covariance-matrices-with-sandwich"><i class="fa fa-check"></i><b>4.1.2</b> Computing covariance matrices with <code>sandwich</code></a></li>
+<li class="chapter" data-level="4.1.3" data-path="estimating-models.html"><a href="estimating-models.html#useful-packages-for-econometrics"><i class="fa fa-check"></i><b>4.1.3</b> Useful packages for econometrics</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="estimating-models.html"><a href="estimating-models.html#matrix-algebra"><i class="fa fa-check"></i><b>4.2</b> Matrix algebra</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="workflow.html"><a href="workflow.html"><i class="fa fa-check"></i><b>5</b> Workflow</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="workflow.html"><a href="workflow.html#regression-tables-with-stargazer"><i class="fa fa-check"></i><b>5.1</b> Regression tables with Stargazer</a></li>
+<li class="chapter" data-level="5.2" data-path="workflow.html"><a href="workflow.html#general-tables-with-xtable"><i class="fa fa-check"></i><b>5.2</b> General tables with XTable</a></li>
+<li class="chapter" data-level="5.3" data-path="workflow.html"><a href="workflow.html#writing-documents-with-rmarkdown"><i class="fa fa-check"></i><b>5.3</b> Writing documents with RMarkdown</a></li>
+<li class="chapter" data-level="5.4" data-path="workflow.html"><a href="workflow.html#sharing-code-using-rstudio-projects"><i class="fa fa-check"></i><b>5.4</b> Sharing code using RStudio projects</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="advanced-programming-techniques.html"><a href="advanced-programming-techniques.html"><i class="fa fa-check"></i><b>6</b> Advanced programming techniques</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="advanced-programming-techniques.html"><a href="advanced-programming-techniques.html#advanced-iteration-and-monte-carlo-simulation"><i class="fa fa-check"></i><b>6.1</b> Advanced iteration and Monte-Carlo simulation</a></li>
+<li class="chapter" data-level="6.2" data-path="advanced-programming-techniques.html"><a href="advanced-programming-techniques.html#optimisation"><i class="fa fa-check"></i><b>6.2</b> Optimisation</a></li>
+<li class="chapter" data-level="6.3" data-path="advanced-programming-techniques.html"><a href="advanced-programming-techniques.html#profiling"><i class="fa fa-check"></i><b>6.3</b> Profiling</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to R for Econometrics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="advanced-programming-techniques" class="section level1" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Advanced programming techniques</h1>
+<p>By this point, we have covered the basics of programming in R. Now we have done
+this, we will present a little more advanced material that can be useful and make
+your code better. These are based around programming your own estimators.
+First, we will show
+you how to simulate some data to use with Monte-Carlo simulation. We will use
+the vectorising tricks we learnt in the first section. Then, we will use this
+data to demonstrate optimisation in R. We will do this
+by programming a maximum-likelihood estimator.</p>
+<div id="advanced-iteration-and-monte-carlo-simulation" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Advanced iteration and Monte-Carlo simulation</h2>
+<p>First, we will generate some of our own data to use by doing some Monte-Carlo
+simulations. This is a useful thing to be able to do by itself. Furthermore, we
+will use it to reinforce some of the principles of R we learned earlier, and
+introduce some more cool advanced features you might want to use. Here, we do not
+simulate our data in the most efficient way that we could. For some more advanced
+ways of doing so, see this great article by Grant McDermott
+<a href="https://grantmcdermott.com/efficient-simulations-in-r/#fn:1" class="uri">https://grantmcdermott.com/efficient-simulations-in-r/#fn:1</a></p>
+<p>We are generating some random numbers. So we should start by setting a seed for our
+random number generator. Seeding sets the starting value for the random number
+generators in your program. As random number generators are deterministic, setting
+a seed ensures that you get the same random numbers each time that you run your code.
+This helps with debugging, and ensures others can reproduce our code.
+We can do this in R with <code>set.seed()</code>.</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="advanced-programming-techniques.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lets set a seed for reproducibility</span></span>
+<span id="cb192-2"><a href="advanced-programming-techniques.html#cb192-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb192-3"><a href="advanced-programming-techniques.html#cb192-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span>
+<span id="cb192-4"><a href="advanced-programming-techniques.html#cb192-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb192-5"><a href="advanced-programming-techniques.html#cb192-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">854</span>)</span></code></pre></div>
+<p>Next, we need to generate some random numbers. Base R has a lot of nice inbuilt
+commands for sampling from different distributions. The synatx is generally as
+follows. In the first argument, you specify the number of draws you want to make.
+In the next arguments, you specify the parameters of the distribution - e.g the
+mean and standard deviation for a normal distribution. R then outputs a numeric
+vector composed of draws from the distribution.</p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="advanced-programming-techniques.html#cb193-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Some examples of drawing random numbers in R</span></span>
+<span id="cb193-2"><a href="advanced-programming-techniques.html#cb193-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb193-3"><a href="advanced-programming-techniques.html#cb193-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the command &#39;runif&#39; gives draws from a uniform [0,1] distribution if you do</span></span>
+<span id="cb193-4"><a href="advanced-programming-techniques.html#cb193-4" aria-hidden="true" tabindex="-1"></a><span class="co"># not specify a support</span></span>
+<span id="cb193-5"><a href="advanced-programming-techniques.html#cb193-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb193-6"><a href="advanced-programming-techniques.html#cb193-6" aria-hidden="true" tabindex="-1"></a>unif_1 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">35</span>)</span>
+<span id="cb193-7"><a href="advanced-programming-techniques.html#cb193-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb193-8"><a href="advanced-programming-techniques.html#cb193-8" aria-hidden="true" tabindex="-1"></a><span class="co"># but you can specify a support, using the &#39;min&#39; and &#39;max&#39; parameters</span></span>
+<span id="cb193-9"><a href="advanced-programming-techniques.html#cb193-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb193-10"><a href="advanced-programming-techniques.html#cb193-10" aria-hidden="true" tabindex="-1"></a>unif_2 <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">35</span>, <span class="at">min=</span> <span class="dv">20</span>, <span class="at">max=</span> <span class="dv">40</span>)</span>
+<span id="cb193-11"><a href="advanced-programming-techniques.html#cb193-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb193-12"><a href="advanced-programming-techniques.html#cb193-12" aria-hidden="true" tabindex="-1"></a><span class="co"># the command &#39;rnorm&#39; gives draws from a normal distribution with parameters &#39;mean&#39;, &#39;sd&#39;</span></span>
+<span id="cb193-13"><a href="advanced-programming-techniques.html#cb193-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb193-14"><a href="advanced-programming-techniques.html#cb193-14" aria-hidden="true" tabindex="-1"></a><span class="co"># lets do 20 draws from a standard normal distribution</span></span>
+<span id="cb193-15"><a href="advanced-programming-techniques.html#cb193-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb193-16"><a href="advanced-programming-techniques.html#cb193-16" aria-hidden="true" tabindex="-1"></a>norm_1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">20</span>, <span class="at">mean=</span><span class="dv">0</span>, <span class="at">sd=</span><span class="dv">1</span>)</span>
+<span id="cb193-17"><a href="advanced-programming-techniques.html#cb193-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb193-18"><a href="advanced-programming-techniques.html#cb193-18" aria-hidden="true" tabindex="-1"></a><span class="co"># the command rchisq gives draws from a chi-square distribution with degrees of</span></span>
+<span id="cb193-19"><a href="advanced-programming-techniques.html#cb193-19" aria-hidden="true" tabindex="-1"></a><span class="co"># freedom &#39;df&#39;</span></span>
+<span id="cb193-20"><a href="advanced-programming-techniques.html#cb193-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb193-21"><a href="advanced-programming-techniques.html#cb193-21" aria-hidden="true" tabindex="-1"></a>chi_sq_1 <span class="ot">&lt;-</span> <span class="fu">rchisq</span>(<span class="dv">34</span>, <span class="at">df=</span><span class="dv">100</span>)</span>
+<span id="cb193-22"><a href="advanced-programming-techniques.html#cb193-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb193-23"><a href="advanced-programming-techniques.html#cb193-23" aria-hidden="true" tabindex="-1"></a><span class="co"># finally, rpois gives draws from a poisson distribution with rate parameter</span></span>
+<span id="cb193-24"><a href="advanced-programming-techniques.html#cb193-24" aria-hidden="true" tabindex="-1"></a><span class="co"># &#39;lambda&#39;</span></span>
+<span id="cb193-25"><a href="advanced-programming-techniques.html#cb193-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb193-26"><a href="advanced-programming-techniques.html#cb193-26" aria-hidden="true" tabindex="-1"></a>pois_1 <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="dv">22</span>, <span class="dv">6</span>)</span></code></pre></div>
+<p>In general, the syntax for random number draws in R is composed of a root name,
+that we precede with a prefix from (p,q,d,r). The root name is a shorthand for
+the name of the distribution. P gives us the cumulative probability for a given
+value from the c.d.f, q gives us the inverse of the c.d.f (i.e quantiles), d gives
+us the probability mass from the denisty function, and r draws random numbers
+from the set distribution. For a list of the roots for common variables in R,
+see <a href="https://www.stat.umn.edu/geyer/old/5101/rlook.html" class="uri">https://www.stat.umn.edu/geyer/old/5101/rlook.html</a>.</p>
+<p>Now we can generate some random numbers, we need to efficiently generate lots
+of them. For illustration, lets simulate a linear regression model in three
+variables. Each of the variables is itself normally distributed, and we
+have a normally distributed error term. We will also only do small simulations
+of 1000 data points for ease.</p>
+<p>Our first instinct when doing something like this might be to just use a <code>for</code> or
+<code>while</code> loop. We might also think that to store our values, we should initialise
+an empty vector and then fill it with values.</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="advanced-programming-techniques.html#cb194-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How not to do simulation in R</span></span>
+<span id="cb194-2"><a href="advanced-programming-techniques.html#cb194-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb194-3"><a href="advanced-programming-techniques.html#cb194-3" aria-hidden="true" tabindex="-1"></a>vec_x1 <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb194-4"><a href="advanced-programming-techniques.html#cb194-4" aria-hidden="true" tabindex="-1"></a>vec_x2 <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb194-5"><a href="advanced-programming-techniques.html#cb194-5" aria-hidden="true" tabindex="-1"></a>vec_x3 <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb194-6"><a href="advanced-programming-techniques.html#cb194-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb194-7"><a href="advanced-programming-techniques.html#cb194-7" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb194-8"><a href="advanced-programming-techniques.html#cb194-8" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (i <span class="sc">&lt;</span><span class="dv">100</span>){</span>
+<span id="cb194-9"><a href="advanced-programming-techniques.html#cb194-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb194-10"><a href="advanced-programming-techniques.html#cb194-10" aria-hidden="true" tabindex="-1"></a>  vec_x1 <span class="ot">&lt;-</span> <span class="fu">c</span>(vec_x1, <span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>))</span>
+<span id="cb194-11"><a href="advanced-programming-techniques.html#cb194-11" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb194-12"><a href="advanced-programming-techniques.html#cb194-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb194-13"><a href="advanced-programming-techniques.html#cb194-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb194-14"><a href="advanced-programming-techniques.html#cb194-14" aria-hidden="true" tabindex="-1"></a>j <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb194-15"><a href="advanced-programming-techniques.html#cb194-15" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (j <span class="sc">&lt;</span><span class="dv">100</span>){</span>
+<span id="cb194-16"><a href="advanced-programming-techniques.html#cb194-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb194-17"><a href="advanced-programming-techniques.html#cb194-17" aria-hidden="true" tabindex="-1"></a>  vec_x2 <span class="ot">&lt;-</span> <span class="fu">c</span>(vec_x2, <span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>))</span>
+<span id="cb194-18"><a href="advanced-programming-techniques.html#cb194-18" aria-hidden="true" tabindex="-1"></a>  j <span class="ot">&lt;-</span> j <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb194-19"><a href="advanced-programming-techniques.html#cb194-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb194-20"><a href="advanced-programming-techniques.html#cb194-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb194-21"><a href="advanced-programming-techniques.html#cb194-21" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb194-22"><a href="advanced-programming-techniques.html#cb194-22" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (k <span class="sc">&lt;</span><span class="dv">100</span>){</span>
+<span id="cb194-23"><a href="advanced-programming-techniques.html#cb194-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb194-24"><a href="advanced-programming-techniques.html#cb194-24" aria-hidden="true" tabindex="-1"></a>  vec_x3 <span class="ot">&lt;-</span> <span class="fu">c</span>(vec_x3, <span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>))</span>
+<span id="cb194-25"><a href="advanced-programming-techniques.html#cb194-25" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> k <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb194-26"><a href="advanced-programming-techniques.html#cb194-26" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>This is not a good way to go about this for two reasons.</p>
+<p>Firstly, we do not want to do our simulation using loops because R is a vectorised language.
+Practically, being vectorised means that operations involving vectors are much
+much faster than loops. R is different in this way to other languages like Python
+and C++, which are object-oriented instead. In object-oriented languages, loops
+are very efficient and can even sometimes be faster than operations on vectors.
+As the amount of data we want to simulate here is small, this does not matter so
+much. It will begin to matter more if we try to simulate a lot more data, however.</p>
+<p>Secondly, we do not want to store more data by expanding a vector. The way R
+stores objects in memory makes this very memory intensive and inefficient. It is
+much better to create an object of right length, and then replace the values
+we need to use. We can create a vector of a given length using the <code>rep</code> function.
+The first argument of this is some value. A good choice to use is NA, so we can
+work out if our filling steps later fail. The second argument is the length of
+the vector you want to produce.</p>
+<p>Lets do the second first. We now reproduce one of the simulations above, but instead
+of growing a vector we create a vector of NAs, and then fill it up.</p>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="advanced-programming-techniques.html#cb195-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Some more efficient, vectorised, simulation code</span></span>
+<span id="cb195-2"><a href="advanced-programming-techniques.html#cb195-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-3"><a href="advanced-programming-techniques.html#cb195-3" aria-hidden="true" tabindex="-1"></a><span class="co"># creating empty vectors with rep</span></span>
+<span id="cb195-4"><a href="advanced-programming-techniques.html#cb195-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-5"><a href="advanced-programming-techniques.html#cb195-5" aria-hidden="true" tabindex="-1"></a>vec_x1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, <span class="dv">100</span>)</span>
+<span id="cb195-6"><a href="advanced-programming-techniques.html#cb195-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb195-7"><a href="advanced-programming-techniques.html#cb195-7" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb195-8"><a href="advanced-programming-techniques.html#cb195-8" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (i <span class="sc">&lt;</span><span class="dv">100</span>){</span>
+<span id="cb195-9"><a href="advanced-programming-techniques.html#cb195-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb195-10"><a href="advanced-programming-techniques.html#cb195-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># note we have to use i+1 here as we start at 0, but R starts counting lengths</span></span>
+<span id="cb195-11"><a href="advanced-programming-techniques.html#cb195-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># at 1</span></span>
+<span id="cb195-12"><a href="advanced-programming-techniques.html#cb195-12" aria-hidden="true" tabindex="-1"></a>  vec_x1[i<span class="sc">+</span><span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb195-13"><a href="advanced-programming-techniques.html#cb195-13" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">&lt;-</span> i <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb195-14"><a href="advanced-programming-techniques.html#cb195-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Next, lets replace the loop. We already know that we can draw vectors of random
+variables directly. We might not be able to do this if our use case is a bit more
+complicated though. Thus, we should
+also look at applying a function to generate the data. We will do this by generating
+100 sets of our observations, storing these as a dataframe, and then applying a
+function to fit regression models to these observations.</p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="advanced-programming-techniques.html#cb196-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--------------------------------------------------------------------------------</span></span>
+<span id="cb196-2"><a href="advanced-programming-techniques.html#cb196-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Some more efficient Monte-Carlo</span></span>
+<span id="cb196-3"><a href="advanced-programming-techniques.html#cb196-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Say we want to find the distribution of the estimates of \beta_{1} in a </span></span>
+<span id="cb196-4"><a href="advanced-programming-techniques.html#cb196-4" aria-hidden="true" tabindex="-1"></a><span class="co"># linear regression model of the form y_{i}= \alpha + \sum_{j}\beta_{j}x_{i}^{j} + e_{i}</span></span>
+<span id="cb196-5"><a href="advanced-programming-techniques.html#cb196-5" aria-hidden="true" tabindex="-1"></a><span class="co"># up to the third order</span></span>
+<span id="cb196-6"><a href="advanced-programming-techniques.html#cb196-6" aria-hidden="true" tabindex="-1"></a><span class="co">#--------------------------------------------------------------------------------</span></span>
+<span id="cb196-7"><a href="advanced-programming-techniques.html#cb196-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-8"><a href="advanced-programming-techniques.html#cb196-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-9"><a href="advanced-programming-techniques.html#cb196-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameters -------------------------------------------------------------------</span></span>
+<span id="cb196-10"><a href="advanced-programming-techniques.html#cb196-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-11"><a href="advanced-programming-techniques.html#cb196-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of simulations</span></span>
+<span id="cb196-12"><a href="advanced-programming-techniques.html#cb196-12" aria-hidden="true" tabindex="-1"></a>mc <span class="ot">&lt;-</span> <span class="dv">100</span> </span>
+<span id="cb196-13"><a href="advanced-programming-techniques.html#cb196-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-14"><a href="advanced-programming-techniques.html#cb196-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Number o data points within each simulation</span></span>
+<span id="cb196-15"><a href="advanced-programming-techniques.html#cb196-15" aria-hidden="true" tabindex="-1"></a>length_within_sim <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb196-16"><a href="advanced-programming-techniques.html#cb196-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-17"><a href="advanced-programming-techniques.html#cb196-17" aria-hidden="true" tabindex="-1"></a><span class="co"># &#39;True parameters&#39; of the regression model</span></span>
+<span id="cb196-18"><a href="advanced-programming-techniques.html#cb196-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-19"><a href="advanced-programming-techniques.html#cb196-19" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">2.2</span></span>
+<span id="cb196-20"><a href="advanced-programming-techniques.html#cb196-20" aria-hidden="true" tabindex="-1"></a>beta_1 <span class="ot">=</span> <span class="fl">0.5</span></span>
+<span id="cb196-21"><a href="advanced-programming-techniques.html#cb196-21" aria-hidden="true" tabindex="-1"></a>beta_2 <span class="ot">=</span> <span class="fl">0.3</span></span>
+<span id="cb196-22"><a href="advanced-programming-techniques.html#cb196-22" aria-hidden="true" tabindex="-1"></a>beta_3 <span class="ot">=</span> <span class="fl">0.2</span></span>
+<span id="cb196-23"><a href="advanced-programming-techniques.html#cb196-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-24"><a href="advanced-programming-techniques.html#cb196-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Functions -------------------------------------------------------------------</span></span>
+<span id="cb196-25"><a href="advanced-programming-techniques.html#cb196-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-26"><a href="advanced-programming-techniques.html#cb196-26" aria-hidden="true" tabindex="-1"></a><span class="co"># here we are going to group our dataframe by a group indicator, and</span></span>
+<span id="cb196-27"><a href="advanced-programming-techniques.html#cb196-27" aria-hidden="true" tabindex="-1"></a><span class="co"># then fit the linear regression to subsets of the data by the group</span></span>
+<span id="cb196-28"><a href="advanced-programming-techniques.html#cb196-28" aria-hidden="true" tabindex="-1"></a><span class="co"># indicator</span></span>
+<span id="cb196-29"><a href="advanced-programming-techniques.html#cb196-29" aria-hidden="true" tabindex="-1"></a>fit_reg <span class="ot">&lt;-</span> <span class="cf">function</span>(group, group_col, df, reg_formula){</span>
+<span id="cb196-30"><a href="advanced-programming-techniques.html#cb196-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb196-31"><a href="advanced-programming-techniques.html#cb196-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># note that it is acutally more efficient here to use the lm.fit</span></span>
+<span id="cb196-32"><a href="advanced-programming-techniques.html#cb196-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># method - if you would like to do something more advanced take</span></span>
+<span id="cb196-33"><a href="advanced-programming-techniques.html#cb196-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># a look at that with ?lm.fit</span></span>
+<span id="cb196-34"><a href="advanced-programming-techniques.html#cb196-34" aria-hidden="true" tabindex="-1"></a>  mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(reg_formula, <span class="at">data=</span>mc_df[mc_df[[group_col]]<span class="sc">==</span>group,])</span>
+<span id="cb196-35"><a href="advanced-programming-techniques.html#cb196-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(mod[[<span class="st">&quot;coefficients&quot;</span>]][<span class="dv">2</span>])</span>
+<span id="cb196-36"><a href="advanced-programming-techniques.html#cb196-36" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb196-37"><a href="advanced-programming-techniques.html#cb196-37" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb196-38"><a href="advanced-programming-techniques.html#cb196-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-39"><a href="advanced-programming-techniques.html#cb196-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Running code -----------------------------------------------------------------</span></span>
+<span id="cb196-40"><a href="advanced-programming-techniques.html#cb196-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-41"><a href="advanced-programming-techniques.html#cb196-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Generating our variables</span></span>
+<span id="cb196-42"><a href="advanced-programming-techniques.html#cb196-42" aria-hidden="true" tabindex="-1"></a>int <span class="ot">&lt;-</span> <span class="fu">rep</span>(mc<span class="sc">*</span>length_within_sim, alpha)</span>
+<span id="cb196-43"><a href="advanced-programming-techniques.html#cb196-43" aria-hidden="true" tabindex="-1"></a>vec_x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(mc<span class="sc">*</span>length_within_sim , <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb196-44"><a href="advanced-programming-techniques.html#cb196-44" aria-hidden="true" tabindex="-1"></a>vec_err <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(mc<span class="sc">*</span>length_within_sim, <span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb196-45"><a href="advanced-programming-techniques.html#cb196-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-46"><a href="advanced-programming-techniques.html#cb196-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Here we are fitting a cubic function. Thus, we simulate the new </span></span>
+<span id="cb196-47"><a href="advanced-programming-techniques.html#cb196-47" aria-hidden="true" tabindex="-1"></a><span class="co"># variables by operating on the old ones. This is more efficient</span></span>
+<span id="cb196-48"><a href="advanced-programming-techniques.html#cb196-48" aria-hidden="true" tabindex="-1"></a><span class="co"># (Thanks to Katya Ugulava for pointing this out to me)</span></span>
+<span id="cb196-49"><a href="advanced-programming-techniques.html#cb196-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-50"><a href="advanced-programming-techniques.html#cb196-50" aria-hidden="true" tabindex="-1"></a>vec_x2 <span class="ot">&lt;-</span> vec_x1<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb196-51"><a href="advanced-programming-techniques.html#cb196-51" aria-hidden="true" tabindex="-1"></a>vec_x3 <span class="ot">&lt;-</span> vec_x1<span class="sc">^</span><span class="dv">3</span></span>
+<span id="cb196-52"><a href="advanced-programming-techniques.html#cb196-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-53"><a href="advanced-programming-techniques.html#cb196-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-54"><a href="advanced-programming-techniques.html#cb196-54" aria-hidden="true" tabindex="-1"></a><span class="co"># now creating a group indicator for each of our simulations using the each</span></span>
+<span id="cb196-55"><a href="advanced-programming-techniques.html#cb196-55" aria-hidden="true" tabindex="-1"></a><span class="co"># command in rep</span></span>
+<span id="cb196-56"><a href="advanced-programming-techniques.html#cb196-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-57"><a href="advanced-programming-techniques.html#cb196-57" aria-hidden="true" tabindex="-1"></a>group <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>),<span class="at">each=</span><span class="dv">100</span>)</span>
+<span id="cb196-58"><a href="advanced-programming-techniques.html#cb196-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-59"><a href="advanced-programming-techniques.html#cb196-59" aria-hidden="true" tabindex="-1"></a><span class="co"># putting these ina dataframe to then fit the regression</span></span>
+<span id="cb196-60"><a href="advanced-programming-techniques.html#cb196-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-61"><a href="advanced-programming-techniques.html#cb196-61" aria-hidden="true" tabindex="-1"></a>mc_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(group, int, vec_x1, vec_x2, vec_x3))</span>
+<span id="cb196-62"><a href="advanced-programming-techniques.html#cb196-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-63"><a href="advanced-programming-techniques.html#cb196-63" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mc_df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;group&quot;</span>,<span class="st">&quot;int&quot;</span>, <span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>, <span class="st">&quot;x3&quot;</span>)</span>
+<span id="cb196-64"><a href="advanced-programming-techniques.html#cb196-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-65"><a href="advanced-programming-techniques.html#cb196-65" aria-hidden="true" tabindex="-1"></a><span class="co"># lets just change the rownames now for ease of use</span></span>
+<span id="cb196-66"><a href="advanced-programming-techniques.html#cb196-66" aria-hidden="true" tabindex="-1"></a><span class="co"># notice we are using fast vectorised multiplication here!</span></span>
+<span id="cb196-67"><a href="advanced-programming-techniques.html#cb196-67" aria-hidden="true" tabindex="-1"></a>mc_df[[<span class="st">&quot;y&quot;</span>]] <span class="ot">&lt;-</span> mc_df[[<span class="st">&quot;int&quot;</span>]] <span class="sc">+</span> beta_1 <span class="sc">*</span> mc_df[[<span class="st">&quot;x1&quot;</span>]] <span class="sc">+</span> beta_2 <span class="sc">*</span> mc_df[[<span class="st">&quot;x2&quot;</span>]] <span class="sc">+</span> beta_3 <span class="sc">*</span> mc_df[[<span class="st">&quot;x3&quot;</span>]] <span class="sc">+</span> vec_err</span>
+<span id="cb196-68"><a href="advanced-programming-techniques.html#cb196-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-69"><a href="advanced-programming-techniques.html#cb196-69" aria-hidden="true" tabindex="-1"></a><span class="co"># finally, lets apply our fitting function above to the dataframe</span></span>
+<span id="cb196-70"><a href="advanced-programming-techniques.html#cb196-70" aria-hidden="true" tabindex="-1"></a><span class="co"># to get a set of estimates of \beta_{1}</span></span>
+<span id="cb196-71"><a href="advanced-programming-techniques.html#cb196-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-72"><a href="advanced-programming-techniques.html#cb196-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-73"><a href="advanced-programming-techniques.html#cb196-73" aria-hidden="true" tabindex="-1"></a>beta_vec<span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">FUN=</span>fit_reg, <span class="at">group_col=</span><span class="st">&quot;group&quot;</span>, <span class="at">df=</span>mc_df, </span>
+<span id="cb196-74"><a href="advanced-programming-techniques.html#cb196-74" aria-hidden="true" tabindex="-1"></a>                         <span class="at">reg_formula =</span> <span class="st">&quot;y~x1+x2+x3&quot;</span>))</span>
+<span id="cb196-75"><a href="advanced-programming-techniques.html#cb196-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-76"><a href="advanced-programming-techniques.html#cb196-76" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(beta_vec, <span class="at">breaks=</span><span class="dv">25</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">main=</span><span class="st">&quot;Distribution of the estimator for beta_{1}&quot;</span>)</span></code></pre></div>
+<p><img src="06--Advanced_Material_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+If we want to do this more times, we should write the whole Monte-Carlo operation
+as a function where we pass the parameter values as an argument.</p>
+<p>We can still make this more efficient though, by replacing our dataframe with
+an object called a <code>data.table</code> or a <code>tibble</code>, and then doing something called
+‘nesting’ the operation within the table. Here we cover how to do this with a
+<code>data.table</code> - for <code>tibbles</code> see <a href="https://r4ds.had.co.nz/many-models.html" class="uri">https://r4ds.had.co.nz/many-models.html</a> .</p>
+<p>A <code>data.table</code> is effectively an improved version of the base R <code>data.frame</code>. It
+comes in its own package with the same name. <code>data.tables</code> keep the same functionality
+as <code>data,frames</code>, but add the ability to perform operations on the rows and columns
+as part of the object. We will demonstrate these functionalities while performing
+our simulations. The most important of these is the <code>by</code> argument. <code>by</code> is an inbuilt
+argument to group data by the values in a column within the <code>data.table</code>.</p>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="advanced-programming-techniques.html#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Demonstrating some data table functionalities</span></span>
+<span id="cb197-2"><a href="advanced-programming-techniques.html#cb197-2" aria-hidden="true" tabindex="-1"></a><span class="co"># before performing our Monte-Carlo</span></span>
+<span id="cb197-3"><a href="advanced-programming-techniques.html#cb197-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-4"><a href="advanced-programming-techniques.html#cb197-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb197-5"><a href="advanced-programming-techniques.html#cb197-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-6"><a href="advanced-programming-techniques.html#cb197-6" aria-hidden="true" tabindex="-1"></a><span class="co"># lets generate some data and use it</span></span>
+<span id="cb197-7"><a href="advanced-programming-techniques.html#cb197-7" aria-hidden="true" tabindex="-1"></a><span class="co"># one random variable and two different</span></span>
+<span id="cb197-8"><a href="advanced-programming-techniques.html#cb197-8" aria-hidden="true" tabindex="-1"></a><span class="co"># groups</span></span>
+<span id="cb197-9"><a href="advanced-programming-techniques.html#cb197-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-10"><a href="advanced-programming-techniques.html#cb197-10" aria-hidden="true" tabindex="-1"></a>col_1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb197-11"><a href="advanced-programming-techniques.html#cb197-11" aria-hidden="true" tabindex="-1"></a>col_2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>), <span class="at">each=</span><span class="dv">5000</span>)</span>
+<span id="cb197-12"><a href="advanced-programming-techniques.html#cb197-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-13"><a href="advanced-programming-techniques.html#cb197-13" aria-hidden="true" tabindex="-1"></a><span class="co"># the command as.data.table allows us to convert an object into a data.table</span></span>
+<span id="cb197-14"><a href="advanced-programming-techniques.html#cb197-14" aria-hidden="true" tabindex="-1"></a><span class="co"># if we already have a dataframe or list object, we can use DT() instead</span></span>
+<span id="cb197-15"><a href="advanced-programming-techniques.html#cb197-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-16"><a href="advanced-programming-techniques.html#cb197-16" aria-hidden="true" tabindex="-1"></a>dt <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(<span class="fu">cbind</span>(col_1, col_2))</span>
+<span id="cb197-17"><a href="advanced-programming-techniques.html#cb197-17" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dt) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;r_v&quot;</span>, <span class="st">&quot;grp&quot;</span>) </span>
+<span id="cb197-18"><a href="advanced-programming-techniques.html#cb197-18" aria-hidden="true" tabindex="-1"></a><span class="co"># this code ensures our r_v column is a numeric variable</span></span>
+<span id="cb197-19"><a href="advanced-programming-techniques.html#cb197-19" aria-hidden="true" tabindex="-1"></a>dt[,r_v <span class="sc">:</span><span class="er">=</span><span class="fu">as.numeric</span>(r_v)]</span>
+<span id="cb197-20"><a href="advanced-programming-techniques.html#cb197-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-21"><a href="advanced-programming-techniques.html#cb197-21" aria-hidden="true" tabindex="-1"></a><span class="co"># In addition to selecting columns by passing strings, in data.table we can now</span></span>
+<span id="cb197-22"><a href="advanced-programming-techniques.html#cb197-22" aria-hidden="true" tabindex="-1"></a><span class="co"># just select columns based on names</span></span>
+<span id="cb197-23"><a href="advanced-programming-techniques.html#cb197-23" aria-hidden="true" tabindex="-1"></a><span class="co"># data.table also recognises automatically which of our conditions are rows and</span></span>
+<span id="cb197-24"><a href="advanced-programming-techniques.html#cb197-24" aria-hidden="true" tabindex="-1"></a><span class="co"># column names, so we do not have to include the data.table name to carry out</span></span>
+<span id="cb197-25"><a href="advanced-programming-techniques.html#cb197-25" aria-hidden="true" tabindex="-1"></a><span class="co"># operations as in a data.frame</span></span>
+<span id="cb197-26"><a href="advanced-programming-techniques.html#cb197-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb197-27"><a href="advanced-programming-techniques.html#cb197-27" aria-hidden="true" tabindex="-1"></a>dt[r_v <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">&amp;</span> grp <span class="sc">==</span><span class="st">&quot;A&quot;</span>]</span></code></pre></div>
+<pre><code>##            r_v grp
+##   1: -1.703836   A
+##   2: -1.674758   A
+##   3: -1.641446   A
+##   4: -1.029205   A
+##   5: -1.831224   A
+##  ---              
+## 766: -1.729828   A
+## 767: -1.713903   A
+## 768: -1.821262   A
+## 769: -1.930295   A
+## 770: -1.403510   A</code></pre>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="advanced-programming-techniques.html#cb199-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One inbuilt functionality is ordering!</span></span>
+<span id="cb199-2"><a href="advanced-programming-techniques.html#cb199-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ordering lexically by group, and then by the value of the random variable</span></span>
+<span id="cb199-3"><a href="advanced-programming-techniques.html#cb199-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-4"><a href="advanced-programming-techniques.html#cb199-4" aria-hidden="true" tabindex="-1"></a>dt <span class="ot">&lt;-</span> dt[<span class="fu">order</span>(r_v)]</span>
+<span id="cb199-5"><a href="advanced-programming-techniques.html#cb199-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-6"><a href="advanced-programming-techniques.html#cb199-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Some useful inbuilt functions</span></span>
+<span id="cb199-7"><a href="advanced-programming-techniques.html#cb199-7" aria-hidden="true" tabindex="-1"></a><span class="co"># .N counts the number of observations with a preceeding condition</span></span>
+<span id="cb199-8"><a href="advanced-programming-techniques.html#cb199-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-9"><a href="advanced-programming-techniques.html#cb199-9" aria-hidden="true" tabindex="-1"></a>dt[r_v<span class="ot">&lt;-</span><span class="dv">1</span> <span class="sc">&amp;</span> grp<span class="sc">==</span><span class="st">&quot;A&quot;</span>, .N ]</span></code></pre></div>
+<pre><code>## [1] 5000</code></pre>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="advanced-programming-techniques.html#cb201-1" aria-hidden="true" tabindex="-1"></a><span class="co"># by allows us to start doing some aggregation</span></span>
+<span id="cb201-2"><a href="advanced-programming-techniques.html#cb201-2" aria-hidden="true" tabindex="-1"></a><span class="co"># lets compute the number of observations in each group</span></span>
+<span id="cb201-3"><a href="advanced-programming-techniques.html#cb201-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb201-4"><a href="advanced-programming-techniques.html#cb201-4" aria-hidden="true" tabindex="-1"></a>dt[,.N, by<span class="ot">=</span>grp]</span></code></pre></div>
+<pre><code>##    grp    N
+## 1:   A 5000
+## 2:   B 5000</code></pre>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="advanced-programming-techniques.html#cb203-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we have to enclose custom functions in a bracket, and precede them with</span></span>
+<span id="cb203-2"><a href="advanced-programming-techniques.html#cb203-2" aria-hidden="true" tabindex="-1"></a><span class="co"># a . to apply them to all observations that satisfy any condition in</span></span>
+<span id="cb203-3"><a href="advanced-programming-techniques.html#cb203-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the preceding argument</span></span>
+<span id="cb203-4"><a href="advanced-programming-techniques.html#cb203-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb203-5"><a href="advanced-programming-techniques.html#cb203-5" aria-hidden="true" tabindex="-1"></a>dt[,.(<span class="fu">mean</span>(r_v)), by<span class="ot">=</span>grp]</span></code></pre></div>
+<pre><code>##    grp           V1
+## 1:   A  0.009828461
+## 2:   B -0.012719875</code></pre>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="advanced-programming-techniques.html#cb205-1" aria-hidden="true" tabindex="-1"></a>dt[r_v <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">1</span>,.(<span class="fu">mean</span>(r_v)), by<span class="ot">=</span>grp]</span></code></pre></div>
+<pre><code>##    grp        V1
+## 1:   A -1.521316
+## 2:   B -1.551410</code></pre>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="advanced-programming-techniques.html#cb207-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we can chain these operations on the rows by adding [] containing a new</span></span>
+<span id="cb207-2"><a href="advanced-programming-techniques.html#cb207-2" aria-hidden="true" tabindex="-1"></a><span class="co"># operation after the end of our code above</span></span>
+<span id="cb207-3"><a href="advanced-programming-techniques.html#cb207-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb207-4"><a href="advanced-programming-techniques.html#cb207-4" aria-hidden="true" tabindex="-1"></a>dt[r_v <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">1</span>,.(<span class="fu">mean</span>(r_v)), by<span class="ot">=</span>grp][<span class="fu">order</span>(grp)]</span></code></pre></div>
+<pre><code>##    grp        V1
+## 1:   A -1.521316
+## 2:   B -1.551410</code></pre>
+<p>Above, we only provide a brief overview of what <code>data.tables</code> can do. Also read
+<a href="https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html" class="uri">https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html</a> .</p>
+<p>Now lets use <code>data.table</code> to nest our Monte-Carlo routine. The idea of nesting is the
+following. Typically, when we create an object like a <code>data.frame</code> or <code>data.table</code>,
+we think of each entry as being a single thing like a number or word. But this does
+not have to be the case. We can actually fill the entries in these objects with
+other objects, like lists or <code>data.tables</code>. <code>data.table</code> provides us with a set
+of inbuilt iteration operations that are more efficient than just using the
+base <code>apply</code> over subsets of a given <code>data.frame</code> or <code>data.table</code>. Thus, by storing
+subsets of our data as observations in our <code>data.table</code> we can exploit the inbuilt
+iteration operations to do any iteration we want in a more efficient way.</p>
+<p>If that sounds abstract, lets take a look at a concrete example by making our
+Monte-Carlo code a bit more efficient. We will use the <code>.SD</code> inbuilt function
+in <code>data.table</code> to create a data.table containing just nested subsets of our data
+by the value of a variable (in our case, our group variable we make during the
+simulation).</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="advanced-programming-techniques.html#cb209-1" aria-hidden="true" tabindex="-1"></a><span class="co">#--------------------------------------------------------------------------------</span></span>
+<span id="cb209-2"><a href="advanced-programming-techniques.html#cb209-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Some even more efficient Monte-Carlo using nested operations in data.table</span></span>
+<span id="cb209-3"><a href="advanced-programming-techniques.html#cb209-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Say we want to find the distribution of the estimates of \beta_{1} in a </span></span>
+<span id="cb209-4"><a href="advanced-programming-techniques.html#cb209-4" aria-hidden="true" tabindex="-1"></a><span class="co"># linear regression model of the form y_{i}= \alpha + \sum_{j}\beta_{j}x_{i}^{j} + e_{i}</span></span>
+<span id="cb209-5"><a href="advanced-programming-techniques.html#cb209-5" aria-hidden="true" tabindex="-1"></a><span class="co"># up to the third order</span></span>
+<span id="cb209-6"><a href="advanced-programming-techniques.html#cb209-6" aria-hidden="true" tabindex="-1"></a><span class="co">#--------------------------------------------------------------------------------</span></span>
+<span id="cb209-7"><a href="advanced-programming-techniques.html#cb209-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-8"><a href="advanced-programming-techniques.html#cb209-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-9"><a href="advanced-programming-techniques.html#cb209-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameters -------------------------------------------------------------------</span></span>
+<span id="cb209-10"><a href="advanced-programming-techniques.html#cb209-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-11"><a href="advanced-programming-techniques.html#cb209-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of simulations</span></span>
+<span id="cb209-12"><a href="advanced-programming-techniques.html#cb209-12" aria-hidden="true" tabindex="-1"></a>mc <span class="ot">&lt;-</span> <span class="dv">100</span> </span>
+<span id="cb209-13"><a href="advanced-programming-techniques.html#cb209-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-14"><a href="advanced-programming-techniques.html#cb209-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Number o data points within each simulation</span></span>
+<span id="cb209-15"><a href="advanced-programming-techniques.html#cb209-15" aria-hidden="true" tabindex="-1"></a>length_within_sim <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb209-16"><a href="advanced-programming-techniques.html#cb209-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-17"><a href="advanced-programming-techniques.html#cb209-17" aria-hidden="true" tabindex="-1"></a><span class="co"># &#39;True parameters&#39; of the regression model</span></span>
+<span id="cb209-18"><a href="advanced-programming-techniques.html#cb209-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-19"><a href="advanced-programming-techniques.html#cb209-19" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">2.2</span></span>
+<span id="cb209-20"><a href="advanced-programming-techniques.html#cb209-20" aria-hidden="true" tabindex="-1"></a>beta_1 <span class="ot">=</span> <span class="fl">0.5</span></span>
+<span id="cb209-21"><a href="advanced-programming-techniques.html#cb209-21" aria-hidden="true" tabindex="-1"></a>beta_2 <span class="ot">=</span> <span class="fl">0.3</span></span>
+<span id="cb209-22"><a href="advanced-programming-techniques.html#cb209-22" aria-hidden="true" tabindex="-1"></a>beta_3 <span class="ot">=</span> <span class="fl">0.2</span></span>
+<span id="cb209-23"><a href="advanced-programming-techniques.html#cb209-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-24"><a href="advanced-programming-techniques.html#cb209-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Functions -------------------------------------------------------------------</span></span>
+<span id="cb209-25"><a href="advanced-programming-techniques.html#cb209-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-26"><a href="advanced-programming-techniques.html#cb209-26" aria-hidden="true" tabindex="-1"></a><span class="co"># here we are going to group our dataframe by a group indicator, and</span></span>
+<span id="cb209-27"><a href="advanced-programming-techniques.html#cb209-27" aria-hidden="true" tabindex="-1"></a><span class="co"># then fit the linear regression to subsets of the data by the group</span></span>
+<span id="cb209-28"><a href="advanced-programming-techniques.html#cb209-28" aria-hidden="true" tabindex="-1"></a><span class="co"># indicator</span></span>
+<span id="cb209-29"><a href="advanced-programming-techniques.html#cb209-29" aria-hidden="true" tabindex="-1"></a>fit_reg <span class="ot">&lt;-</span> <span class="cf">function</span>(group, group_col, df, reg_formula){</span>
+<span id="cb209-30"><a href="advanced-programming-techniques.html#cb209-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb209-31"><a href="advanced-programming-techniques.html#cb209-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># note that it is acutally more efficient here to use the lm.fit</span></span>
+<span id="cb209-32"><a href="advanced-programming-techniques.html#cb209-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># method - if you would like to do something more advanced take</span></span>
+<span id="cb209-33"><a href="advanced-programming-techniques.html#cb209-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># a look at that with ?lm.fit</span></span>
+<span id="cb209-34"><a href="advanced-programming-techniques.html#cb209-34" aria-hidden="true" tabindex="-1"></a>  mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(reg_formula, <span class="at">data=</span>mc_df[mc_df[[group_col]]<span class="sc">==</span>group,])</span>
+<span id="cb209-35"><a href="advanced-programming-techniques.html#cb209-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(mod[[<span class="st">&quot;coefficients&quot;</span>]][<span class="dv">2</span>])</span>
+<span id="cb209-36"><a href="advanced-programming-techniques.html#cb209-36" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb209-37"><a href="advanced-programming-techniques.html#cb209-37" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb209-38"><a href="advanced-programming-techniques.html#cb209-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-39"><a href="advanced-programming-techniques.html#cb209-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Running the code -------------------------------------------------------------</span></span>
+<span id="cb209-40"><a href="advanced-programming-techniques.html#cb209-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-41"><a href="advanced-programming-techniques.html#cb209-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Generating our variables</span></span>
+<span id="cb209-42"><a href="advanced-programming-techniques.html#cb209-42" aria-hidden="true" tabindex="-1"></a>int <span class="ot">&lt;-</span> <span class="fu">rep</span>(mc<span class="sc">*</span>length_within_sim, alpha)</span>
+<span id="cb209-43"><a href="advanced-programming-techniques.html#cb209-43" aria-hidden="true" tabindex="-1"></a>vec_x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(mc<span class="sc">*</span>length_within_sim , <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb209-44"><a href="advanced-programming-techniques.html#cb209-44" aria-hidden="true" tabindex="-1"></a>vec_err <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(mc<span class="sc">*</span>length_within_sim, <span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb209-45"><a href="advanced-programming-techniques.html#cb209-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-46"><a href="advanced-programming-techniques.html#cb209-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Here we are fitting a cubic function. Thus, we simulate the new </span></span>
+<span id="cb209-47"><a href="advanced-programming-techniques.html#cb209-47" aria-hidden="true" tabindex="-1"></a><span class="co"># variables by operating on the old ones. This is more efficient</span></span>
+<span id="cb209-48"><a href="advanced-programming-techniques.html#cb209-48" aria-hidden="true" tabindex="-1"></a><span class="co"># (Thanks to Katya Ugulava for pointing this out to me)</span></span>
+<span id="cb209-49"><a href="advanced-programming-techniques.html#cb209-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-50"><a href="advanced-programming-techniques.html#cb209-50" aria-hidden="true" tabindex="-1"></a>vec_x2 <span class="ot">&lt;-</span> vec_x1<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb209-51"><a href="advanced-programming-techniques.html#cb209-51" aria-hidden="true" tabindex="-1"></a>vec_x3 <span class="ot">&lt;-</span> vec_x1<span class="sc">^</span><span class="dv">3</span></span>
+<span id="cb209-52"><a href="advanced-programming-techniques.html#cb209-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-53"><a href="advanced-programming-techniques.html#cb209-53" aria-hidden="true" tabindex="-1"></a><span class="co"># now creating a group indicator for each of our simulations using the each</span></span>
+<span id="cb209-54"><a href="advanced-programming-techniques.html#cb209-54" aria-hidden="true" tabindex="-1"></a><span class="co"># command in rep</span></span>
+<span id="cb209-55"><a href="advanced-programming-techniques.html#cb209-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-56"><a href="advanced-programming-techniques.html#cb209-56" aria-hidden="true" tabindex="-1"></a>group <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>),<span class="at">each=</span><span class="dv">100</span>)</span>
+<span id="cb209-57"><a href="advanced-programming-techniques.html#cb209-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-58"><a href="advanced-programming-techniques.html#cb209-58" aria-hidden="true" tabindex="-1"></a><span class="co"># putting these in a dataframe to then fit the regression</span></span>
+<span id="cb209-59"><a href="advanced-programming-techniques.html#cb209-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-60"><a href="advanced-programming-techniques.html#cb209-60" aria-hidden="true" tabindex="-1"></a>mc_df <span class="ot">&lt;-</span> <span class="fu">as.data.table</span>(<span class="fu">cbind</span>(group, int, vec_x1, vec_x2, vec_x3))</span>
+<span id="cb209-61"><a href="advanced-programming-techniques.html#cb209-61" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mc_df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;group&quot;</span>,<span class="st">&quot;int&quot;</span>, <span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>, <span class="st">&quot;x3&quot;</span>)</span>
+<span id="cb209-62"><a href="advanced-programming-techniques.html#cb209-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-63"><a href="advanced-programming-techniques.html#cb209-63" aria-hidden="true" tabindex="-1"></a><span class="co"># lets just change the rownames now for ease of use</span></span>
+<span id="cb209-64"><a href="advanced-programming-techniques.html#cb209-64" aria-hidden="true" tabindex="-1"></a><span class="co"># notice we are using fast vectorised multiplication here!</span></span>
+<span id="cb209-65"><a href="advanced-programming-techniques.html#cb209-65" aria-hidden="true" tabindex="-1"></a>mc_df[[<span class="st">&quot;y&quot;</span>]] <span class="ot">&lt;-</span> mc_df[[<span class="st">&quot;int&quot;</span>]] <span class="sc">+</span> beta_1 <span class="sc">*</span> mc_df[[<span class="st">&quot;x1&quot;</span>]] <span class="sc">+</span> beta_2 <span class="sc">*</span> mc_df[[<span class="st">&quot;x2&quot;</span>]] <span class="sc">+</span> beta_3 <span class="sc">*</span> mc_df[[<span class="st">&quot;x3&quot;</span>]] <span class="sc">+</span> vec_err</span>
+<span id="cb209-66"><a href="advanced-programming-techniques.html#cb209-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-67"><a href="advanced-programming-techniques.html#cb209-67" aria-hidden="true" tabindex="-1"></a><span class="co"># now lets define a data.table containing a new column &#39;data&#39; which is our</span></span>
+<span id="cb209-68"><a href="advanced-programming-techniques.html#cb209-68" aria-hidden="true" tabindex="-1"></a><span class="co"># data subsetted by the value of the group variable</span></span>
+<span id="cb209-69"><a href="advanced-programming-techniques.html#cb209-69" aria-hidden="true" tabindex="-1"></a>mc_dat <span class="ot">=</span> mc_df[, <span class="fu">list</span>(<span class="at">data=</span><span class="fu">list</span>(.SD)), by<span class="ot">=</span>group]</span>
+<span id="cb209-70"><a href="advanced-programming-techniques.html#cb209-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-71"><a href="advanced-programming-techniques.html#cb209-71" aria-hidden="true" tabindex="-1"></a><span class="co"># now we can use the inbuilt data.table iterators to fit all of our regression</span></span>
+<span id="cb209-72"><a href="advanced-programming-techniques.html#cb209-72" aria-hidden="true" tabindex="-1"></a><span class="co"># models</span></span>
+<span id="cb209-73"><a href="advanced-programming-techniques.html#cb209-73" aria-hidden="true" tabindex="-1"></a><span class="co"># what this does here is define a new column (:=) by applyng the function</span></span>
+<span id="cb209-74"><a href="advanced-programming-techniques.html#cb209-74" aria-hidden="true" tabindex="-1"></a><span class="co"># from our function above to all of the elements x of the column</span></span>
+<span id="cb209-75"><a href="advanced-programming-techniques.html#cb209-75" aria-hidden="true" tabindex="-1"></a><span class="co"># As we do it within the data.table, it is really fast!</span></span>
+<span id="cb209-76"><a href="advanced-programming-techniques.html#cb209-76" aria-hidden="true" tabindex="-1"></a>mc_dat[, model <span class="sc">:</span><span class="er">=</span> <span class="fu">lapply</span>(data, <span class="cf">function</span>(x) <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, x)[[<span class="st">&quot;coefficients&quot;</span>]][<span class="dv">2</span>])]</span>
+<span id="cb209-77"><a href="advanced-programming-techniques.html#cb209-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-78"><a href="advanced-programming-techniques.html#cb209-78" aria-hidden="true" tabindex="-1"></a><span class="co"># now mc_dat[, model[[1]], by=group] gives us our data back as a column</span></span>
+<span id="cb209-79"><a href="advanced-programming-techniques.html#cb209-79" aria-hidden="true" tabindex="-1"></a><span class="co"># (automatic name V1) with the group. To plot it, we need to extract it as </span></span>
+<span id="cb209-80"><a href="advanced-programming-techniques.html#cb209-80" aria-hidden="true" tabindex="-1"></a><span class="co"># a vector. Thus, we slice it out just using standard dataframe syntax for ease.</span></span>
+<span id="cb209-81"><a href="advanced-programming-techniques.html#cb209-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-82"><a href="advanced-programming-techniques.html#cb209-82" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(mc_dat[,model[[<span class="dv">1</span>]], <span class="at">by=</span>group][[<span class="st">&quot;V1&quot;</span>]], <span class="at">breaks=</span><span class="dv">25</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">main=</span><span class="st">&quot;Distribution of the estimator for beta_{1}&quot;</span>)</span></code></pre></div>
+<p><img src="06--Advanced_Material_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+<div id="optimisation" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Optimisation</h2>
+<p>If we choose to program our own estimators, we often compute the value of the
+estimator by maximising or minimising an objective function. Thus, we need to
+know how to do optimisation in R. Here, we cover the basic way to do optimisation
+in R using the <code>optim</code> function. As an example, we show how to program a maximum-likelihood
+estimator from scratch (as opposed to using say <code>mle</code>).</p>
+<p>The <code>optim</code> function in base R is a minimiser. It takes the value of a objective
+function, which we write as a function. It then minimises the function using an
+algorithm that we specify, given a starting value that we also specify. The first
+argument is the starting value. The second argument is the function that we want
+to minimise. The third argument is the method that we want to use to compute it.
+The default method is the Nelder-Mead algorithm; value “BFGS” gives the BFGS
+quasi Newton-Raphson algorithm. Adding <code>hessian=T</code> gives us the Hessian matrix
+as an output.</p>
+<p>When we write the function, the vector that we are trying to optimise must be
+the first argument of the function. We must return the value of the objective
+function that we are trying to minimise. Thus, if we want to maximise something,
+we must return the negative of that thing.</p>
+<p>Lets try it out by programming the maximum likelihood estimator for a linear regression
+with normally distributed errors using the data from one of the
+runs of our Monte-Carlo simulation earlier.</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="advanced-programming-techniques.html#cb210-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of optimisation in R - programming the maximum likelihood estimator</span></span>
+<span id="cb210-2"><a href="advanced-programming-techniques.html#cb210-2" aria-hidden="true" tabindex="-1"></a><span class="co"># for a linear regression with normally distributed errors</span></span>
+<span id="cb210-3"><a href="advanced-programming-techniques.html#cb210-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Here I borrow from this guide https://www.ime.unicamp.br/~cnaber/optim_1.pdf</span></span>
+<span id="cb210-4"><a href="advanced-programming-techniques.html#cb210-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb210-5"><a href="advanced-programming-techniques.html#cb210-5" aria-hidden="true" tabindex="-1"></a><span class="co"># we will minimise the negative log-likelihood (equivalent of course to </span></span>
+<span id="cb210-6"><a href="advanced-programming-techniques.html#cb210-6" aria-hidden="true" tabindex="-1"></a><span class="co"># maximising the normal likelihood function as the location of optima are</span></span>
+<span id="cb210-7"><a href="advanced-programming-techniques.html#cb210-7" aria-hidden="true" tabindex="-1"></a><span class="co"># preserved under monotonic transformations)</span></span>
+<span id="cb210-8"><a href="advanced-programming-techniques.html#cb210-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb210-9"><a href="advanced-programming-techniques.html#cb210-9" aria-hidden="true" tabindex="-1"></a><span class="co"># we just do it for one parameter for ease</span></span>
+<span id="cb210-10"><a href="advanced-programming-techniques.html#cb210-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb210-11"><a href="advanced-programming-techniques.html#cb210-11" aria-hidden="true" tabindex="-1"></a>negative_log_likelihood <span class="ot">&lt;-</span> <span class="cf">function</span>(param_vec, X_mat, y_vec){</span>
+<span id="cb210-12"><a href="advanced-programming-techniques.html#cb210-12" aria-hidden="true" tabindex="-1"></a>  beta_vec <span class="ot">&lt;-</span> param_vec[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb210-13"><a href="advanced-programming-techniques.html#cb210-13" aria-hidden="true" tabindex="-1"></a>  sigma2 <span class="ot">&lt;-</span> param_vec[<span class="dv">5</span>]</span>
+<span id="cb210-14"><a href="advanced-programming-techniques.html#cb210-14" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(y_vec)</span>
+<span id="cb210-15"><a href="advanced-programming-techniques.html#cb210-15" aria-hidden="true" tabindex="-1"></a>  mu <span class="ot">&lt;-</span>  </span>
+<span id="cb210-16"><a href="advanced-programming-techniques.html#cb210-16" aria-hidden="true" tabindex="-1"></a>  inner_sum <span class="ot">&lt;-</span> <span class="fu">sum</span>((y_vec<span class="sc">-</span>X_mat <span class="sc">%*%</span> beta_vec)<span class="sc">**</span><span class="dv">2</span>)</span>
+<span id="cb210-17"><a href="advanced-programming-techniques.html#cb210-17" aria-hidden="true" tabindex="-1"></a>  log_l <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.5</span><span class="sc">*</span>n<span class="sc">*</span><span class="fu">log</span>(<span class="dv">2</span><span class="sc">*</span>pi) <span class="sc">-</span><span class="fl">0.5</span><span class="sc">*</span>n<span class="sc">*</span><span class="fu">log</span>(sigma2) <span class="sc">-</span> (<span class="dv">1</span><span class="sc">/</span>(<span class="dv">2</span><span class="sc">*</span>sigma2))<span class="sc">*</span><span class="fu">sum</span>((y_vec<span class="sc">-</span>X_mat <span class="sc">%*%</span> beta_vec)<span class="sc">**</span><span class="dv">2</span>)</span>
+<span id="cb210-18"><a href="advanced-programming-techniques.html#cb210-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="sc">-</span>log_l)</span>
+<span id="cb210-19"><a href="advanced-programming-techniques.html#cb210-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb210-20"><a href="advanced-programming-techniques.html#cb210-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb210-21"><a href="advanced-programming-techniques.html#cb210-21" aria-hidden="true" tabindex="-1"></a>beta_vec <span class="ot">&lt;-</span> <span class="fu">optim</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>,<span class="dv">1</span>), negative_log_likelihood, <span class="at">method=</span><span class="st">&quot;BFGS&quot;</span>, <span class="at">hessian =</span> T,</span>
+<span id="cb210-22"><a href="advanced-programming-techniques.html#cb210-22" aria-hidden="true" tabindex="-1"></a>                  <span class="at">X_mat =</span> <span class="fu">as.matrix</span>(mc_df[mc_df[[<span class="st">&quot;group&quot;</span>]]<span class="sc">==</span><span class="dv">1</span>,<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>)]),</span>
+<span id="cb210-23"><a href="advanced-programming-techniques.html#cb210-23" aria-hidden="true" tabindex="-1"></a>                  <span class="at">y_vec =</span> <span class="fu">as.matrix</span>(mc_df[mc_df[[<span class="st">&quot;group&quot;</span>]]<span class="sc">==</span><span class="dv">1</span>,<span class="fu">c</span>(<span class="dv">6</span>)]))</span></code></pre></div>
+<pre><code>## Warning in log(sigma2): NaNs produced</code></pre>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="advanced-programming-techniques.html#cb212-1" aria-hidden="true" tabindex="-1"></a>beta_vec</span></code></pre></div>
+<pre><code>## $par
+## [1]  0.9999929  0.9724584 -0.2416691  0.3128821  3.5391276
+## 
+## $value
+## [1] 169.0368
+## 
+## $counts
+## function gradient 
+##       60       11 
+## 
+## $convergence
+## [1] 0
+## 
+## $message
+## NULL
+## 
+## $hessian
+##              [,1]         [,2]         [,3]         [,4]          [,5]
+## [1,] 2.825555e+09 5.362870e+05 1.293351e+06 3.533071e+06  2.0816105462
+## [2,] 5.362870e+05 1.293351e+02 3.533071e+02 1.054175e+03  0.0006779075
+## [3,] 1.293351e+06 3.533071e+02 1.054175e+03 3.345331e+03  0.0022651463
+## [4,] 3.533071e+06 1.054175e+03 3.345331e+03 1.111938e+04  0.0076538527
+## [5,] 2.081611e+00 6.779075e-04 2.265146e-03 7.653853e-03 -1.7645778030</code></pre>
+<p>We see here that this outputs the parameters, the value of the log-likelihood
+at the minimum, and then some additional statistics. As we selected the Hessian,
+we can compute the standard errors.</p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="advanced-programming-techniques.html#cb214-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We get the standard errors by taking the square root of the principal diagonal</span></span>
+<span id="cb214-2"><a href="advanced-programming-techniques.html#cb214-2" aria-hidden="true" tabindex="-1"></a><span class="co"># of the inverse of the Hessian</span></span>
+<span id="cb214-3"><a href="advanced-programming-techniques.html#cb214-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb214-4"><a href="advanced-programming-techniques.html#cb214-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">solve</span>(beta_vec[[<span class="st">&quot;hessian&quot;</span>]])))</span></code></pre></div>
+<pre><code>## Warning in sqrt(diag(solve(beta_vec[[&quot;hessian&quot;]]))): NaNs produced</code></pre>
+<pre><code>## [1] 6.556477e-05 1.126158e+00 6.547648e-01 1.124175e-01          NaN</code></pre>
+</div>
+<div id="profiling" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> Profiling</h2>
+<p>Imagine we want to make our code more efficient so it runs quicker. This may sound unnecessary, but
+it can be important in applied econometric. If we are working
+with large datasets with hundreds of thousands of rows and doing lots of iteration
+small inefficiencies can make our code run very slowly as we might be hitting them
+thousands and thousands of times.</p>
+<p>The standard way to do this is by ‘profiling’ our code. The aim is to find the
+biggest bottleneck we have not dealt with yet, deal with it as best we can, and
+repeat until our code performs well enough. This might sound trivial. It is not.
+Thus, programmers typically find the bottlenecks by iteratively testing and
+timing sections of the code using small, manageable inputs. Here, we take a
+short look at how to do this in R with the <code>profvis</code> package. For more details,
+look at the chapter on this in Hadley Wickham’s ‘Advanced R’ (we follow the first
+section of this chapter here).</p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="advanced-programming-techniques.html#cb217-1" aria-hidden="true" tabindex="-1"></a><span class="co"># loading the library containing our profiler</span></span>
+<span id="cb217-2"><a href="advanced-programming-techniques.html#cb217-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(profvis)</span></code></pre></div>
+<pre><code>## Warning: package &#39;profvis&#39; was built under R version 4.0.5</code></pre>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="advanced-programming-techniques.html#cb219-1" aria-hidden="true" tabindex="-1"></a>f_1 <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb219-2"><a href="advanced-programming-techniques.html#cb219-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pause</span>(<span class="fl">0.5</span>)</span>
+<span id="cb219-3"><a href="advanced-programming-techniques.html#cb219-3" aria-hidden="true" tabindex="-1"></a>  f_2</span>
+<span id="cb219-4"><a href="advanced-programming-techniques.html#cb219-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb219-5"><a href="advanced-programming-techniques.html#cb219-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb219-6"><a href="advanced-programming-techniques.html#cb219-6" aria-hidden="true" tabindex="-1"></a>f_2 <span class="ot">&lt;-</span> <span class="cf">function</span>(){</span>
+<span id="cb219-7"><a href="advanced-programming-techniques.html#cb219-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;hello world&quot;</span>)</span>
+<span id="cb219-8"><a href="advanced-programming-techniques.html#cb219-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb219-9"><a href="advanced-programming-techniques.html#cb219-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb219-10"><a href="advanced-programming-techniques.html#cb219-10" aria-hidden="true" tabindex="-1"></a><span class="co"># we can profile by taking our function, and wrapping it in the function &#39;lineprof()&#39;</span></span>
+<span id="cb219-11"><a href="advanced-programming-techniques.html#cb219-11" aria-hidden="true" tabindex="-1"></a><span class="co"># we wrap all of the code we want to profile in curly brackets {}</span></span>
+<span id="cb219-12"><a href="advanced-programming-techniques.html#cb219-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb219-13"><a href="advanced-programming-techniques.html#cb219-13" aria-hidden="true" tabindex="-1"></a><span class="fu">profvis</span>({<span class="fu">f_1</span>()</span>
+<span id="cb219-14"><a href="advanced-programming-techniques.html#cb219-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">f_2</span>()})</span></code></pre></div>
+<pre><code>## [1] &quot;hello world&quot;</code></pre>
+<div id="htmlwidget-cdbcbb2d4a8eef3ec4bf" style="width:100%;height:600px;" class="profvis html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cdbcbb2d4a8eef3ec4bf">{"x":{"message":{"prof":{"time":[1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,4,5,5,5,5,5,5,6,6,6,6,6,6,7,7,7,7,7,7,8,8,8,8,8,8,9,9,9,9,9,9,10,10,10,10,10,10,11,11,11,11,11,11,12,12,12,12,12,12,13,13,13,13,13,13,14,14,14,14,14,14,15,15,15,15,15,15,16,16,16,16,16,16,17,17,17,17,17,17,18,18,18,18,18,18,19,19,19,19,19,19,20,20,20,20,20,20,21,21,21,21,21,21,22,22,22,22,22,22,23,23,23,23,23,23,24,24,24,24,24,24,25,25,25,25,25,25,26,26,26,26,26,26,27,27,27,27,27,27,28,28,28,28,28,28,29,29,29,29,29,29,30,30,30,30,30,30,31,31,31,31,31,31],"depth":[6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1],"label":["pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local","pause","f_1","eval","eval","eval.parent","local"],"filenum":[1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null],"linenum":[6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null,6,17,null,null,null,null],"memalloc":[10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516,10.0328521728516],"meminc":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"filename":["<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null]},"interval":10,"files":[{"filename":"<expr>","content":"# loading the library containing our profiler\nlibrary(profvis)\n\n\nf_1 <- function() {\n  pause(0.5)\n  f_2\n}\n\nf_2 <- function(){\n  print(\"hello world\")\n}\n\n# we can profile by taking our function, and wrapping it in the function 'lineprof()'\n# we wrap all of the code we want to profile in curly brackets {}\n\nprofvis({f_1()\n  f_2()})\n","normpath":"<expr>"}],"prof_output":"C:\\Users\\kiera\\AppData\\Local\\Temp\\RtmpoNK46G\\filef7f05a4d6981.prof","highlight":{"output":["^output\\$"],"gc":["^<GC>$"],"stacktrace":["^\\.\\.stacktraceo(n|ff)\\.\\.$"]},"split":"h"}},"evals":[],"jsHooks":[]}</script>
+<p>The <code>profvis</code> function will open up an interactive profiler where we can
+look at the relative speed of different parts of our code. This allows us to
+isolate which bits of the code take more or less time. We can test different
+versions by wrapping them in the profvis wrapper, and seeing if they take more
+or less time.</p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="advanced-programming-techniques.html#cb221-1" aria-hidden="true" tabindex="-1"></a><span class="co"># now make the pause slower</span></span>
+<span id="cb221-2"><a href="advanced-programming-techniques.html#cb221-2" aria-hidden="true" tabindex="-1"></a><span class="co"># we should see that it runs a lot quicker</span></span>
+<span id="cb221-3"><a href="advanced-programming-techniques.html#cb221-3" aria-hidden="true" tabindex="-1"></a>f_3 <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb221-4"><a href="advanced-programming-techniques.html#cb221-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pause</span>(<span class="fl">0.25</span>)</span>
+<span id="cb221-5"><a href="advanced-programming-techniques.html#cb221-5" aria-hidden="true" tabindex="-1"></a>  f_2</span>
+<span id="cb221-6"><a href="advanced-programming-techniques.html#cb221-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb221-7"><a href="advanced-programming-techniques.html#cb221-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb221-8"><a href="advanced-programming-techniques.html#cb221-8" aria-hidden="true" tabindex="-1"></a><span class="co"># it does!</span></span>
+<span id="cb221-9"><a href="advanced-programming-techniques.html#cb221-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb221-10"><a href="advanced-programming-techniques.html#cb221-10" aria-hidden="true" tabindex="-1"></a><span class="fu">profvis</span>({<span class="fu">f_3</span>()</span>
+<span id="cb221-11"><a href="advanced-programming-techniques.html#cb221-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">f_2</span>()})</span></code></pre></div>
+<pre><code>## [1] &quot;hello world&quot;</code></pre>
+<div id="htmlwidget-92a1f50ab5c04373df3e" style="width:100%;height:600px;" class="profvis html-widget"></div>
+<script type="application/json" data-for="htmlwidget-92a1f50ab5c04373df3e">{"x":{"message":{"prof":{"time":[1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,3,3,4,4,4,4,4,4,5,5,5,5,5,5,6,6,6,6,6,6,7,7,7,7,7,7,8,8,8,8,8,8,9,9,9,9,9,9,10,10,10,10,10,10,11,11,11,11,11,11,12,12,12,12,12,12,13,13,13,13,13,13,14,14,14,14,14,14,15,15,15,15,15,15],"depth":[6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1,6,5,4,3,2,1],"label":["pause","f_3","eval","eval","eval.parent","local","pause","f_3","eval","eval","eval.parent","local","pause","f_3","eval","eval","eval.parent","local","pause","f_3","eval","eval","eval.parent","local","pause","f_3","eval","eval","eval.parent","local","pause","f_3","eval","eval","eval.parent","local","pause","f_3","eval","eval","eval.parent","local","pause","f_3","eval","eval","eval.parent","local","pause","f_3","eval","eval","eval.parent","local","pause","f_3","eval","eval","eval.parent","local","pause","f_3","eval","eval","eval.parent","local","pause","f_3","eval","eval","eval.parent","local","pause","f_3","eval","eval","eval.parent","local","pause","f_3","eval","eval","eval.parent","local","pause","f_3","eval","eval","eval.parent","local"],"filenum":[1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null,1,1,null,null,null,null],"linenum":[5,11,null,null,null,null,5,11,null,null,null,null,5,11,null,null,null,null,5,11,null,null,null,null,5,11,null,null,null,null,5,11,null,null,null,null,5,11,null,null,null,null,5,11,null,null,null,null,5,11,null,null,null,null,5,11,null,null,null,null,5,11,null,null,null,null,5,11,null,null,null,null,5,11,null,null,null,null,5,11,null,null,null,null,5,11,null,null,null,null],"memalloc":[10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172,10.6304168701172],"meminc":[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"filename":["<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null,"<expr>","<expr>",null,null,null,null]},"interval":10,"files":[{"filename":"<expr>","content":"\n# now make the pause slower\n# we should see that it runs a lot quicker\nf_3 <- function() {\n  pause(0.25)\n  f_2\n}\n\n# it does!\n\nprofvis({f_3()\n  f_2()})","normpath":"<expr>"}],"prof_output":"C:\\Users\\kiera\\AppData\\Local\\Temp\\RtmpoNK46G\\filef7f0f086a2a.prof","highlight":{"output":["^output\\$"],"gc":["^<GC>$"],"stacktrace":["^\\.\\.stacktraceo(n|ff)\\.\\.$"]},"split":"h"}},"evals":[],"jsHooks":[]}</script>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="workflow.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Introduction to R for Econometrics.pdf", "Introduction to R for Econometrics.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

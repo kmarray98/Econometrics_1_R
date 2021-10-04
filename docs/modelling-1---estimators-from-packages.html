@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Modelling 1 - estimators from packages | Introduction to R for Econometrics</title>
+  <meta name="description" content="Chapter 4 Modelling 1 - estimators from packages | Introduction to R for Econometrics" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Modelling 1 - estimators from packages | Introduction to R for Econometrics" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Modelling 1 - estimators from packages | Introduction to R for Econometrics" />
+  
+  
+  
+
+<meta name="author" content="Kieran Marray" />
+
+
+<meta name="date" content="2021-10-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="reading-analysing-and-manipulating-data.html"/>
+<link rel="next" href="workflow.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/d3-3.5.6/d3.min.js"></script>
+<link href="libs/profvis-0.3.6.9000/profvis.css" rel="stylesheet" />
+<script src="libs/profvis-0.3.6.9000/profvis.js"></script>
+<script src="libs/profvis-0.3.6.9000/scroll.js"></script>
+<link href="libs/highlight-6.2.0/textmate.css" rel="stylesheet" />
+<script src="libs/highlight-6.2.0/highlight.js"></script>
+<script src="libs/profvis-binding-0.3.7/profvis.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Introduction to R for Econometrics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#motivation"><i class="fa fa-check"></i><b>1.1</b> Motivation</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#contents"><i class="fa fa-check"></i><b>1.2</b> Contents</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#why-r"><i class="fa fa-check"></i><b>1.3</b> Why R?</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#downloading-r-and-rstudio"><i class="fa fa-check"></i><b>1.4</b> Downloading R and RStudio</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#further-reading"><i class="fa fa-check"></i><b>1.5</b> Further reading</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="foundations.html"><a href="foundations.html"><i class="fa fa-check"></i><b>2</b> Foundations</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="foundations.html"><a href="foundations.html#objects"><i class="fa fa-check"></i><b>2.1</b> Objects</a></li>
+<li class="chapter" data-level="2.2" data-path="foundations.html"><a href="foundations.html#vectors"><i class="fa fa-check"></i><b>2.2</b> Vectors</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="foundations.html"><a href="foundations.html#atomic-vectors"><i class="fa fa-check"></i><b>2.2.1</b> Atomic vectors</a></li>
+<li class="chapter" data-level="2.2.2" data-path="foundations.html"><a href="foundations.html#lists"><i class="fa fa-check"></i><b>2.2.2</b> Lists</a></li>
+<li class="chapter" data-level="2.2.3" data-path="foundations.html"><a href="foundations.html#working-with-vectors"><i class="fa fa-check"></i><b>2.2.3</b> Working with vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="foundations.html"><a href="foundations.html#functions"><i class="fa fa-check"></i><b>2.3</b> Functions</a></li>
+<li class="chapter" data-level="2.4" data-path="foundations.html"><a href="foundations.html#iteration"><i class="fa fa-check"></i><b>2.4</b> Iteration</a></li>
+<li class="chapter" data-level="2.5" data-path="foundations.html"><a href="foundations.html#style"><i class="fa fa-check"></i><b>2.5</b> Style</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="foundations.html"><a href="foundations.html#file-names"><i class="fa fa-check"></i><b>2.5.1</b> File names</a></li>
+<li class="chapter" data-level="2.5.2" data-path="foundations.html"><a href="foundations.html#object-names"><i class="fa fa-check"></i><b>2.5.2</b> Object names</a></li>
+<li class="chapter" data-level="2.5.3" data-path="foundations.html"><a href="foundations.html#syntax"><i class="fa fa-check"></i><b>2.5.3</b> Syntax</a></li>
+<li class="chapter" data-level="2.5.4" data-path="foundations.html"><a href="foundations.html#commenting"><i class="fa fa-check"></i><b>2.5.4</b> Commenting</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html"><i class="fa fa-check"></i><b>3</b> Reading, analysing, and manipulating data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#reading-in-datasets-as-dataframes"><i class="fa fa-check"></i><b>3.1</b> Reading in datasets as dataframes</a></li>
+<li class="chapter" data-level="3.2" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#slicing-dataframes"><i class="fa fa-check"></i><b>3.2</b> Slicing dataframes</a></li>
+<li class="chapter" data-level="3.3" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#basic-summary-statistics"><i class="fa fa-check"></i><b>3.3</b> Basic summary statistics</a></li>
+<li class="chapter" data-level="3.4" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#summarising-with-the-tidyverse---dplyr-and-ggplot2"><i class="fa fa-check"></i><b>3.4</b> Summarising with the tidyverse - dplyr and ggplot2</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#dplyr"><i class="fa fa-check"></i><b>3.4.1</b> Dplyr</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="modelling-1---estimators-from-packages.html"><a href="modelling-1---estimators-from-packages.html"><i class="fa fa-check"></i><b>4</b> Modelling 1 - estimators from packages</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="modelling-1---estimators-from-packages.html"><a href="modelling-1---estimators-from-packages.html#linear-regression-with-lm"><i class="fa fa-check"></i><b>4.1</b> Linear regression with <code>lm()</code></a></li>
+<li class="chapter" data-level="4.2" data-path="modelling-1---estimators-from-packages.html"><a href="modelling-1---estimators-from-packages.html#computing-covariance-matrices-with-sandwich"><i class="fa fa-check"></i><b>4.2</b> Computing covariance matrices with <code>sandwich</code></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="workflow.html"><a href="workflow.html"><i class="fa fa-check"></i><b>5</b> Workflow</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="workflow.html"><a href="workflow.html#regression-tables-with-stargazer"><i class="fa fa-check"></i><b>5.1</b> Regression tables with Stargazer</a></li>
+<li class="chapter" data-level="5.2" data-path="workflow.html"><a href="workflow.html#general-tables-with-xtable"><i class="fa fa-check"></i><b>5.2</b> General tables with XTable</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="advanced-programming-techniques.html"><a href="advanced-programming-techniques.html"><i class="fa fa-check"></i><b>6</b> Advanced programming techniques</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="advanced-programming-techniques.html"><a href="advanced-programming-techniques.html#advanced-iteration-and-monte-carlo-simulation"><i class="fa fa-check"></i><b>6.1</b> Advanced iteration and Monte-Carlo simulation</a></li>
+<li class="chapter" data-level="6.2" data-path="advanced-programming-techniques.html"><a href="advanced-programming-techniques.html#optimisation"><i class="fa fa-check"></i><b>6.2</b> Optimisation</a></li>
+<li class="chapter" data-level="6.3" data-path="advanced-programming-techniques.html"><a href="advanced-programming-techniques.html#profiling"><i class="fa fa-check"></i><b>6.3</b> Profiling</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to R for Econometrics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modelling-1---estimators-from-packages" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Modelling 1 - estimators from packages</h1>
+<p>Now we know how to deal with data, we can think about fitting some models!
+There are two main ways to do this in R: using routines in packages, or
+programming the mathematical operations yourself using matrices. Both have their
+upsides and downsides. R is very good at the first, and still very decent - though
+not the best language out there - for the second.</p>
+<p>The first is typically a lot easier. The main upside of
+R is its amazing array of different packages containing almost every model you
+would like to use, with lots of options and community support.
+The downside is that you have less control. Someone else has decided what summary
+statistics to report, which optimiser to use, how to deal with NAs and so on. These
+are not always what you would like. We should note, however, that even the package
+functions in R are typically much more flexible than alternatives like Stata. It
+is much easier to work out, and change, what is going on under the hood. This makes
+R a great choice for applied statistics, econometrics, and data science, and is
+part of why R is so popular in these communities.</p>
+<p>The second is typically a bit harder to do. You have to know how to program the
+models, all your desired summary statistics etc yourself. The upside is that
+you can choose exactly what you want to do and how to do it. Also, R is less
+optimised for matrix operations than dedicated high-performance computing languages like
+Julia, or Python 3 with Numba.
+Thus, if you only want to program your own estimators and never use packages, maybe
+consider these instead (see <a href="https://julialang.org/" class="uri">https://julialang.org/</a> or <a href="https://numba.pydata.org/" class="uri">https://numba.pydata.org/</a>)</p>
+<p>We are going to show you how to do the first in this section. We deal with the second in the next section.
+We will introduce
+modelling with inbuilt functions by introducing the <code>lm()</code> function. Through it, we are going to encounter some useful tips and tricks
+for using inbuilt functions.</p>
+<p>The <code>lm</code> function is how
+we perform OLS in R. Most of the models you will encounter in R packages are built
+off of this base function. Through it, we are going to encounter some useful tips and tricks
+for using inbuilt functions. Thus, there are high returns to knowing how it works and reports
+summary statistics. Thus, we will take some time to go through how it works,
+how to access all of its outputs from the summary objects, and some tricks for using it.
+Next, we will cover how to compute different covariance matrices using the <code>sandwich</code>
+package. After this, we will see how to automatically make nice latex regression tables from lm objects
+and <code>sandwich</code> standard errors with <code>stargazer()</code>.</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="modelling-1---estimators-from-packages.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lets read in a new dataframe</span></span>
+<span id="cb136-2"><a href="modelling-1---estimators-from-packages.html#cb136-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-3"><a href="modelling-1---estimators-from-packages.html#cb136-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-4"><a href="modelling-1---estimators-from-packages.html#cb136-4" aria-hidden="true" tabindex="-1"></a><span class="co"># read.csv allows us to read a csv file into R. The `as.data.frame&#39; wrapper</span></span>
+<span id="cb136-5"><a href="modelling-1---estimators-from-packages.html#cb136-5" aria-hidden="true" tabindex="-1"></a><span class="co"># tells R that we want the object to be represented as a dataframe</span></span>
+<span id="cb136-6"><a href="modelling-1---estimators-from-packages.html#cb136-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-7"><a href="modelling-1---estimators-from-packages.html#cb136-7" aria-hidden="true" tabindex="-1"></a><span class="co"># For illustration, we are going to use some of the data from Dell and Querubin (2017)</span></span>
+<span id="cb136-8"><a href="modelling-1---estimators-from-packages.html#cb136-8" aria-hidden="true" tabindex="-1"></a><span class="co"># `Nation building through foreign interventions&#39;. This estimates the causal effect of </span></span>
+<span id="cb136-9"><a href="modelling-1---estimators-from-packages.html#cb136-9" aria-hidden="true" tabindex="-1"></a><span class="co"># military firepower on insurgent support on the intensive margin </span></span>
+<span id="cb136-10"><a href="modelling-1---estimators-from-packages.html#cb136-10" aria-hidden="true" tabindex="-1"></a><span class="co"># discontinuities in US strategies across regions in South Vietnam during their</span></span>
+<span id="cb136-11"><a href="modelling-1---estimators-from-packages.html#cb136-11" aria-hidden="true" tabindex="-1"></a><span class="co"># occupation. We have observations by hamlet </span></span>
+<span id="cb136-12"><a href="modelling-1---estimators-from-packages.html#cb136-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-13"><a href="modelling-1---estimators-from-packages.html#cb136-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-14"><a href="modelling-1---estimators-from-packages.html#cb136-14" aria-hidden="true" tabindex="-1"></a><span class="co"># To download the original data, go to</span></span>
+<span id="cb136-15"><a href="modelling-1---estimators-from-packages.html#cb136-15" aria-hidden="true" tabindex="-1"></a><span class="co"># https://scholar.harvard.edu/files/dell/files/nationbuilding.pdf</span></span>
+<span id="cb136-16"><a href="modelling-1---estimators-from-packages.html#cb136-16" aria-hidden="true" tabindex="-1"></a><span class="co"># The file we will use is there as `firstclose_post.dta&#39;</span></span>
+<span id="cb136-17"><a href="modelling-1---estimators-from-packages.html#cb136-17" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">read.csv</span>(<span class="st">&quot;vietnam_war.csv&quot;</span>, <span class="at">stringsAsFactors =</span> F))</span></code></pre></div>
+<div id="linear-regression-with-lm" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Linear regression with <code>lm()</code></h2>
+<p><code>lm()</code> is the command, included in base R, that allows us to perform linear regression.
+To carry out a regression, we take a dataframe object including all of our dependent
+and independent variables.</p>
+<p>The first argument to <code>lm()</code> is a ‘formula.’ This is
+the formula for our regression model. We specify it with the following syntax:
+‘dependent_variable ~ independent variable 1 + independent variable 2 + … +
+independent variable n.’ The variable names have to be the same as the names of the
+variables in the dataframe. Otherwise, <code>lm()</code> will not recognise the name of the
+variable. We do not have to pass the formula or variable names as
+strings - we just write them out in text, and <code>lm()</code> finds the variable with
+that name in our dataframe. <code>lm()</code> automatically includes an intercept. If we
+want to exclude this, write 0 as the first variable in our formula.</p>
+<p>The second argument to <code>lm()</code> is ‘data.’ We need to pass the name of the dataframe
+containing our data. It is important to know what type of vector each of your
+variables is within the dataframe. If your variable is one of the numeric vector types,
+<code>lm()</code> will treat it as a continuous variable. If it is a factor, it will treat it
+as a categorical variable, with an ordering given by the ordering of the underlying
+factor. Thus, it will include a series of dummy variables or ‘fixed effects’ for each
+level of the factor, omitting the one corresponding to the lowest level to avoid
+pure multicolinearity.</p>
+<p>This is basically it! There are other additional arguments that allow you to
+specify vectors of weights for weighted least squares, different fitting methods,
+and so on.</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="modelling-1---estimators-from-packages.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lets run a few different linear regressions with lm</span></span>
+<span id="cb137-2"><a href="modelling-1---estimators-from-packages.html#cb137-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb137-3"><a href="modelling-1---estimators-from-packages.html#cb137-3" aria-hidden="true" tabindex="-1"></a><span class="co"># regressing mean airstrikes on whether the hamlet was above or below the algorithm</span></span>
+<span id="cb137-4"><a href="modelling-1---estimators-from-packages.html#cb137-4" aria-hidden="true" tabindex="-1"></a><span class="co"># scoring threshold US planners used to assign planned airstrikes</span></span>
+<span id="cb137-5"><a href="modelling-1---estimators-from-packages.html#cb137-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb137-6"><a href="modelling-1---estimators-from-packages.html#cb137-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(fr_strikes_mean <span class="sc">~</span> below, <span class="at">data=</span>df)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = fr_strikes_mean ~ below, data = df)
+## 
+## Coefficients:
+## (Intercept)        below  
+##    0.257591     0.009856</code></pre>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="modelling-1---estimators-from-packages.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lets drop the intercept</span></span>
+<span id="cb139-2"><a href="modelling-1---estimators-from-packages.html#cb139-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-3"><a href="modelling-1---estimators-from-packages.html#cb139-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(fr_strikes_mean <span class="sc">~</span> <span class="dv">0</span> <span class="sc">+</span> below, <span class="at">data=</span>df)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = fr_strikes_mean ~ 0 + below, data = df)
+## 
+## Coefficients:
+##  below  
+## 0.2674</code></pre>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="modelling-1---estimators-from-packages.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="co"># regressing mean airstrikes on distance from the threshold with a second-order</span></span>
+<span id="cb141-2"><a href="modelling-1---estimators-from-packages.html#cb141-2" aria-hidden="true" tabindex="-1"></a><span class="co"># polynomial trend </span></span>
+<span id="cb141-3"><a href="modelling-1---estimators-from-packages.html#cb141-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb141-4"><a href="modelling-1---estimators-from-packages.html#cb141-4" aria-hidden="true" tabindex="-1"></a><span class="co"># we will save this as an object m2 so we can take a look at it later</span></span>
+<span id="cb141-5"><a href="modelling-1---estimators-from-packages.html#cb141-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb141-6"><a href="modelling-1---estimators-from-packages.html#cb141-6" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">&quot;md_ab_square&quot;</span>]] <span class="ot">&lt;-</span> df[[<span class="st">&quot;md_ab&quot;</span>]]<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb141-7"><a href="modelling-1---estimators-from-packages.html#cb141-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb141-8"><a href="modelling-1---estimators-from-packages.html#cb141-8" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(fr_strikes_mean <span class="sc">~</span> md_ab <span class="sc">+</span> md_ab_square, <span class="at">data=</span>df)</span>
+<span id="cb141-9"><a href="modelling-1---estimators-from-packages.html#cb141-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb141-10"><a href="modelling-1---estimators-from-packages.html#cb141-10" aria-hidden="true" tabindex="-1"></a><span class="co"># now lets use factors to add year fixed effects</span></span>
+<span id="cb141-11"><a href="modelling-1---estimators-from-packages.html#cb141-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb141-12"><a href="modelling-1---estimators-from-packages.html#cb141-12" aria-hidden="true" tabindex="-1"></a>m_time <span class="ot">&lt;-</span><span class="fu">lm</span>(fr_strikes_mean <span class="sc">~</span> <span class="fu">as.factor</span>(yr) <span class="sc">+</span>md_ab <span class="sc">+</span> md_ab_square, <span class="at">data=</span>df)</span></code></pre></div>
+<p>As we can see, the output from the <code>lm()</code> command by itself it quite ugly. It is
+better to save it as a variable, and then we can look at it more nicely and do
+things with it. The first thing is to make it look a (little) nicer. We can
+do this using the base R <code>summary</code> function. Running summary(model_name)
+will output us a regression table containing OLS standard errors, p-values, R-squared,
+and the F statistic for joint significance of all coefficients.</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="modelling-1---estimators-from-packages.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = fr_strikes_mean ~ md_ab + md_ab_square, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.3079 -0.2412 -0.1059  0.1609  1.0993 
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    0.305918   0.002982  102.59  &lt; 2e-16 ***
+## md_ab         -0.303735   0.043391   -7.00 2.69e-12 ***
+## md_ab_square -11.375115   0.345114  -32.96  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.2946 on 12204 degrees of freedom
+## Multiple R-squared:  0.08179,    Adjusted R-squared:  0.08164 
+## F-statistic: 543.5 on 2 and 12204 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="modelling-1---estimators-from-packages.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lets save it as an object so we can inspect it later too</span></span>
+<span id="cb144-2"><a href="modelling-1---estimators-from-packages.html#cb144-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb144-3"><a href="modelling-1---estimators-from-packages.html#cb144-3" aria-hidden="true" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">summary</span>(m2)</span></code></pre></div>
+<p>Now, imagine that we do not know what the arguments for <code>summary()</code> are. We want
+a way of looking up what they are, how the function works, and so on. Luckily,
+RStudio has a nice inbuilt help function we can use to do this. We put a <code>?</code> before
+the name of the function and run this. This produces the documentation for the
+function in the viewer on the right hand side of the screen. The documentation
+tells us the arguments of the function, additional details, and some examples of
+how we might use it.</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="modelling-1---estimators-from-packages.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lets have a look at the help function here for lm</span></span>
+<span id="cb145-2"><a href="modelling-1---estimators-from-packages.html#cb145-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb145-3"><a href="modelling-1---estimators-from-packages.html#cb145-3" aria-hidden="true" tabindex="-1"></a>?summary</span></code></pre></div>
+<pre><code>## starting httpd help server ... done</code></pre>
+<p>Imagine here that we had multiple objects called <code>summary</code> from different packages
+that we might use. We can specify which we want to use by preceeding the function
+with the package name and a double colon <code>::</code>. Our version of <code>summary</code> is from base R - the set of functions
+that come with the R distribution itself. To call that <code>summary</code> specifically, we
+can run <code>base::summary</code>.</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="modelling-1---estimators-from-packages.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Some examples of finding the documentation for a specific function</span></span>
+<span id="cb147-2"><a href="modelling-1---estimators-from-packages.html#cb147-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb147-3"><a href="modelling-1---estimators-from-packages.html#cb147-3" aria-hidden="true" tabindex="-1"></a>?base<span class="sc">::</span>summary</span>
+<span id="cb147-4"><a href="modelling-1---estimators-from-packages.html#cb147-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb147-5"><a href="modelling-1---estimators-from-packages.html#cb147-5" aria-hidden="true" tabindex="-1"></a><span class="co"># now imagine we want the documentation for the group_by function from the </span></span>
+<span id="cb147-6"><a href="modelling-1---estimators-from-packages.html#cb147-6" aria-hidden="true" tabindex="-1"></a><span class="co"># package dplyr</span></span>
+<span id="cb147-7"><a href="modelling-1---estimators-from-packages.html#cb147-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb147-8"><a href="modelling-1---estimators-from-packages.html#cb147-8" aria-hidden="true" tabindex="-1"></a>?dplyr<span class="sc">::</span>group_by</span>
+<span id="cb147-9"><a href="modelling-1---estimators-from-packages.html#cb147-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb147-10"><a href="modelling-1---estimators-from-packages.html#cb147-10" aria-hidden="true" tabindex="-1"></a><span class="co"># notice we can get the documentation without actually loading the package!</span></span>
+<span id="cb147-11"><a href="modelling-1---estimators-from-packages.html#cb147-11" aria-hidden="true" tabindex="-1"></a><span class="co"># But if we wanted to actually run the function we would need to load</span></span>
+<span id="cb147-12"><a href="modelling-1---estimators-from-packages.html#cb147-12" aria-hidden="true" tabindex="-1"></a><span class="co"># the package of course</span></span></code></pre></div>
+<p><code>lm()</code> returns a special object of class <code>lm()</code>. This object contains all of the
+relevant model coefficients, residuals, and fitted values. The <code>summary</code> object
+also contains all of the ouputs we see above.</p>
+<p>Both of these objects are structured as lists of lists. The whole object itself
+is a list, and each of the relevant outputs - e.g the coefficients - are a list
+within that list. The objects also store things like the variable names of each
+coefficient. The list structure and attached metadata means that we can slice the object using
+similar slicing techniques to the ones we learned earlier to extract what we
+want. This can be useful if, for example, we want to do some plotting, get
+a single test statistic, or use the coefficient values to predict out of sample.</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="modelling-1---estimators-from-packages.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lets get some results from our regressions</span></span>
+<span id="cb148-2"><a href="modelling-1---estimators-from-packages.html#cb148-2" aria-hidden="true" tabindex="-1"></a><span class="co"># imagine for example that we want to plot the residuals to look for some</span></span>
+<span id="cb148-3"><a href="modelling-1---estimators-from-packages.html#cb148-3" aria-hidden="true" tabindex="-1"></a><span class="co"># heteroskedasticity</span></span>
+<span id="cb148-4"><a href="modelling-1---estimators-from-packages.html#cb148-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-5"><a href="modelling-1---estimators-from-packages.html#cb148-5" aria-hidden="true" tabindex="-1"></a>resids <span class="ot">&lt;-</span> s2[[<span class="st">&quot;residuals&quot;</span>]]</span>
+<span id="cb148-6"><a href="modelling-1---estimators-from-packages.html#cb148-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(df[[<span class="st">&quot;md_ab&quot;</span>]], resids,  <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;Distance from threshold&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Residual&quot;</span>,</span>
+<span id="cb148-7"><a href="modelling-1---estimators-from-packages.html#cb148-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Regression residuals against distance from score threshold&quot;</span>)</span></code></pre></div>
+<p><img src="04--Modelling_with_packages_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="modelling-1---estimators-from-packages.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we want to look at the 35th residual from this model for some reason</span></span>
+<span id="cb149-2"><a href="modelling-1---estimators-from-packages.html#cb149-2" aria-hidden="true" tabindex="-1"></a>s2[[<span class="st">&quot;residuals&quot;</span>]][<span class="dv">35</span>]</span></code></pre></div>
+<pre><code>##         35 
+## 0.04256734</code></pre>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="modelling-1---estimators-from-packages.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="co"># or we just want to look at the coefficient on md_ab</span></span>
+<span id="cb151-2"><a href="modelling-1---estimators-from-packages.html#cb151-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb151-3"><a href="modelling-1---estimators-from-packages.html#cb151-3" aria-hidden="true" tabindex="-1"></a>m2[[<span class="st">&quot;coefficients&quot;</span>]][[<span class="st">&quot;md_ab&quot;</span>]]</span></code></pre></div>
+<pre><code>## [1] -0.303735</code></pre>
+<p>Most other regression routines in R either use a version of this function and output structure,
+or something deliberately very similar (e.g <code>plm()</code> for linear
+panel data models, <code>pgmm()</code> for panel data GMM models, <code>dynlm()</code> for time series).</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="modelling-1---estimators-from-packages.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="co"># An example of other lm-type objects in R - IV models</span></span>
+<span id="cb153-2"><a href="modelling-1---estimators-from-packages.html#cb153-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb153-3"><a href="modelling-1---estimators-from-packages.html#cb153-3" aria-hidden="true" tabindex="-1"></a><span class="co"># IV regression in R</span></span>
+<span id="cb153-4"><a href="modelling-1---estimators-from-packages.html#cb153-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb153-5"><a href="modelling-1---estimators-from-packages.html#cb153-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(AER)</span></code></pre></div>
+<pre><code>## Loading required package: car</code></pre>
+<pre><code>## Loading required package: carData</code></pre>
+<pre><code>## Loading required package: lmtest</code></pre>
+<pre><code>## Loading required package: zoo</code></pre>
+<pre><code>## 
+## Attaching package: &#39;zoo&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     as.Date, as.Date.numeric</code></pre>
+<pre><code>## Loading required package: sandwich</code></pre>
+<pre><code>## Loading required package: survival</code></pre>
+<pre><code>## Warning: package &#39;survival&#39; was built under R version 4.0.5</code></pre>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="modelling-1---estimators-from-packages.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lets do a fuzzy-rdd type IV regression to demonstrate</span></span>
+<span id="cb163-2"><a href="modelling-1---estimators-from-packages.html#cb163-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We look at the causal effect of airstrikes on local insurgent infiltration</span></span>
+<span id="cb163-3"><a href="modelling-1---estimators-from-packages.html#cb163-3" aria-hidden="true" tabindex="-1"></a><span class="co"># using distance from the threshold as an instrument for airstrikes (and including</span></span>
+<span id="cb163-4"><a href="modelling-1---estimators-from-packages.html#cb163-4" aria-hidden="true" tabindex="-1"></a><span class="co"># a quadratic trend)</span></span>
+<span id="cb163-5"><a href="modelling-1---estimators-from-packages.html#cb163-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb163-6"><a href="modelling-1---estimators-from-packages.html#cb163-6" aria-hidden="true" tabindex="-1"></a><span class="co"># syntax is second stage regression|dependent variables in first stage</span></span>
+<span id="cb163-7"><a href="modelling-1---estimators-from-packages.html#cb163-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb163-8"><a href="modelling-1---estimators-from-packages.html#cb163-8" aria-hidden="true" tabindex="-1"></a>m_iv <span class="ot">&lt;-</span> <span class="fu">ivreg</span>(guer_squad <span class="sc">~</span>fr_strikes_mean <span class="sc">+</span> md_ab_square<span class="sc">|</span>md_ab <span class="sc">+</span> md_ab_square, <span class="at">data=</span>df)</span>
+<span id="cb163-9"><a href="modelling-1---estimators-from-packages.html#cb163-9" aria-hidden="true" tabindex="-1"></a>s_iv <span class="ot">&lt;-</span> <span class="fu">summary</span>(m_iv)</span>
+<span id="cb163-10"><a href="modelling-1---estimators-from-packages.html#cb163-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb163-11"><a href="modelling-1---estimators-from-packages.html#cb163-11" aria-hidden="true" tabindex="-1"></a><span class="co"># see how this package uses the base lm object to build up the more complex </span></span>
+<span id="cb163-12"><a href="modelling-1---estimators-from-packages.html#cb163-12" aria-hidden="true" tabindex="-1"></a><span class="co"># econometric model, so that we can slice the resulting object in the same</span></span>
+<span id="cb163-13"><a href="modelling-1---estimators-from-packages.html#cb163-13" aria-hidden="true" tabindex="-1"></a><span class="co"># way as before</span></span></code></pre></div>
+<p>The <code>lm</code> object can also evaluate the model as strings. Thus, a neat trick we
+can use to fit large models or many similar models is to construct the model formula
+as a string using <code>paste()</code>, and then pass that string to the formula argument
+of <code>lm()</code>.</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="modelling-1---estimators-from-packages.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Imagine we want to include the variables in columns 4:50 of our dataframe into </span></span>
+<span id="cb164-2"><a href="modelling-1---estimators-from-packages.html#cb164-2" aria-hidden="true" tabindex="-1"></a><span class="co"># our model as regressors</span></span>
+<span id="cb164-3"><a href="modelling-1---estimators-from-packages.html#cb164-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-4"><a href="modelling-1---estimators-from-packages.html#cb164-4" aria-hidden="true" tabindex="-1"></a><span class="co"># this syntax may look intimidating, so lets look at it piece by piece</span></span>
+<span id="cb164-5"><a href="modelling-1---estimators-from-packages.html#cb164-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-6"><a href="modelling-1---estimators-from-packages.html#cb164-6" aria-hidden="true" tabindex="-1"></a><span class="co"># As we learned when we looked at slicing earlier, df[,c(4:50)] will select</span></span>
+<span id="cb164-7"><a href="modelling-1---estimators-from-packages.html#cb164-7" aria-hidden="true" tabindex="-1"></a><span class="co"># all rows (as the left hand side of the comma is empty) of columns 4:50 (as we</span></span>
+<span id="cb164-8"><a href="modelling-1---estimators-from-packages.html#cb164-8" aria-hidden="true" tabindex="-1"></a><span class="co"># pass the vector of numbers 4:50 on the right hand side of the column) from our</span></span>
+<span id="cb164-9"><a href="modelling-1---estimators-from-packages.html#cb164-9" aria-hidden="true" tabindex="-1"></a><span class="co"># dataframe df.</span></span>
+<span id="cb164-10"><a href="modelling-1---estimators-from-packages.html#cb164-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-11"><a href="modelling-1---estimators-from-packages.html#cb164-11" aria-hidden="true" tabindex="-1"></a><span class="co"># names() returns the column name of a given dataframe object. Thus, names(df[,c(4:50)])</span></span>
+<span id="cb164-12"><a href="modelling-1---estimators-from-packages.html#cb164-12" aria-hidden="true" tabindex="-1"></a><span class="co"># returns a vector of names of all of the columns in our slice as strings</span></span>
+<span id="cb164-13"><a href="modelling-1---estimators-from-packages.html#cb164-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-14"><a href="modelling-1---estimators-from-packages.html#cb164-14" aria-hidden="true" tabindex="-1"></a><span class="co"># paste() takes in vectors of strings, or multiple strings manually, and returns</span></span>
+<span id="cb164-15"><a href="modelling-1---estimators-from-packages.html#cb164-15" aria-hidden="true" tabindex="-1"></a><span class="co"># a single string. If we specify the &#39;collapse&#39; argument, it takes any vector</span></span>
+<span id="cb164-16"><a href="modelling-1---estimators-from-packages.html#cb164-16" aria-hidden="true" tabindex="-1"></a><span class="co"># of strings and returns a single string made up of each of the elements of the </span></span>
+<span id="cb164-17"><a href="modelling-1---estimators-from-packages.html#cb164-17" aria-hidden="true" tabindex="-1"></a><span class="co"># vector pasted together, and separated by the thing we pass to &#39;collapse&#39;. In </span></span>
+<span id="cb164-18"><a href="modelling-1---estimators-from-packages.html#cb164-18" aria-hidden="true" tabindex="-1"></a><span class="co"># this case, it takes all of our names(df[,c(4:50)]) and puts them in a single</span></span>
+<span id="cb164-19"><a href="modelling-1---estimators-from-packages.html#cb164-19" aria-hidden="true" tabindex="-1"></a><span class="co"># string, each separated by a &#39;+&#39; sign</span></span>
+<span id="cb164-20"><a href="modelling-1---estimators-from-packages.html#cb164-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-21"><a href="modelling-1---estimators-from-packages.html#cb164-21" aria-hidden="true" tabindex="-1"></a>dep_vars <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">names</span>(df[,<span class="fu">c</span>(<span class="dv">4</span><span class="sc">:</span><span class="dv">50</span>)]), <span class="at">collapse=</span><span class="st">&quot;+&quot;</span>)</span>
+<span id="cb164-22"><a href="modelling-1---estimators-from-packages.html#cb164-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-23"><a href="modelling-1---estimators-from-packages.html#cb164-23" aria-hidden="true" tabindex="-1"></a><span class="co"># next we need to add our independent variable. We can do this with &#39;paste&#39; again.</span></span>
+<span id="cb164-24"><a href="modelling-1---estimators-from-packages.html#cb164-24" aria-hidden="true" tabindex="-1"></a><span class="co"># If we specify &#39;sep&#39; and pass strings as individual arguments (instead of a vector),</span></span>
+<span id="cb164-25"><a href="modelling-1---estimators-from-packages.html#cb164-25" aria-hidden="true" tabindex="-1"></a><span class="co"># paste takes each string we pass and puts them together in</span></span>
+<span id="cb164-26"><a href="modelling-1---estimators-from-packages.html#cb164-26" aria-hidden="true" tabindex="-1"></a><span class="co"># one string separated by the symbol we pass to &#39;sep&#39;.</span></span>
+<span id="cb164-27"><a href="modelling-1---estimators-from-packages.html#cb164-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-28"><a href="modelling-1---estimators-from-packages.html#cb164-28" aria-hidden="true" tabindex="-1"></a>formula_string <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;fr_strikes_mean&quot;</span>, dep_vars, <span class="at">sep=</span><span class="st">&quot;~&quot;</span>)</span>
+<span id="cb164-29"><a href="modelling-1---estimators-from-packages.html#cb164-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-30"><a href="modelling-1---estimators-from-packages.html#cb164-30" aria-hidden="true" tabindex="-1"></a><span class="co"># now we have our formula, we can run the regression model</span></span>
+<span id="cb164-31"><a href="modelling-1---estimators-from-packages.html#cb164-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-32"><a href="modelling-1---estimators-from-packages.html#cb164-32" aria-hidden="true" tabindex="-1"></a>m_string <span class="ot">&lt;-</span> <span class="fu">lm</span>(formula_string, <span class="at">data=</span>df)</span>
+<span id="cb164-33"><a href="modelling-1---estimators-from-packages.html#cb164-33" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(m_string)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = formula_string, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.92720 -0.11849 -0.02094  0.08878  0.92147 
+## 
+## Coefficients:
+##                       Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)          4.460e-02  2.955e-02   1.509 0.131249    
+## fr_forces_mean       1.651e-01  7.819e-03  21.110  &lt; 2e-16 ***
+## pop_g               -1.426e-01  1.472e-02  -9.687  &lt; 2e-16 ***
+## naval_attack         6.203e-02  8.221e-02   0.755 0.450564    
+## sh_pf_presence      -1.430e-02  6.744e-03  -2.120 0.033994 *  
+## sh_rf_presence      -3.333e-02  1.163e-02  -2.866 0.004162 ** 
+## fr_init             -8.907e-02  5.815e-02  -1.532 0.125634    
+## fw_init             -1.415e+00  4.552e-01  -3.108 0.001890 ** 
+## en_d                 3.473e-05  1.881e-04   0.185 0.853526    
+## fw_d                -3.587e-02  1.168e-02  -3.073 0.002128 ** 
+## fr_d                 7.137e-04  1.154e-03   0.618 0.536382    
+## fr_opday_dummy       1.011e-01  5.724e-02   1.765 0.077516 .  
+## fw_opday_dummy       1.306e+00  4.589e-01   2.846 0.004434 ** 
+## vc_infr_vilg        -7.916e-03  9.467e-03  -0.836 0.403053    
+## part_vc_cont         8.758e-03  3.903e-02   0.224 0.822450    
+## guer_squad           8.530e-02  7.902e-03  10.795  &lt; 2e-16 ***
+## mainforce_squad      1.286e-01  8.226e-03  15.629  &lt; 2e-16 ***
+## en_base              3.031e-03  8.903e-03   0.340 0.733517    
+## entax_vilg           5.570e-02  8.042e-03   6.926 4.59e-12 ***
+## phh_psdf            -1.480e-02  1.160e-02  -1.276 0.201842    
+## psdf_dummy          -4.234e-02  1.197e-02  -3.538 0.000405 ***
+## chief_visit          5.704e-02  1.352e-02   4.219 2.48e-05 ***
+## village_comm        -4.277e-02  9.169e-03  -4.665 3.13e-06 ***
+## gvn_taxes           -4.322e-02  7.493e-03  -5.767 8.30e-09 ***
+## rdc_active          -5.534e-02  6.824e-03  -8.110 5.68e-16 ***
+## civic_org_part      -6.545e-02  1.134e-02  -5.772 8.08e-09 ***
+## vilg_council_meet    3.150e-02  6.653e-03   4.736 2.22e-06 ***
+## youth_act            3.903e-03  8.058e-03   0.484 0.628098    
+## p_own_vehic         -5.310e-02  1.635e-02  -3.248 0.001166 ** 
+## nonrice_food         1.841e-02  9.894e-03   1.861 0.062810 .  
+## manuf_avail         -1.264e-02  9.302e-03  -1.359 0.174230    
+## surplus_goods        3.832e-02  6.667e-03   5.748 9.28e-09 ***
+## econ_train           5.062e-02  1.235e-02   4.100 4.17e-05 ***
+## self_dev_part       -2.065e-02  1.055e-02  -1.957 0.050347 .  
+## selfdev_vilg        -6.659e-02  1.504e-02  -4.428 9.60e-06 ***
+## pworks_under_constr  2.016e-02  7.014e-03   2.875 0.004049 ** 
+## prim_access          3.258e-02  1.087e-02   2.996 0.002741 ** 
+## sec_school_vilg      3.092e-02  6.321e-03   4.891 1.02e-06 ***
+## p_require_assist     4.766e-02  2.051e-02   2.323 0.020192 *  
+## nofarm_sec           4.624e-02  7.037e-03   6.571 5.24e-11 ***
+## urban               -4.235e-02  1.035e-02  -4.091 4.33e-05 ***
+## buddhist             1.146e-02  5.236e-03   2.189 0.028649 *  
+## farming             -1.872e-02  7.110e-03  -2.633 0.008482 ** 
+## all_atk              2.945e-01  1.794e-02  16.418  &lt; 2e-16 ***
+## en_pres              1.711e-01  1.821e-02   9.399  &lt; 2e-16 ***
+## en_prop             -1.060e-01  2.338e-02  -4.533 5.89e-06 ***
+## admin_p1             1.017e-01  2.800e-02   3.634 0.000281 ***
+## health_p1           -4.880e-02  8.736e-03  -5.586 2.39e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.2027 on 9761 degrees of freedom
+##   (2398 observations deleted due to missingness)
+## Multiple R-squared:  0.5178, Adjusted R-squared:  0.5155 
+## F-statistic:   223 on 47 and 9761 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div id="computing-covariance-matrices-with-sandwich" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Computing covariance matrices with <code>sandwich</code></h2>
+<p><code>lm</code> only computes standard errors based on the standard OLS variance-covariance matrix.
+We often want to do something different, for example computing Newey-West standard
+errors. The package sandwich allows us to easily compute these kind of ‘sandwich’
+covariance matrices.</p>
+<p>There are multiple different <code>sandwich</code> commands, corresponding to different types
+of covariance matrix. Generally, we need to pass these object a fitted model object
+like our <code>lm()</code> model. Next, we can then specify whether we need to do a finite
+sample adjustment (if we want to make our output consistent with Stata, which
+often does this automatically), if we want to pass a weights matrix, and so on.
+If we want to specify the outsides and insides of the covariance matrix structure
+manually, we can do so using <code>bread()</code> and <code>meat()</code>.</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="modelling-1---estimators-from-packages.html#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lets compute some different types of covariance</span></span>
+<span id="cb166-2"><a href="modelling-1---estimators-from-packages.html#cb166-2" aria-hidden="true" tabindex="-1"></a><span class="co"># matrices with sandwich</span></span>
+<span id="cb166-3"><a href="modelling-1---estimators-from-packages.html#cb166-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb166-4"><a href="modelling-1---estimators-from-packages.html#cb166-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
+<span id="cb166-5"><a href="modelling-1---estimators-from-packages.html#cb166-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb166-6"><a href="modelling-1---estimators-from-packages.html#cb166-6" aria-hidden="true" tabindex="-1"></a><span class="co"># heteroskedasticity and autocorrelation robust covariance matrix</span></span>
+<span id="cb166-7"><a href="modelling-1---estimators-from-packages.html#cb166-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb166-8"><a href="modelling-1---estimators-from-packages.html#cb166-8" aria-hidden="true" tabindex="-1"></a>m2_HAC_cov_mat <span class="ot">&lt;-</span> <span class="fu">vcovHAC</span>(m2)</span>
+<span id="cb166-9"><a href="modelling-1---estimators-from-packages.html#cb166-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb166-10"><a href="modelling-1---estimators-from-packages.html#cb166-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Panel-corrected covariance matrix</span></span>
+<span id="cb166-11"><a href="modelling-1---estimators-from-packages.html#cb166-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb166-12"><a href="modelling-1---estimators-from-packages.html#cb166-12" aria-hidden="true" tabindex="-1"></a>m2_pan_cov_mat <span class="ot">&lt;-</span> <span class="fu">vcovPC</span>(m2, <span class="at">cluster=</span>df[[<span class="st">&quot;usid&quot;</span>]])</span>
+<span id="cb166-13"><a href="modelling-1---estimators-from-packages.html#cb166-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb166-14"><a href="modelling-1---estimators-from-packages.html#cb166-14" aria-hidden="true" tabindex="-1"></a><span class="co"># now if we want to get the standard errors back, we need to take the square root</span></span>
+<span id="cb166-15"><a href="modelling-1---estimators-from-packages.html#cb166-15" aria-hidden="true" tabindex="-1"></a><span class="co"># of the diagonal of the matrix</span></span>
+<span id="cb166-16"><a href="modelling-1---estimators-from-packages.html#cb166-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb166-17"><a href="modelling-1---estimators-from-packages.html#cb166-17" aria-hidden="true" tabindex="-1"></a>m2_HAC_ses <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(m2_HAC_cov_mat))</span></code></pre></div>
+<p>Once we have these, we might want to look quickly at which variables are significant.
+We can do this by using the <code>coeftest()</code> function from the package <code>lmtest</code>. The
+package <code>lmtest</code> contains functions for lots of specification tests for different
+linear models (to name three examples: likelihood ratio tests, reset tests, and tests for Granger causality).
+<code>coeftest()</code> is a counterpart
+to the <code>lm()</code> object. We pass it a <code>lm()</code> object and a method for computing a
+sandwich covariance matrix. The function then prints out the object summary with the appropriate significance
+levels and p-values from our covariance matrix.</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="modelling-1---estimators-from-packages.html#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb167-2"><a href="modelling-1---estimators-from-packages.html#cb167-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb167-3"><a href="modelling-1---estimators-from-packages.html#cb167-3" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(m2, <span class="at">vcov=</span>vcovHAC)</span></code></pre></div>
+<pre><code>## 
+## t test of coefficients:
+## 
+##                 Estimate  Std. Error  t value  Pr(&gt;|t|)    
+## (Intercept)    0.3059175   0.0098534  31.0469 &lt; 2.2e-16 ***
+## md_ab         -0.3037350   0.0645894  -4.7026 2.597e-06 ***
+## md_ab_square -11.3751147   0.6366604 -17.8668 &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="reading-analysing-and-manipulating-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="workflow.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Introduction to R for Econometrics.pdf", "Introduction to R for Econometrics.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

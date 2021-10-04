@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Reading, analysing, and manipulating data | Introduction to R for Econometrics</title>
+  <meta name="description" content="Chapter 3 Reading, analysing, and manipulating data | Introduction to R for Econometrics" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Reading, analysing, and manipulating data | Introduction to R for Econometrics" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Reading, analysing, and manipulating data | Introduction to R for Econometrics" />
+  
+  
+  
+
+<meta name="author" content="Kieran Marray" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="foundations.html"/>
+<link rel="next" href="estimating-models.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/d3-3.5.6/d3.min.js"></script>
+<link href="libs/profvis-0.3.6.9000/profvis.css" rel="stylesheet" />
+<script src="libs/profvis-0.3.6.9000/profvis.js"></script>
+<script src="libs/profvis-0.3.6.9000/scroll.js"></script>
+<link href="libs/highlight-6.2.0/textmate.css" rel="stylesheet" />
+<script src="libs/highlight-6.2.0/highlight.js"></script>
+<script src="libs/profvis-binding-0.3.7/profvis.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Introduction to R for Econometrics</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#motivation"><i class="fa fa-check"></i><b>1.1</b> Motivation</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#contents"><i class="fa fa-check"></i><b>1.2</b> Contents</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#why-r"><i class="fa fa-check"></i><b>1.3</b> Why R?</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#downloading-r-and-rstudio"><i class="fa fa-check"></i><b>1.4</b> Downloading R and RStudio</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#further-reading"><i class="fa fa-check"></i><b>1.5</b> Further reading</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="foundations.html"><a href="foundations.html"><i class="fa fa-check"></i><b>2</b> Foundations</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="foundations.html"><a href="foundations.html#objects"><i class="fa fa-check"></i><b>2.1</b> Objects</a></li>
+<li class="chapter" data-level="2.2" data-path="foundations.html"><a href="foundations.html#vectors"><i class="fa fa-check"></i><b>2.2</b> Vectors</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="foundations.html"><a href="foundations.html#atomic-vectors"><i class="fa fa-check"></i><b>2.2.1</b> Atomic vectors</a></li>
+<li class="chapter" data-level="2.2.2" data-path="foundations.html"><a href="foundations.html#lists"><i class="fa fa-check"></i><b>2.2.2</b> Lists</a></li>
+<li class="chapter" data-level="2.2.3" data-path="foundations.html"><a href="foundations.html#working-with-vectors"><i class="fa fa-check"></i><b>2.2.3</b> Working with vectors</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="foundations.html"><a href="foundations.html#functions"><i class="fa fa-check"></i><b>2.3</b> Functions</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="foundations.html"><a href="foundations.html#functions-from-packages"><i class="fa fa-check"></i><b>2.3.1</b> Functions from packages</a></li>
+<li class="chapter" data-level="2.3.2" data-path="foundations.html"><a href="foundations.html#defining-your-own-function"><i class="fa fa-check"></i><b>2.3.2</b> Defining your own function</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="foundations.html"><a href="foundations.html#iteration"><i class="fa fa-check"></i><b>2.4</b> Iteration</a></li>
+<li class="chapter" data-level="2.5" data-path="foundations.html"><a href="foundations.html#style"><i class="fa fa-check"></i><b>2.5</b> Style</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="foundations.html"><a href="foundations.html#file-names"><i class="fa fa-check"></i><b>2.5.1</b> File names</a></li>
+<li class="chapter" data-level="2.5.2" data-path="foundations.html"><a href="foundations.html#object-names"><i class="fa fa-check"></i><b>2.5.2</b> Object names</a></li>
+<li class="chapter" data-level="2.5.3" data-path="foundations.html"><a href="foundations.html#syntax"><i class="fa fa-check"></i><b>2.5.3</b> Syntax</a></li>
+<li class="chapter" data-level="2.5.4" data-path="foundations.html"><a href="foundations.html#commenting"><i class="fa fa-check"></i><b>2.5.4</b> Commenting</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html"><i class="fa fa-check"></i><b>3</b> Reading, analysing, and manipulating data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#reading-in-datasets-as-dataframes"><i class="fa fa-check"></i><b>3.1</b> Reading in datasets as dataframes</a></li>
+<li class="chapter" data-level="3.2" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#slicing-dataframes"><i class="fa fa-check"></i><b>3.2</b> Slicing dataframes</a></li>
+<li class="chapter" data-level="3.3" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#basic-summary-statistics"><i class="fa fa-check"></i><b>3.3</b> Basic summary statistics</a></li>
+<li class="chapter" data-level="3.4" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#summarising-with-the-tidyverse---dplyr-and-ggplot2"><i class="fa fa-check"></i><b>3.4</b> Summarising with the tidyverse - dplyr and ggplot2</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="reading-analysing-and-manipulating-data.html"><a href="reading-analysing-and-manipulating-data.html#dplyr"><i class="fa fa-check"></i><b>3.4.1</b> Dplyr</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="estimating-models.html"><a href="estimating-models.html"><i class="fa fa-check"></i><b>4</b> Estimating models</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="estimating-models.html"><a href="estimating-models.html#modelling-with-functions"><i class="fa fa-check"></i><b>4.1</b> Modelling with functions</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="estimating-models.html"><a href="estimating-models.html#linear-regression-with-lm"><i class="fa fa-check"></i><b>4.1.1</b> Linear regression with <code>lm()</code></a></li>
+<li class="chapter" data-level="4.1.2" data-path="estimating-models.html"><a href="estimating-models.html#computing-covariance-matrices-with-sandwich"><i class="fa fa-check"></i><b>4.1.2</b> Computing covariance matrices with <code>sandwich</code></a></li>
+<li class="chapter" data-level="4.1.3" data-path="estimating-models.html"><a href="estimating-models.html#useful-packages-for-econometrics"><i class="fa fa-check"></i><b>4.1.3</b> Useful packages for econometrics</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="estimating-models.html"><a href="estimating-models.html#matrix-algebra"><i class="fa fa-check"></i><b>4.2</b> Matrix algebra</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="workflow.html"><a href="workflow.html"><i class="fa fa-check"></i><b>5</b> Workflow</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="workflow.html"><a href="workflow.html#regression-tables-with-stargazer"><i class="fa fa-check"></i><b>5.1</b> Regression tables with Stargazer</a></li>
+<li class="chapter" data-level="5.2" data-path="workflow.html"><a href="workflow.html#general-tables-with-xtable"><i class="fa fa-check"></i><b>5.2</b> General tables with XTable</a></li>
+<li class="chapter" data-level="5.3" data-path="workflow.html"><a href="workflow.html#writing-documents-with-rmarkdown"><i class="fa fa-check"></i><b>5.3</b> Writing documents with RMarkdown</a></li>
+<li class="chapter" data-level="5.4" data-path="workflow.html"><a href="workflow.html#sharing-code-using-rstudio-projects"><i class="fa fa-check"></i><b>5.4</b> Sharing code using RStudio projects</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="advanced-programming-techniques.html"><a href="advanced-programming-techniques.html"><i class="fa fa-check"></i><b>6</b> Advanced programming techniques</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="advanced-programming-techniques.html"><a href="advanced-programming-techniques.html#advanced-iteration-and-monte-carlo-simulation"><i class="fa fa-check"></i><b>6.1</b> Advanced iteration and Monte-Carlo simulation</a></li>
+<li class="chapter" data-level="6.2" data-path="advanced-programming-techniques.html"><a href="advanced-programming-techniques.html#optimisation"><i class="fa fa-check"></i><b>6.2</b> Optimisation</a></li>
+<li class="chapter" data-level="6.3" data-path="advanced-programming-techniques.html"><a href="advanced-programming-techniques.html#profiling"><i class="fa fa-check"></i><b>6.3</b> Profiling</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to R for Econometrics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="reading-analysing-and-manipulating-data" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Reading, analysing, and manipulating data</h1>
+<p>Here, we cover how to read in data, different ways of storing data, how to
+plot it, and how to manipulate it. First, we start with the basics - setting up a
+data frame (like an excel sheet or pandas dataframe) and a matrix. Second, we
+show how to select and use subsets of your the data based on conditions. Third,
+we present some basic ways to summarise your data - summary tables and plots.
+We finish by taking a quick look at some more advanced objects called data tables,
+and taking a quick look at the packages in the ‘tidyverse,’ which are designed
+to allow you to quickly ad easily split, apply, and recombine data.</p>
+<p>For illustration, we use a real life dataset from Dell and Querubin (2018)
+‘Nation Building Through Foreign Intervention: Evidence from Discontinuities in
+Military Strategies.’ This paper measures the effect of increased US firepower
+on support for insurgents in South Vietnam during the Vietnam war. In this section,
+we simply manipulate the data. In the section on modelling, we look at some relationships
+in this data.</p>
+<div id="reading-in-datasets-as-dataframes" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Reading in datasets as dataframes</h2>
+<p>The basic way to work with a dataset in R is to use an object called a
+dataframe. At its core, a dataframe is like a table where each column is a
+vector. It is the R equivalent to the pandas objects in Python. Intuitively, it
+looks a bit like a spreadsheet with column headers.</p>
+<p>To read in a file as a given data type, first you need to read the file. Typically, data will
+come in csv files. The command to read them is <code>read.csv</code>. There are equivalents
+for xls and dta files.</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="reading-analysing-and-manipulating-data.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lets read in a new dataframe</span></span>
+<span id="cb85-2"><a href="reading-analysing-and-manipulating-data.html#cb85-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-3"><a href="reading-analysing-and-manipulating-data.html#cb85-3" aria-hidden="true" tabindex="-1"></a><span class="co"># To download the original data, go to</span></span>
+<span id="cb85-4"><a href="reading-analysing-and-manipulating-data.html#cb85-4" aria-hidden="true" tabindex="-1"></a><span class="co"># https://scholar.harvard.edu/files/dell/files/nationbuilding.pdf</span></span>
+<span id="cb85-5"><a href="reading-analysing-and-manipulating-data.html#cb85-5" aria-hidden="true" tabindex="-1"></a><span class="co"># The file we will use is there as `firstclose_post.dta&#39;</span></span>
+<span id="cb85-6"><a href="reading-analysing-and-manipulating-data.html#cb85-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-7"><a href="reading-analysing-and-manipulating-data.html#cb85-7" aria-hidden="true" tabindex="-1"></a><span class="co"># read.csv allows us to read a csv file into R. The `as.data.frame&#39; wrapper</span></span>
+<span id="cb85-8"><a href="reading-analysing-and-manipulating-data.html#cb85-8" aria-hidden="true" tabindex="-1"></a><span class="co"># tells R that we want the object to be represented as a dataframe</span></span>
+<span id="cb85-9"><a href="reading-analysing-and-manipulating-data.html#cb85-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-10"><a href="reading-analysing-and-manipulating-data.html#cb85-10" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">read.csv</span>(<span class="st">&quot;vietnam_war.csv&quot;</span>, <span class="at">stringsAsFactors =</span> F))</span></code></pre></div>
+<p>One thing that can be unintuitive is how this treats strings. By default, R assumes
+that any strings in your dataset are factors,
+so will turn them into a factor variable. This can cause a lot of weird problems
+when trying to slice. So I recommend starting by setting <code>StringsAsFactors==F</code>, and
+then manually changing strings back into factors if you need them. If you ever wonder
+why the default is <code>T</code>, see
+<a href="https://simplystatistics.org/2015/07/24/stringsasfactors-an-unauthorized-biography/" class="uri">https://simplystatistics.org/2015/07/24/stringsasfactors-an-unauthorized-biography/</a>.</p>
+<p>Once you have read the data, use <code>as</code> followed by the name of your data type to put
+it in the data type you want. <code>as.data.frame</code> has a series of different arguments allowing you to set
+the column names, the row names, and so on.</p>
+<p>A lot of older economists still use Stata. In Stata, you have to store
+the data files in a format called a .dta file. To read these into R, use the
+<code>read_dta</code> command in the `haven’ package.</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="reading-analysing-and-manipulating-data.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we explain how to read in packages in the next section - if you need to</span></span>
+<span id="cb86-2"><a href="reading-analysing-and-manipulating-data.html#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="co"># read a .dta file you should go and look at that section first</span></span>
+<span id="cb86-3"><a href="reading-analysing-and-manipulating-data.html#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="co"># library(haven)</span></span>
+<span id="cb86-4"><a href="reading-analysing-and-manipulating-data.html#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="co"># df &lt;- as.data.frame(read_dta(&quot;firstclose_post.dta&quot;))</span></span></code></pre></div>
+<p>Stata can be as simple as R for small
+operations, but can get very messy very quickly if you have to do anything more
+complex. To see this in practice, go and have a look at how many files Dell and
+Querubin have to use to compute the estimates in their paper.</p>
+<p>We can have a quick look at the top rows in our dataframe using <code>head</code>.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="reading-analysing-and-manipulating-data.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="co"># looking at the top of the dataframe</span></span>
+<span id="cb87-2"><a href="reading-analysing-and-manipulating-data.html#cb87-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-3"><a href="reading-analysing-and-manipulating-data.html#cb87-3" aria-hidden="true" tabindex="-1"></a><span class="co"># only selecting the first ten columns for ease of reading</span></span>
+<span id="cb87-4"><a href="reading-analysing-and-manipulating-data.html#cb87-4" aria-hidden="true" tabindex="-1"></a><span class="co"># code to look at all of them would be head(df)</span></span>
+<span id="cb87-5"><a href="reading-analysing-and-manipulating-data.html#cb87-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-6"><a href="reading-analysing-and-manipulating-data.html#cb87-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df[,<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)])</span></code></pre></div>
+<pre><code>##   X      usid fr_strikes_mean fr_forces_mean      pop_g naval_attack
+## 1 0 101010101       0.6000000      0.6666667 -0.7473872            0
+## 2 1 101010102       0.3703704      0.5555556 -0.4082199            0
+## 3 2 101010103       0.3703704      0.5555556 -0.3186806            0
+## 4 3 101010104       0.3750000      0.5000000 -0.5415232            0
+## 5 4 101010105       0.3703704      0.5555556 -0.4552453            0
+## 6 5 101010201       0.7222222      1.0000000 -1.7762434           NA
+##   sh_pf_presence sh_rf_presence    fr_init fw_init
+## 1     0.00000000     0.00000000 0.00000000       0
+## 2     0.96296300     0.00000000 0.03703704       0
+## 3     0.03703704     0.07407408 0.03703704       0
+## 4     0.12500000     0.00000000 0.00000000       0
+## 5     0.66666670     0.00000000 0.03703704       0
+## 6     0.50000000     0.00000000 0.00000000       0</code></pre>
+<p>Find the column names using <code>colnames</code>.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="reading-analysing-and-manipulating-data.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="co"># what are the columns called?</span></span>
+<span id="cb89-2"><a href="reading-analysing-and-manipulating-data.html#cb89-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Again only printing first ten for ease - code for all would be</span></span>
+<span id="cb89-3"><a href="reading-analysing-and-manipulating-data.html#cb89-3" aria-hidden="true" tabindex="-1"></a><span class="co"># colnames(df)</span></span>
+<span id="cb89-4"><a href="reading-analysing-and-manipulating-data.html#cb89-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-5"><a href="reading-analysing-and-manipulating-data.html#cb89-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div>
+<pre><code>##  [1] &quot;X&quot;               &quot;usid&quot;            &quot;fr_strikes_mean&quot; &quot;fr_forces_mean&quot; 
+##  [5] &quot;pop_g&quot;           &quot;naval_attack&quot;    &quot;sh_pf_presence&quot;  &quot;sh_rf_presence&quot; 
+##  [9] &quot;fr_init&quot;         &quot;fw_init&quot;</code></pre>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="reading-analysing-and-manipulating-data.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lets read in a new dataframe</span></span>
+<span id="cb91-2"><a href="reading-analysing-and-manipulating-data.html#cb91-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-3"><a href="reading-analysing-and-manipulating-data.html#cb91-3" aria-hidden="true" tabindex="-1"></a><span class="co"># read.csv allows us to read a csv file into R. The `as.data.frame&#39; wrapper</span></span>
+<span id="cb91-4"><a href="reading-analysing-and-manipulating-data.html#cb91-4" aria-hidden="true" tabindex="-1"></a><span class="co"># tells R that we want the object to be represented as a dataframe</span></span>
+<span id="cb91-5"><a href="reading-analysing-and-manipulating-data.html#cb91-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-6"><a href="reading-analysing-and-manipulating-data.html#cb91-6" aria-hidden="true" tabindex="-1"></a><span class="co"># For illustration, we are going to use some of the data from Dell and Querubin (2017)</span></span>
+<span id="cb91-7"><a href="reading-analysing-and-manipulating-data.html#cb91-7" aria-hidden="true" tabindex="-1"></a><span class="co"># `Nation building through foreign interventions&#39;. This estimates the causal effect of </span></span>
+<span id="cb91-8"><a href="reading-analysing-and-manipulating-data.html#cb91-8" aria-hidden="true" tabindex="-1"></a><span class="co"># military firepower on insurgent support on the intensive margin </span></span>
+<span id="cb91-9"><a href="reading-analysing-and-manipulating-data.html#cb91-9" aria-hidden="true" tabindex="-1"></a><span class="co"># discontinuities in US strategies across regions in South Vietnam during their</span></span>
+<span id="cb91-10"><a href="reading-analysing-and-manipulating-data.html#cb91-10" aria-hidden="true" tabindex="-1"></a><span class="co"># occupation. We have observations by hamlet </span></span>
+<span id="cb91-11"><a href="reading-analysing-and-manipulating-data.html#cb91-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-12"><a href="reading-analysing-and-manipulating-data.html#cb91-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-13"><a href="reading-analysing-and-manipulating-data.html#cb91-13" aria-hidden="true" tabindex="-1"></a><span class="co"># To download the original data, go to</span></span>
+<span id="cb91-14"><a href="reading-analysing-and-manipulating-data.html#cb91-14" aria-hidden="true" tabindex="-1"></a><span class="co"># https://scholar.harvard.edu/files/dell/files/nationbuilding.pdf</span></span>
+<span id="cb91-15"><a href="reading-analysing-and-manipulating-data.html#cb91-15" aria-hidden="true" tabindex="-1"></a><span class="co"># The file we will use is there as `firstclose_post.dta&#39;</span></span>
+<span id="cb91-16"><a href="reading-analysing-and-manipulating-data.html#cb91-16" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">read.csv</span>(<span class="st">&quot;vietnam_war.csv&quot;</span>, <span class="at">stringsAsFactors =</span> F))</span>
+<span id="cb91-17"><a href="reading-analysing-and-manipulating-data.html#cb91-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-18"><a href="reading-analysing-and-manipulating-data.html#cb91-18" aria-hidden="true" tabindex="-1"></a><span class="co"># a lot of older economists still use Stata. In Stata, you have to store</span></span>
+<span id="cb91-19"><a href="reading-analysing-and-manipulating-data.html#cb91-19" aria-hidden="true" tabindex="-1"></a><span class="co"># the data files in a format called .dta file. To read these into R, use the</span></span>
+<span id="cb91-20"><a href="reading-analysing-and-manipulating-data.html#cb91-20" aria-hidden="true" tabindex="-1"></a><span class="co"># read_dta command in the `haven&#39; package</span></span>
+<span id="cb91-21"><a href="reading-analysing-and-manipulating-data.html#cb91-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-22"><a href="reading-analysing-and-manipulating-data.html#cb91-22" aria-hidden="true" tabindex="-1"></a><span class="co"># library(haven)</span></span>
+<span id="cb91-23"><a href="reading-analysing-and-manipulating-data.html#cb91-23" aria-hidden="true" tabindex="-1"></a><span class="co"># df &lt;- as.data.frame9(read_dta(&quot;firstclose_post.dta&quot;))</span></span>
+<span id="cb91-24"><a href="reading-analysing-and-manipulating-data.html#cb91-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-25"><a href="reading-analysing-and-manipulating-data.html#cb91-25" aria-hidden="true" tabindex="-1"></a><span class="co"># looking at the top of the dataframe</span></span>
+<span id="cb91-26"><a href="reading-analysing-and-manipulating-data.html#cb91-26" aria-hidden="true" tabindex="-1"></a><span class="co"># only selecting the first ten columns for ease of reading</span></span>
+<span id="cb91-27"><a href="reading-analysing-and-manipulating-data.html#cb91-27" aria-hidden="true" tabindex="-1"></a><span class="co"># code to look at all of them would be head(df)</span></span>
+<span id="cb91-28"><a href="reading-analysing-and-manipulating-data.html#cb91-28" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df[,<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)])</span></code></pre></div>
+<pre><code>##   X      usid fr_strikes_mean fr_forces_mean      pop_g naval_attack
+## 1 0 101010101       0.6000000      0.6666667 -0.7473872            0
+## 2 1 101010102       0.3703704      0.5555556 -0.4082199            0
+## 3 2 101010103       0.3703704      0.5555556 -0.3186806            0
+## 4 3 101010104       0.3750000      0.5000000 -0.5415232            0
+## 5 4 101010105       0.3703704      0.5555556 -0.4552453            0
+## 6 5 101010201       0.7222222      1.0000000 -1.7762434           NA
+##   sh_pf_presence sh_rf_presence    fr_init fw_init
+## 1     0.00000000     0.00000000 0.00000000       0
+## 2     0.96296300     0.00000000 0.03703704       0
+## 3     0.03703704     0.07407408 0.03703704       0
+## 4     0.12500000     0.00000000 0.00000000       0
+## 5     0.66666670     0.00000000 0.03703704       0
+## 6     0.50000000     0.00000000 0.00000000       0</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="reading-analysing-and-manipulating-data.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="co"># what are the columns called?</span></span>
+<span id="cb93-2"><a href="reading-analysing-and-manipulating-data.html#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Again only printing first ten for ease - code for all would be</span></span>
+<span id="cb93-3"><a href="reading-analysing-and-manipulating-data.html#cb93-3" aria-hidden="true" tabindex="-1"></a><span class="co"># colnames(df)</span></span>
+<span id="cb93-4"><a href="reading-analysing-and-manipulating-data.html#cb93-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div>
+<pre><code>##  [1] &quot;X&quot;               &quot;usid&quot;            &quot;fr_strikes_mean&quot; &quot;fr_forces_mean&quot; 
+##  [5] &quot;pop_g&quot;           &quot;naval_attack&quot;    &quot;sh_pf_presence&quot;  &quot;sh_rf_presence&quot; 
+##  [9] &quot;fr_init&quot;         &quot;fw_init&quot;</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="reading-analysing-and-manipulating-data.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we will mainly use the variable fr_strikes_mean -  the average number of</span></span>
+<span id="cb95-2"><a href="reading-analysing-and-manipulating-data.html#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="co"># months in the given quarter with at least one airstrike</span></span>
+<span id="cb95-3"><a href="reading-analysing-and-manipulating-data.html#cb95-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-4"><a href="reading-analysing-and-manipulating-data.html#cb95-4" aria-hidden="true" tabindex="-1"></a><span class="co"># lets add a column to a dataframe - the square of foreign airstrikes</span></span>
+<span id="cb95-5"><a href="reading-analysing-and-manipulating-data.html#cb95-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-6"><a href="reading-analysing-and-manipulating-data.html#cb95-6" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">&quot;fr_strikes_mean_squared&quot;</span>]] <span class="ot">&lt;-</span> df[[<span class="st">&quot;fr_strikes_mean&quot;</span>]]<span class="sc">**</span><span class="dv">2</span></span>
+<span id="cb95-7"><a href="reading-analysing-and-manipulating-data.html#cb95-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-8"><a href="reading-analysing-and-manipulating-data.html#cb95-8" aria-hidden="true" tabindex="-1"></a><span class="co"># say the new variable is a vector vec - then we have to create it as a vector</span></span>
+<span id="cb95-9"><a href="reading-analysing-and-manipulating-data.html#cb95-9" aria-hidden="true" tabindex="-1"></a><span class="co"># first and then add it as so</span></span>
+<span id="cb95-10"><a href="reading-analysing-and-manipulating-data.html#cb95-10" aria-hidden="true" tabindex="-1"></a><span class="co">#vec &lt;- c(1:length(df[,1]))</span></span>
+<span id="cb95-11"><a href="reading-analysing-and-manipulating-data.html#cb95-11" aria-hidden="true" tabindex="-1"></a><span class="co">#df[[&quot;new_variable&quot;]] &lt;- vec</span></span>
+<span id="cb95-12"><a href="reading-analysing-and-manipulating-data.html#cb95-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-13"><a href="reading-analysing-and-manipulating-data.html#cb95-13" aria-hidden="true" tabindex="-1"></a><span class="co"># lets check it actually is there</span></span>
+<span id="cb95-14"><a href="reading-analysing-and-manipulating-data.html#cb95-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-15"><a href="reading-analysing-and-manipulating-data.html#cb95-15" aria-hidden="true" tabindex="-1"></a>vec <span class="ot">&lt;-</span> df[[<span class="st">&quot;fr_strikes_mean&quot;</span>]]<span class="sc">**</span><span class="dv">2</span> </span>
+<span id="cb95-16"><a href="reading-analysing-and-manipulating-data.html#cb95-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-17"><a href="reading-analysing-and-manipulating-data.html#cb95-17" aria-hidden="true" tabindex="-1"></a><span class="co"># and see if we produced any</span></span>
+<span id="cb95-18"><a href="reading-analysing-and-manipulating-data.html#cb95-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-19"><a href="reading-analysing-and-manipulating-data.html#cb95-19" aria-hidden="true" tabindex="-1"></a><span class="co"># we can bind on new columns or rows to the outside using cbind and rbind</span></span>
+<span id="cb95-20"><a href="reading-analysing-and-manipulating-data.html#cb95-20" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">cbind</span>(df, vec)</span>
+<span id="cb95-21"><a href="reading-analysing-and-manipulating-data.html#cb95-21" aria-hidden="true" tabindex="-1"></a><span class="co">#df &lt;- rbind(df, vec)</span></span>
+<span id="cb95-22"><a href="reading-analysing-and-manipulating-data.html#cb95-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-23"><a href="reading-analysing-and-manipulating-data.html#cb95-23" aria-hidden="true" tabindex="-1"></a><span class="co"># we can rename a column by position using `names(name of dataframe)[number of column]&#39;</span></span>
+<span id="cb95-24"><a href="reading-analysing-and-manipulating-data.html#cb95-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-25"><a href="reading-analysing-and-manipulating-data.html#cb95-25" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="st">&quot;X&quot;</span></span>
+<span id="cb95-26"><a href="reading-analysing-and-manipulating-data.html#cb95-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-27"><a href="reading-analysing-and-manipulating-data.html#cb95-27" aria-hidden="true" tabindex="-1"></a><span class="co"># lets create a dataframe from two variables using cbind</span></span>
+<span id="cb95-28"><a href="reading-analysing-and-manipulating-data.html#cb95-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-29"><a href="reading-analysing-and-manipulating-data.html#cb95-29" aria-hidden="true" tabindex="-1"></a><span class="co"># creating two vectors of the same length</span></span>
+<span id="cb95-30"><a href="reading-analysing-and-manipulating-data.html#cb95-30" aria-hidden="true" tabindex="-1"></a>vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span>
+<span id="cb95-31"><a href="reading-analysing-and-manipulating-data.html#cb95-31" aria-hidden="true" tabindex="-1"></a>vec2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">11</span><span class="sc">:</span><span class="dv">20</span>)</span>
+<span id="cb95-32"><a href="reading-analysing-and-manipulating-data.html#cb95-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-33"><a href="reading-analysing-and-manipulating-data.html#cb95-33" aria-hidden="true" tabindex="-1"></a><span class="co"># now, if they are the same length, we can cbind them together, </span></span>
+<span id="cb95-34"><a href="reading-analysing-and-manipulating-data.html#cb95-34" aria-hidden="true" tabindex="-1"></a><span class="co"># then use as.data.frame to turn them into a dataframe. We can pass arguments</span></span>
+<span id="cb95-35"><a href="reading-analysing-and-manipulating-data.html#cb95-35" aria-hidden="true" tabindex="-1"></a><span class="co"># such as column names etc directly to this - see the documentation for </span></span>
+<span id="cb95-36"><a href="reading-analysing-and-manipulating-data.html#cb95-36" aria-hidden="true" tabindex="-1"></a><span class="co"># data frames for more information</span></span>
+<span id="cb95-37"><a href="reading-analysing-and-manipulating-data.html#cb95-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-38"><a href="reading-analysing-and-manipulating-data.html#cb95-38" aria-hidden="true" tabindex="-1"></a>df_2 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(vec, vec2), <span class="at">columns=</span><span class="fu">c</span>(<span class="st">&quot;var1&quot;</span>, <span class="st">&quot;var2&quot;</span>))</span></code></pre></div>
+</div>
+<div id="slicing-dataframes" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Slicing dataframes</h2>
+<p>The most useful thing to know about dataframes is how to slice them. This is how
+we extract the data we want to use in regression models etc. Dataframes
+behave as we might expect, knowing that they are made up of linked vectors.
+The syntax for slicing is df[row, column]. We can slice by position, as for
+vectors above, or by passing vectors of column names (e.g column names). If we
+want to select all rows/columns, we leave the appropriate entry blank. To extract
+a single column as a vector, we use double square brackets containing the column
+name as a string.</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="reading-analysing-and-manipulating-data.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="co"># slicing</span></span>
+<span id="cb96-2"><a href="reading-analysing-and-manipulating-data.html#cb96-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-3"><a href="reading-analysing-and-manipulating-data.html#cb96-3" aria-hidden="true" tabindex="-1"></a>sl_1 <span class="ot">&lt;-</span> df[,<span class="dv">1</span>]</span>
+<span id="cb96-4"><a href="reading-analysing-and-manipulating-data.html#cb96-4" aria-hidden="true" tabindex="-1"></a>sl_2 <span class="ot">&lt;-</span> df[<span class="fu">c</span>(<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>), <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)]</span>
+<span id="cb96-5"><a href="reading-analysing-and-manipulating-data.html#cb96-5" aria-hidden="true" tabindex="-1"></a>sl_3 <span class="ot">&lt;-</span> df[,<span class="fu">c</span>(<span class="st">&quot;usid&quot;</span>, <span class="st">&quot;fr_forces_mean&quot;</span>)]</span>
+<span id="cb96-6"><a href="reading-analysing-and-manipulating-data.html#cb96-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-7"><a href="reading-analysing-and-manipulating-data.html#cb96-7" aria-hidden="true" tabindex="-1"></a><span class="co"># lets find a single column</span></span>
+<span id="cb96-8"><a href="reading-analysing-and-manipulating-data.html#cb96-8" aria-hidden="true" tabindex="-1"></a>sl_4 <span class="ot">&lt;-</span> df[[<span class="st">&quot;yr&quot;</span>]]</span>
+<span id="cb96-9"><a href="reading-analysing-and-manipulating-data.html#cb96-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-10"><a href="reading-analysing-and-manipulating-data.html#cb96-10" aria-hidden="true" tabindex="-1"></a><span class="co"># you might also see people do this with a dollar sign like so</span></span>
+<span id="cb96-11"><a href="reading-analysing-and-manipulating-data.html#cb96-11" aria-hidden="true" tabindex="-1"></a><span class="co">#df$yr</span></span>
+<span id="cb96-12"><a href="reading-analysing-and-manipulating-data.html#cb96-12" aria-hidden="true" tabindex="-1"></a><span class="co"># but apparently this is less robust to exceptions. If you are more interested</span></span>
+<span id="cb96-13"><a href="reading-analysing-and-manipulating-data.html#cb96-13" aria-hidden="true" tabindex="-1"></a><span class="co"># in this, see the section on slicing in `Advanced R&#39; by Hadley Wickham.</span></span></code></pre></div>
+<p>Including square brackets after the syntax above allows us to add additional
+conditions for slicing. This can be very powerful, as we can select columns and
+then use logical conditions to slice our dataframe based on the values of the
+columns.</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="reading-analysing-and-manipulating-data.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Looking only at the hamlets that are buddhist</span></span>
+<span id="cb97-2"><a href="reading-analysing-and-manipulating-data.html#cb97-2" aria-hidden="true" tabindex="-1"></a>df_budd <span class="ot">&lt;-</span> df[df[[<span class="st">&quot;buddhist&quot;</span>]]<span class="sc">==</span><span class="dv">1</span>,]</span>
+<span id="cb97-3"><a href="reading-analysing-and-manipulating-data.html#cb97-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-4"><a href="reading-analysing-and-manipulating-data.html#cb97-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Only the hamlets that had less than half of months with at least one airstrike</span></span>
+<span id="cb97-5"><a href="reading-analysing-and-manipulating-data.html#cb97-5" aria-hidden="true" tabindex="-1"></a><span class="co"># in quarters in 1971</span></span>
+<span id="cb97-6"><a href="reading-analysing-and-manipulating-data.html#cb97-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-7"><a href="reading-analysing-and-manipulating-data.html#cb97-7" aria-hidden="true" tabindex="-1"></a>df_2 <span class="ot">&lt;-</span> df[df[[<span class="st">&quot;fr_strikes_mean&quot;</span>]]<span class="sc">&lt;</span><span class="fl">0.5</span> <span class="sc">&amp;</span> df[[<span class="st">&quot;yr&quot;</span>]]<span class="sc">==</span><span class="dv">1971</span>,]</span>
+<span id="cb97-8"><a href="reading-analysing-and-manipulating-data.html#cb97-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-9"><a href="reading-analysing-and-manipulating-data.html#cb97-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Now any hamlets that existed in 1971 or had less than half of months with one airstrike</span></span>
+<span id="cb97-10"><a href="reading-analysing-and-manipulating-data.html#cb97-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-11"><a href="reading-analysing-and-manipulating-data.html#cb97-11" aria-hidden="true" tabindex="-1"></a>df_3 <span class="ot">&lt;-</span> df[df[[<span class="st">&quot;fr_strikes_mean&quot;</span>]]<span class="sc">&lt;</span><span class="fl">0.5</span> <span class="sc">|</span> df[[<span class="st">&quot;yr&quot;</span>]]<span class="sc">==</span><span class="dv">1971</span>,]</span>
+<span id="cb97-12"><a href="reading-analysing-and-manipulating-data.html#cb97-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-13"><a href="reading-analysing-and-manipulating-data.html#cb97-13" aria-hidden="true" tabindex="-1"></a><span class="co"># lets extract the mean number of months with foreign force engagments in those hamlets using a square</span></span>
+<span id="cb97-14"><a href="reading-analysing-and-manipulating-data.html#cb97-14" aria-hidden="true" tabindex="-1"></a><span class="co"># bracket after we select the vector. Note, we are only passing a logical in the</span></span>
+<span id="cb97-15"><a href="reading-analysing-and-manipulating-data.html#cb97-15" aria-hidden="true" tabindex="-1"></a><span class="co"># final bracket, so we omit the comma that indicates the dimension</span></span>
+<span id="cb97-16"><a href="reading-analysing-and-manipulating-data.html#cb97-16" aria-hidden="true" tabindex="-1"></a><span class="co"># above</span></span>
+<span id="cb97-17"><a href="reading-analysing-and-manipulating-data.html#cb97-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-18"><a href="reading-analysing-and-manipulating-data.html#cb97-18" aria-hidden="true" tabindex="-1"></a>forces <span class="ot">&lt;-</span> df[[<span class="st">&quot;fr_forces_mean&quot;</span>]][df[[<span class="st">&quot;fr_strikes_mean&quot;</span>]]<span class="sc">&lt;</span><span class="fl">0.5</span> <span class="sc">&amp;</span> df[[<span class="st">&quot;yr&quot;</span>]]<span class="sc">==</span><span class="dv">1971</span>]</span>
+<span id="cb97-19"><a href="reading-analysing-and-manipulating-data.html#cb97-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-20"><a href="reading-analysing-and-manipulating-data.html#cb97-20" aria-hidden="true" tabindex="-1"></a><span class="co"># This returns the entries of the vector fr_forces_mean, where the corresponding</span></span>
+<span id="cb97-21"><a href="reading-analysing-and-manipulating-data.html#cb97-21" aria-hidden="true" tabindex="-1"></a><span class="co"># logicals are fulfilled. Thus, we get a vector of entries. Now lets take the</span></span>
+<span id="cb97-22"><a href="reading-analysing-and-manipulating-data.html#cb97-22" aria-hidden="true" tabindex="-1"></a><span class="co"># mean of this.</span></span>
+<span id="cb97-23"><a href="reading-analysing-and-manipulating-data.html#cb97-23" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(forces)</span></code></pre></div>
+<pre><code>## [1] 0.3698262</code></pre>
+</div>
+<div id="basic-summary-statistics" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Basic summary statistics</h2>
+<p>Once we have our dataset, we should summarise it. This allows us to eyeball any trends,
+see any patterns or weird features that we might have missed, and so on. These are
+common in empirical applications. In the worst case, it can help uncover fraud -
+e.g <a href="https://datacolada.org/98" class="uri">https://datacolada.org/98</a>. Here, we will show you how to create a summary
+table and convert it to tex code, plot a histogram, and a line chart.</p>
+<p>The most basic way to summarise your data is to use the base `summary’ command.
+This is a generic way of summarising many different R objects.
+Passing a dataframe of numerical variables gives the quantiles and mean of each column,
+as well as the number of NAs. Passing factors gives a frequency table of the frequency
+of each factor.</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="reading-analysing-and-manipulating-data.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span></code></pre></div>
+<pre><code>## 
+## Please cite as:</code></pre>
+<pre><code>##  Hlavac, Marek (2018). stargazer: Well-Formatted Regression and Summary Statistics Tables.</code></pre>
+<pre><code>##  R package version 5.2.2. https://CRAN.R-project.org/package=stargazer</code></pre>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="reading-analysing-and-manipulating-data.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lets summarise the first twelve columns of our dataset</span></span>
+<span id="cb103-2"><a href="reading-analysing-and-manipulating-data.html#cb103-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-3"><a href="reading-analysing-and-manipulating-data.html#cb103-3" aria-hidden="true" tabindex="-1"></a>df_for_summary <span class="ot">&lt;-</span> df[,<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>)]</span>
+<span id="cb103-4"><a href="reading-analysing-and-manipulating-data.html#cb103-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-5"><a href="reading-analysing-and-manipulating-data.html#cb103-5" aria-hidden="true" tabindex="-1"></a>sum_1 <span class="ot">&lt;-</span> <span class="fu">summary</span>(df_for_summary)</span></code></pre></div>
+<p>To do this in a more flexible way, we can apply summary functions to the
+data using <code>sapply'.</code>sapply’ is a member of the `apply’ family of functions
+that takes as an input a dataframe or matrix and iterates over the columns. It
+returns a dataframe or matrix object depending which we passed it.</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="reading-analysing-and-manipulating-data.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co"># computing the mean of each column, omitting any NA observations</span></span>
+<span id="cb104-2"><a href="reading-analysing-and-manipulating-data.html#cb104-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb104-3"><a href="reading-analysing-and-manipulating-data.html#cb104-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(df_for_summary, <span class="at">FUN=</span>mean, <span class="at">na.rm=</span>T)</span></code></pre></div>
+<pre><code>##               X            usid fr_strikes_mean  fr_forces_mean           pop_g 
+##    6.103000e+03    2.999219e+08    2.623032e-01    4.394916e-01   -2.679248e-02 
+##    naval_attack  sh_pf_presence  sh_rf_presence         fr_init         fw_init 
+##    3.376539e-03    3.217444e-01    7.901538e-02    3.582017e-01    1.535283e-02 
+##            en_d            fw_d 
+##    8.612760e+00    6.300729e-02</code></pre>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="reading-analysing-and-manipulating-data.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(df_for_summary, <span class="at">FUN=</span>sd, <span class="at">na.rm=</span>T)</span></code></pre></div>
+<pre><code>##               X            usid fr_strikes_mean  fr_forces_mean           pop_g 
+##    3.524002e+03    1.258183e+08    3.073952e-01    3.249269e-01    1.996891e-01 
+##    naval_attack  sh_pf_presence  sh_rf_presence         fr_init         fw_init 
+##    2.358882e-02    3.231069e-01    1.785427e-01    3.131460e-01    5.263280e-02 
+##            en_d            fw_d 
+##    3.879940e+01    2.004662e-01</code></pre>
+<p>Neither of these look very nice however. The package ‘stargazer’
+allows us to create nice looking tables in R that we can save or export. It
+can even output the table as a tex file, that we can use directly in our Latex
+documents. This package contains the function <code>stargazer</code>, which is a general
+function we can use to create nice-looking summary and regression tables. It has
+a lot of arguments we can use to create tables in different formats, including
+different things etc. We change what summary statistics we display by passing a
+vector of their names as characters to the <code>summary.stat</code> argument.</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="reading-analysing-and-manipulating-data.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(df_for_summary, <span class="at">type=</span><span class="st">&quot;html&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## &lt;table style=&quot;text-align:center&quot;&gt;&lt;tr&gt;&lt;td colspan=&quot;8&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;Statistic&lt;/td&gt;&lt;td&gt;N&lt;/td&gt;&lt;td&gt;Mean&lt;/td&gt;&lt;td&gt;St. Dev.&lt;/td&gt;&lt;td&gt;Min&lt;/td&gt;&lt;td&gt;Pctl(25)&lt;/td&gt;&lt;td&gt;Pctl(75)&lt;/td&gt;&lt;td&gt;Max&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td colspan=&quot;8&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;X&lt;/td&gt;&lt;td&gt;12,207&lt;/td&gt;&lt;td&gt;6,103.000&lt;/td&gt;&lt;td&gt;3,524.002&lt;/td&gt;&lt;td&gt;0&lt;/td&gt;&lt;td&gt;3,051.5&lt;/td&gt;&lt;td&gt;9,154.5&lt;/td&gt;&lt;td&gt;12,206&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;usid&lt;/td&gt;&lt;td&gt;12,207&lt;/td&gt;&lt;td&gt;299,921,922.000&lt;/td&gt;&lt;td&gt;125,818,263.000&lt;/td&gt;&lt;td&gt;101,010,101&lt;/td&gt;&lt;td&gt;207,082,903.0&lt;/td&gt;&lt;td&gt;434,030,755.0&lt;/td&gt;&lt;td&gt;492,010,602&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;fr_strikes_mean&lt;/td&gt;&lt;td&gt;12,207&lt;/td&gt;&lt;td&gt;0.262&lt;/td&gt;&lt;td&gt;0.307&lt;/td&gt;&lt;td&gt;0.000&lt;/td&gt;&lt;td&gt;0.000&lt;/td&gt;&lt;td&gt;0.444&lt;/td&gt;&lt;td&gt;1.000&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;fr_forces_mean&lt;/td&gt;&lt;td&gt;12,207&lt;/td&gt;&lt;td&gt;0.439&lt;/td&gt;&lt;td&gt;0.325&lt;/td&gt;&lt;td&gt;0.000&lt;/td&gt;&lt;td&gt;0.167&lt;/td&gt;&lt;td&gt;0.708&lt;/td&gt;&lt;td&gt;1.000&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;pop_g&lt;/td&gt;&lt;td&gt;11,967&lt;/td&gt;&lt;td&gt;-0.027&lt;/td&gt;&lt;td&gt;0.200&lt;/td&gt;&lt;td&gt;-6.853&lt;/td&gt;&lt;td&gt;-0.008&lt;/td&gt;&lt;td&gt;0.018&lt;/td&gt;&lt;td&gt;4.520&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;naval_attack&lt;/td&gt;&lt;td&gt;11,545&lt;/td&gt;&lt;td&gt;0.003&lt;/td&gt;&lt;td&gt;0.024&lt;/td&gt;&lt;td&gt;0.000&lt;/td&gt;&lt;td&gt;0.000&lt;/td&gt;&lt;td&gt;0.000&lt;/td&gt;&lt;td&gt;0.500&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;sh_pf_presence&lt;/td&gt;&lt;td&gt;12,146&lt;/td&gt;&lt;td&gt;0.322&lt;/td&gt;&lt;td&gt;0.323&lt;/td&gt;&lt;td&gt;0.000&lt;/td&gt;&lt;td&gt;0.000&lt;/td&gt;&lt;td&gt;0.625&lt;/td&gt;&lt;td&gt;1.000&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;sh_rf_presence&lt;/td&gt;&lt;td&gt;12,146&lt;/td&gt;&lt;td&gt;0.079&lt;/td&gt;&lt;td&gt;0.179&lt;/td&gt;&lt;td&gt;0.000&lt;/td&gt;&lt;td&gt;0.000&lt;/td&gt;&lt;td&gt;0.037&lt;/td&gt;&lt;td&gt;1.000&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;fr_init&lt;/td&gt;&lt;td&gt;12,200&lt;/td&gt;&lt;td&gt;0.358&lt;/td&gt;&lt;td&gt;0.313&lt;/td&gt;&lt;td&gt;0.000&lt;/td&gt;&lt;td&gt;0.091&lt;/td&gt;&lt;td&gt;0.600&lt;/td&gt;&lt;td&gt;1.000&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;fw_init&lt;/td&gt;&lt;td&gt;12,200&lt;/td&gt;&lt;td&gt;0.015&lt;/td&gt;&lt;td&gt;0.053&lt;/td&gt;&lt;td&gt;0.000&lt;/td&gt;&lt;td&gt;0.000&lt;/td&gt;&lt;td&gt;0.000&lt;/td&gt;&lt;td&gt;0.556&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;en_d&lt;/td&gt;&lt;td&gt;12,200&lt;/td&gt;&lt;td&gt;8.613&lt;/td&gt;&lt;td&gt;38.799&lt;/td&gt;&lt;td&gt;0.000&lt;/td&gt;&lt;td&gt;0.500&lt;/td&gt;&lt;td&gt;5.547&lt;/td&gt;&lt;td&gt;923.667&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;fw_d&lt;/td&gt;&lt;td&gt;12,200&lt;/td&gt;&lt;td&gt;0.063&lt;/td&gt;&lt;td&gt;0.200&lt;/td&gt;&lt;td&gt;0.000&lt;/td&gt;&lt;td&gt;0.000&lt;/td&gt;&lt;td&gt;0.037&lt;/td&gt;&lt;td&gt;7.000&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td colspan=&quot;8&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</code></pre>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="reading-analysing-and-manipulating-data.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="co"># now lets just have a look at the mean and sd</span></span>
+<span id="cb110-2"><a href="reading-analysing-and-manipulating-data.html#cb110-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-3"><a href="reading-analysing-and-manipulating-data.html#cb110-3" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(df_for_summary, <span class="at">type=</span><span class="st">&quot;html&quot;</span>, <span class="at">summary.stat =</span> <span class="fu">c</span>(<span class="st">&quot;mean&quot;</span>, <span class="st">&quot;sd&quot;</span>))</span></code></pre></div>
+<pre><code>## 
+## &lt;table style=&quot;text-align:center&quot;&gt;&lt;tr&gt;&lt;td colspan=&quot;3&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;Statistic&lt;/td&gt;&lt;td&gt;Mean&lt;/td&gt;&lt;td&gt;St. Dev.&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td colspan=&quot;3&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;X&lt;/td&gt;&lt;td&gt;6,103.000&lt;/td&gt;&lt;td&gt;3,524.002&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;usid&lt;/td&gt;&lt;td&gt;299,921,922.000&lt;/td&gt;&lt;td&gt;125,818,263.000&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;fr_strikes_mean&lt;/td&gt;&lt;td&gt;0.262&lt;/td&gt;&lt;td&gt;0.307&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;fr_forces_mean&lt;/td&gt;&lt;td&gt;0.439&lt;/td&gt;&lt;td&gt;0.325&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;pop_g&lt;/td&gt;&lt;td&gt;-0.027&lt;/td&gt;&lt;td&gt;0.200&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;naval_attack&lt;/td&gt;&lt;td&gt;0.003&lt;/td&gt;&lt;td&gt;0.024&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;sh_pf_presence&lt;/td&gt;&lt;td&gt;0.322&lt;/td&gt;&lt;td&gt;0.323&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;sh_rf_presence&lt;/td&gt;&lt;td&gt;0.079&lt;/td&gt;&lt;td&gt;0.179&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;fr_init&lt;/td&gt;&lt;td&gt;0.358&lt;/td&gt;&lt;td&gt;0.313&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;fw_init&lt;/td&gt;&lt;td&gt;0.015&lt;/td&gt;&lt;td&gt;0.053&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;en_d&lt;/td&gt;&lt;td&gt;8.613&lt;/td&gt;&lt;td&gt;38.799&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;fw_d&lt;/td&gt;&lt;td&gt;0.063&lt;/td&gt;&lt;td&gt;0.200&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td colspan=&quot;3&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</code></pre>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="reading-analysing-and-manipulating-data.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lets flip the axes</span></span>
+<span id="cb112-2"><a href="reading-analysing-and-manipulating-data.html#cb112-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-3"><a href="reading-analysing-and-manipulating-data.html#cb112-3" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(df_for_summary, <span class="at">type=</span><span class="st">&quot;html&quot;</span>, <span class="at">summary.stat =</span> <span class="fu">c</span>(<span class="st">&quot;mean&quot;</span>, <span class="st">&quot;sd&quot;</span>), <span class="at">flip =</span> T)</span></code></pre></div>
+<pre><code>## 
+## &lt;table style=&quot;text-align:center&quot;&gt;&lt;tr&gt;&lt;td colspan=&quot;13&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;Statistic&lt;/td&gt;&lt;td&gt;X&lt;/td&gt;&lt;td&gt;usid&lt;/td&gt;&lt;td&gt;fr_strikes_mean&lt;/td&gt;&lt;td&gt;fr_forces_mean&lt;/td&gt;&lt;td&gt;pop_g&lt;/td&gt;&lt;td&gt;naval_attack&lt;/td&gt;&lt;td&gt;sh_pf_presence&lt;/td&gt;&lt;td&gt;sh_rf_presence&lt;/td&gt;&lt;td&gt;fr_init&lt;/td&gt;&lt;td&gt;fw_init&lt;/td&gt;&lt;td&gt;en_d&lt;/td&gt;&lt;td&gt;fw_d&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td colspan=&quot;13&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;Mean&lt;/td&gt;&lt;td&gt;6,103.000&lt;/td&gt;&lt;td&gt;299,921,922.000&lt;/td&gt;&lt;td&gt;0.262&lt;/td&gt;&lt;td&gt;0.439&lt;/td&gt;&lt;td&gt;-0.027&lt;/td&gt;&lt;td&gt;0.003&lt;/td&gt;&lt;td&gt;0.322&lt;/td&gt;&lt;td&gt;0.079&lt;/td&gt;&lt;td&gt;0.358&lt;/td&gt;&lt;td&gt;0.015&lt;/td&gt;&lt;td&gt;8.613&lt;/td&gt;&lt;td&gt;0.063&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;St. Dev.&lt;/td&gt;&lt;td&gt;3,524.002&lt;/td&gt;&lt;td&gt;125,818,263.000&lt;/td&gt;&lt;td&gt;0.307&lt;/td&gt;&lt;td&gt;0.325&lt;/td&gt;&lt;td&gt;0.200&lt;/td&gt;&lt;td&gt;0.024&lt;/td&gt;&lt;td&gt;0.323&lt;/td&gt;&lt;td&gt;0.179&lt;/td&gt;&lt;td&gt;0.313&lt;/td&gt;&lt;td&gt;0.053&lt;/td&gt;&lt;td&gt;38.799&lt;/td&gt;&lt;td&gt;0.200&lt;/td&gt;&lt;/tr&gt;
+## &lt;tr&gt;&lt;td colspan=&quot;13&quot; style=&quot;border-bottom: 1px solid black&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</code></pre>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="reading-analysing-and-manipulating-data.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lets create some tex code to use in our tex files, and save it as a tex file</span></span>
+<span id="cb114-2"><a href="reading-analysing-and-manipulating-data.html#cb114-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-3"><a href="reading-analysing-and-manipulating-data.html#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(df_for_summary,<span class="at">out =</span> <span class="st">&quot;summary_stats.tex&quot;</span>,<span class="at">summary.stat =</span> <span class="fu">c</span>(<span class="st">&quot;mean&quot;</span>, <span class="st">&quot;median&quot;</span>, <span class="st">&quot;sd&quot;</span>), </span>
+<span id="cb114-4"><a href="reading-analysing-and-manipulating-data.html#cb114-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">&quot;Partial summary statistics - Dell and Querubin (2018)&quot;</span>, <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb114-5"><a href="reading-analysing-and-manipulating-data.html#cb114-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">float.env =</span> <span class="st">&quot;table&quot;</span>, <span class="at">notes =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+## % Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+## % Date and time: Mon, Oct 04, 2021 - 18:56:58
+## \begin{table}[!htbp] \centering 
+##   \caption{Partial summary statistics - Dell and Querubin (2018)} 
+##   \label{} 
+## \begin{tabular}{@{\extracolsep{5pt}}lccc} 
+## \\[-1.8ex]\hline 
+## \hline \\[-1.8ex] 
+## Statistic &amp; \multicolumn{1}{c}{Mean} &amp; \multicolumn{1}{c}{Median} &amp; \multicolumn{1}{c}{St. Dev.} \\ 
+## \hline \\[-1.8ex] 
+## X &amp; 6,103.00 &amp; 6,103 &amp; 3,524.00 \\ 
+## usid &amp; 299,921,922.00 &amp; 325,010,608 &amp; 125,818,263.00 \\ 
+## fr\_strikes\_mean &amp; 0.26 &amp; 0.13 &amp; 0.31 \\ 
+## fr\_forces\_mean &amp; 0.44 &amp; 0.39 &amp; 0.32 \\ 
+## pop\_g &amp; $-$0.03 &amp; 0.002 &amp; 0.20 \\ 
+## naval\_attack &amp; 0.003 &amp; 0.00 &amp; 0.02 \\ 
+## sh\_pf\_presence &amp; 0.32 &amp; 0.23 &amp; 0.32 \\ 
+## sh\_rf\_presence &amp; 0.08 &amp; 0.00 &amp; 0.18 \\ 
+## fr\_init &amp; 0.36 &amp; 0.26 &amp; 0.31 \\ 
+## fw\_init &amp; 0.02 &amp; 0.00 &amp; 0.05 \\ 
+## en\_d &amp; 8.61 &amp; 1.79 &amp; 38.80 \\ 
+## fw\_d &amp; 0.06 &amp; 0.00 &amp; 0.20 \\ 
+## \hline \\[-1.8ex] 
+## \multicolumn{4}{l}{} \\ 
+## \end{tabular} 
+## \end{table}</code></pre>
+<p>We can create a histogram of numerical variables by using the base R <code>hist</code> command.
+We have to make sure to specify a number of bins when we do this, using the <code>breaks</code>
+argument.</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="reading-analysing-and-manipulating-data.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lets look at the distribution of the number of mean monthly airstrikes across </span></span>
+<span id="cb116-2"><a href="reading-analysing-and-manipulating-data.html#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="co"># South Vietnamese hamlets in 1971 </span></span>
+<span id="cb116-3"><a href="reading-analysing-and-manipulating-data.html#cb116-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-4"><a href="reading-analysing-and-manipulating-data.html#cb116-4" aria-hidden="true" tabindex="-1"></a>airstrikes <span class="ot">&lt;-</span> df[[<span class="st">&quot;fr_strikes_mean&quot;</span>]][df[[<span class="st">&quot;yr&quot;</span>]]<span class="sc">==</span><span class="dv">1971</span>]</span>
+<span id="cb116-5"><a href="reading-analysing-and-manipulating-data.html#cb116-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(airstrikes, <span class="at">breaks=</span><span class="dv">20</span>, <span class="at">col=</span><span class="st">&quot;lightblue&quot;</span>, <span class="at">main=</span><span class="st">&quot;Mean months with scheduled airstrikes on South Vietnamese hamlets, 1971&quot;</span>)</span></code></pre></div>
+<p><img src="03--Working_with_data_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+We can also plot any two variables against each other by using the base <code>plot</code>
+command. The first argument is the variable on the x axis, the second argument
+is the variable on the y axis. The <code>type</code> argument allows you to specify whether
+you want a scatterplot, a line plot, or other types of plot. Additional arguments
+allow us to specify the size of the points, the colour, axis sizes, titles, and
+so on.</p>
+<p>We can make more complex plots by creating a plot object, and then building on
+top of it. I give an example of a more complex plot below. We start with a single
+plot, containing a single line. We also specify some labels, a title, and control
+the size of the text in general and axis labels in particular (using the <code>cex</code> arguments).
+This is the first line of code in this base plot.
+Next, we build it up a single element at a time, adding a new line of code below
+for each element. We first plot two additional lines with <code>line</code>. We then manually
+control each of the axes with <code>axis</code>. Passing the <code>xact="n"</code> and <code>yact="n"</code> commands
+to the first <code>plot</code> allow us to do this.</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="reading-analysing-and-manipulating-data.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plotting the relationship between mean foreign forces and mean airstrikes in</span></span>
+<span id="cb117-2"><a href="reading-analysing-and-manipulating-data.html#cb117-2" aria-hidden="true" tabindex="-1"></a><span class="co"># a hamlet over all years</span></span>
+<span id="cb117-3"><a href="reading-analysing-and-manipulating-data.html#cb117-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(df[[<span class="st">&quot;fr_forces_mean&quot;</span>]], df[[<span class="st">&quot;fr_strikes_mean&quot;</span>]], <span class="at">type =</span> <span class="st">&quot;p&quot;</span>, <span class="at">col=</span><span class="st">&quot;lightblue&quot;</span>,</span>
+<span id="cb117-4"><a href="reading-analysing-and-manipulating-data.html#cb117-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span>,</span>
+<span id="cb117-5"><a href="reading-analysing-and-manipulating-data.html#cb117-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Mean months with foreign forces&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Mean months with airstrikes&quot;</span>, <span class="at">main=</span> <span class="st">&quot;Mean months with foreign</span></span>
+<span id="cb117-6"><a href="reading-analysing-and-manipulating-data.html#cb117-6" aria-hidden="true" tabindex="-1"></a><span class="st">     forces vs. mean months with scheduled airstrikes by quarter&quot;</span>)</span></code></pre></div>
+<p><img src="03--Working_with_data_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="reading-analysing-and-manipulating-data.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="co"># now lets plot the mean airstrikes, ground operations, and naval strikes by year</span></span>
+<span id="cb118-2"><a href="reading-analysing-and-manipulating-data.html#cb118-2" aria-hidden="true" tabindex="-1"></a><span class="co"># this will illustrate the basics of how to make more complex plots with base R</span></span>
+<span id="cb118-3"><a href="reading-analysing-and-manipulating-data.html#cb118-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Also this is a nice illustration how to use functions in lappply</span></span>
+<span id="cb118-4"><a href="reading-analysing-and-manipulating-data.html#cb118-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-5"><a href="reading-analysing-and-manipulating-data.html#cb118-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-6"><a href="reading-analysing-and-manipulating-data.html#cb118-6" aria-hidden="true" tabindex="-1"></a><span class="co"># inputs: list of unique times in the dataframe, </span></span>
+<span id="cb118-7"><a href="reading-analysing-and-manipulating-data.html#cb118-7" aria-hidden="true" tabindex="-1"></a><span class="co">#         dataframe with at least two columns - time and thing we want to summarise,</span></span>
+<span id="cb118-8"><a href="reading-analysing-and-manipulating-data.html#cb118-8" aria-hidden="true" tabindex="-1"></a><span class="co">#         name of column representing units of time in the dataframe, and</span></span>
+<span id="cb118-9"><a href="reading-analysing-and-manipulating-data.html#cb118-9" aria-hidden="true" tabindex="-1"></a><span class="co">#         name of column we want to summarise</span></span>
+<span id="cb118-10"><a href="reading-analysing-and-manipulating-data.html#cb118-10" aria-hidden="true" tabindex="-1"></a><span class="co"># outputs: list of means of column by year</span></span>
+<span id="cb118-11"><a href="reading-analysing-and-manipulating-data.html#cb118-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-12"><a href="reading-analysing-and-manipulating-data.html#cb118-12" aria-hidden="true" tabindex="-1"></a>mean_by_year <span class="ot">&lt;-</span> <span class="cf">function</span>(time, df, name_of_year_column, name_of_summary_column){</span>
+<span id="cb118-13"><a href="reading-analysing-and-manipulating-data.html#cb118-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb118-14"><a href="reading-analysing-and-manipulating-data.html#cb118-14" aria-hidden="true" tabindex="-1"></a>  obs_by_year <span class="ot">&lt;-</span> df[[name_of_summary_column]][df[[name_of_year_column]]<span class="sc">==</span>time]</span>
+<span id="cb118-15"><a href="reading-analysing-and-manipulating-data.html#cb118-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">mean</span>(obs_by_year, <span class="at">na.rm=</span>T))</span>
+<span id="cb118-16"><a href="reading-analysing-and-manipulating-data.html#cb118-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb118-17"><a href="reading-analysing-and-manipulating-data.html#cb118-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb118-18"><a href="reading-analysing-and-manipulating-data.html#cb118-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-19"><a href="reading-analysing-and-manipulating-data.html#cb118-19" aria-hidden="true" tabindex="-1"></a>times_list <span class="ot">&lt;-</span> <span class="fu">as.list</span>(<span class="fu">unique</span>(df[[<span class="st">&quot;yr&quot;</span>]]))</span>
+<span id="cb118-20"><a href="reading-analysing-and-manipulating-data.html#cb118-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-21"><a href="reading-analysing-and-manipulating-data.html#cb118-21" aria-hidden="true" tabindex="-1"></a><span class="co"># lapply automatically assumes the list is the first argument to the function</span></span>
+<span id="cb118-22"><a href="reading-analysing-and-manipulating-data.html#cb118-22" aria-hidden="true" tabindex="-1"></a><span class="co"># thus, we need to specify the other arguments as arguments to lapply</span></span>
+<span id="cb118-23"><a href="reading-analysing-and-manipulating-data.html#cb118-23" aria-hidden="true" tabindex="-1"></a>mean_airstrikes <span class="ot">&lt;-</span> <span class="fu">lapply</span>(times_list, <span class="at">FUN=</span>mean_by_year, <span class="at">df=</span>df,</span>
+<span id="cb118-24"><a href="reading-analysing-and-manipulating-data.html#cb118-24" aria-hidden="true" tabindex="-1"></a>                          <span class="at">name_of_year_column=</span><span class="st">&quot;yr&quot;</span>, <span class="at">name_of_summary_column =</span> <span class="st">&quot;fr_strikes_mean&quot;</span>)</span>
+<span id="cb118-25"><a href="reading-analysing-and-manipulating-data.html#cb118-25" aria-hidden="true" tabindex="-1"></a><span class="co"># this gives us a list - we need to flatten it into a vector to plot it</span></span>
+<span id="cb118-26"><a href="reading-analysing-and-manipulating-data.html#cb118-26" aria-hidden="true" tabindex="-1"></a><span class="co"># unlist does this</span></span>
+<span id="cb118-27"><a href="reading-analysing-and-manipulating-data.html#cb118-27" aria-hidden="true" tabindex="-1"></a>mean_airstrikes <span class="ot">&lt;-</span> <span class="fu">unlist</span>(mean_airstrikes)</span>
+<span id="cb118-28"><a href="reading-analysing-and-manipulating-data.html#cb118-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-29"><a href="reading-analysing-and-manipulating-data.html#cb118-29" aria-hidden="true" tabindex="-1"></a>mean_troops <span class="ot">&lt;-</span> <span class="fu">lapply</span>(times_list, <span class="at">FUN=</span>mean_by_year, <span class="at">df=</span>df,</span>
+<span id="cb118-30"><a href="reading-analysing-and-manipulating-data.html#cb118-30" aria-hidden="true" tabindex="-1"></a>                          <span class="at">name_of_year_column=</span><span class="st">&quot;yr&quot;</span>, <span class="at">name_of_summary_column =</span> <span class="st">&quot;fr_forces_mean&quot;</span>)</span>
+<span id="cb118-31"><a href="reading-analysing-and-manipulating-data.html#cb118-31" aria-hidden="true" tabindex="-1"></a>mean_troops <span class="ot">&lt;-</span> <span class="fu">unlist</span>(mean_troops)</span>
+<span id="cb118-32"><a href="reading-analysing-and-manipulating-data.html#cb118-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-33"><a href="reading-analysing-and-manipulating-data.html#cb118-33" aria-hidden="true" tabindex="-1"></a><span class="co"># now plotting the airstrikes by year</span></span>
+<span id="cb118-34"><a href="reading-analysing-and-manipulating-data.html#cb118-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-35"><a href="reading-analysing-and-manipulating-data.html#cb118-35" aria-hidden="true" tabindex="-1"></a><span class="co"># note a common trap here! when we unlist the times_list, it comes out both unordered </span></span>
+<span id="cb118-36"><a href="reading-analysing-and-manipulating-data.html#cb118-36" aria-hidden="true" tabindex="-1"></a><span class="co"># and as a factor vector! So, if we try to plot it just like this, we get an error.</span></span>
+<span id="cb118-37"><a href="reading-analysing-and-manipulating-data.html#cb118-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Instead, we need to unlist it, turn it into numbers, and then order the vector.</span></span>
+<span id="cb118-38"><a href="reading-analysing-and-manipulating-data.html#cb118-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-39"><a href="reading-analysing-and-manipulating-data.html#cb118-39" aria-hidden="true" tabindex="-1"></a>times <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">unique</span>(df[[<span class="st">&quot;yr&quot;</span>]]))</span>
+<span id="cb118-40"><a href="reading-analysing-and-manipulating-data.html#cb118-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-41"><a href="reading-analysing-and-manipulating-data.html#cb118-41" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(times, mean_airstrikes, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;Year&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Engagements&quot;</span>,</span>
+<span id="cb118-42"><a href="reading-analysing-and-manipulating-data.html#cb118-42" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Mean monthly engagements in South Vietnamese hamlets by type&quot;</span>,</span>
+<span id="cb118-43"><a href="reading-analysing-and-manipulating-data.html#cb118-43" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="dv">1</span>, <span class="at">cex.lab =</span> <span class="fl">1.25</span>, <span class="at">xaxt=</span><span class="st">&quot;n&quot;</span>, <span class="at">yaxt=</span><span class="st">&quot;n&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>))</span>
+<span id="cb118-44"><a href="reading-analysing-and-manipulating-data.html#cb118-44" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>), <span class="at">las =</span> <span class="dv">1</span>, <span class="at">cex.axis =</span> <span class="fl">1.25</span>)</span>
+<span id="cb118-45"><a href="reading-analysing-and-manipulating-data.html#cb118-45" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="dv">1970</span>, <span class="dv">1972</span>, <span class="at">by =</span> <span class="dv">1</span>), <span class="at">cex.axis =</span> <span class="fl">1.25</span>)</span>
+<span id="cb118-46"><a href="reading-analysing-and-manipulating-data.html#cb118-46" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(times, mean_troops, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb118-47"><a href="reading-analysing-and-manipulating-data.html#cb118-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-48"><a href="reading-analysing-and-manipulating-data.html#cb118-48" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1200</span>, <span class="at">by =</span> <span class="dv">100</span>), <span class="at">las =</span> <span class="dv">1</span>, <span class="at">cex.axis =</span> <span class="fl">1.25</span>)</span>
+<span id="cb118-49"><a href="reading-analysing-and-manipulating-data.html#cb118-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-50"><a href="reading-analysing-and-manipulating-data.html#cb118-50" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Mean airstrikes per month&quot;</span>, <span class="st">&quot;Mean troop engagements per month&quot;</span>),</span>
+<span id="cb118-51"><a href="reading-analysing-and-manipulating-data.html#cb118-51" aria-hidden="true" tabindex="-1"></a>       <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>), <span class="at">cex =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="03--Working_with_data_files/figure-html/unnamed-chunk-12-2.png" width="672" />
+We can save any plot as a png file automatically by wrapping it in
+<code>png()</code> and <code>dev.off</code> as above.</p>
+</div>
+<div id="summarising-with-the-tidyverse---dplyr-and-ggplot2" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Summarising with the tidyverse - dplyr and ggplot2</h2>
+<p>The tidyverse system of libraries can make summarising and plotting data
+very easy - especially if it involves grouping the data. They also make
+complex operations more easily readable. It does this by adopting a different
+grammar to how standard R looks, and by being ‘opinionated’ - i.e making
+automatic decisions about a lot of defaults. The downside to this is that you
+have to be careful - the defaults can be different to what you would want -
+and you as the programmer have less control.</p>
+<p>This is only a very very brief introduction to some tidyverse functions. If you
+like them, I would strongly recommend Hadley Wickham’s book ‘R for data science,’
+which he has put in web form here <a href="https://r4ds.had.co.nz/" class="uri">https://r4ds.had.co.nz/</a>. He is the creator of
+the tidyverse; and his books are really thorough, accessible, and well written.</p>
+<div id="dplyr" class="section level3" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Dplyr</h3>
+<p>There are six key dplyr functions: <code>filter</code> to select observations by values,
+<code>arrange</code> to reorder rows, <code>select</code> to fetch columns by name, <code>mutate</code> to create
+new columns from existing ones, <code>group_by</code> to fetch the values in one column that
+depend on another, and <code>summarise</code> to compute summary statistics.</p>
+<p><code>filter</code> selects all the rows in a dataframe that satisfy one or more conditions.
+The first argument is the dataframe; the subsequent arguments are logical conditions.
+You do not need to put column names in quotes in this, and all, tidyverse functions.
+It returns a dataframe with only rows that satisfy this condition.</p>
+<p><code>arange</code> orders a dataframe in descending order by the values in a set of columns, in the order
+that we pass the column names. The first argument is the dataframe. The subsequent
+arguments are the column names. It returns an ordered dataframe.</p>
+<p><code>select</code> subsets a dataframe by column names. It is another way of doing the
+slicing we did in base R above. The first argument is the dataframe. The subsequent
+arguments are the column names we want to select. It returns a dataframe containing
+only those columns.</p>
+<p><code>mutate</code> creates new columns that are functions of existing columns. It is another
+way of doing the slicing and tranformation we did above. The first argument is
+the dataframe. The subsequent arguments are the columns we want to create. It
+returns a dataframe that is the original dataframe plus the columns we wanted to
+create.</p>
+<p><code>summarise</code> creates a table of summary statistics. This is similar to the <code>summary</code>
+command in base R. <code>group_by</code>, however, allows us to create summaries that depend
+on the values of certain columns e.g mean airstrikes by year. This allows us to
+easily get at more complex features of our data.</p>
+<p>When we use tidyverse packages, we can chain operations using a pipe <code>%&gt;%</code>. In words,
+this command says ‘and then.’ This can be very powerful, as it allows us to
+do lots of complex operations to dataframes in single sets of commands as opposed
+to creating lots of intermediate objects, or using messier nested functions.</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="reading-analysing-and-manipulating-data.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filter selects all the v</span></span>
+<span id="cb119-2"><a href="reading-analysing-and-manipulating-data.html#cb119-2" aria-hidden="true" tabindex="-1"></a><span class="co"># first argument is the dataframe, second argument is the column value you want</span></span>
+<span id="cb119-3"><a href="reading-analysing-and-manipulating-data.html#cb119-3" aria-hidden="true" tabindex="-1"></a><span class="co"># to filter by</span></span>
+<span id="cb119-4"><a href="reading-analysing-and-manipulating-data.html#cb119-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-5"><a href="reading-analysing-and-manipulating-data.html#cb119-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --</code></pre>
+<pre><code>## v ggplot2 3.3.5     v purrr   0.3.4
+## v tibble  3.0.4     v dplyr   1.0.2
+## v tidyr   1.1.2     v stringr 1.4.0
+## v readr   1.4.0     v forcats 0.5.0</code></pre>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 4.0.5</code></pre>
+<pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="reading-analysing-and-manipulating-data.html#cb124-1" aria-hidden="true" tabindex="-1"></a>filtered_df <span class="ot">&lt;-</span> <span class="fu">filter</span>(df, yr<span class="sc">==</span><span class="dv">1972</span>)</span>
+<span id="cb124-2"><a href="reading-analysing-and-manipulating-data.html#cb124-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-3"><a href="reading-analysing-and-manipulating-data.html#cb124-3" aria-hidden="true" tabindex="-1"></a>arranged_df <span class="ot">&lt;-</span> <span class="fu">arrange</span>(df, yr, usid)</span>
+<span id="cb124-4"><a href="reading-analysing-and-manipulating-data.html#cb124-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-5"><a href="reading-analysing-and-manipulating-data.html#cb124-5" aria-hidden="true" tabindex="-1"></a>selected_df <span class="ot">&lt;-</span> <span class="fu">select</span>(df, usid, yr, fr_forces_mean)</span>
+<span id="cb124-6"><a href="reading-analysing-and-manipulating-data.html#cb124-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-7"><a href="reading-analysing-and-manipulating-data.html#cb124-7" aria-hidden="true" tabindex="-1"></a>mutated_df <span class="ot">&lt;-</span> <span class="fu">mutate</span>(df, <span class="at">fr_strikes_mean_squared =</span> fr_strikes_mean<span class="sc">**</span><span class="dv">2</span>)</span>
+<span id="cb124-8"><a href="reading-analysing-and-manipulating-data.html#cb124-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-9"><a href="reading-analysing-and-manipulating-data.html#cb124-9" aria-hidden="true" tabindex="-1"></a>grouped_df <span class="ot">&lt;-</span> <span class="fu">group_by</span>(df, yr)</span>
+<span id="cb124-10"><a href="reading-analysing-and-manipulating-data.html#cb124-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-11"><a href="reading-analysing-and-manipulating-data.html#cb124-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(grouped_df, <span class="at">count=</span><span class="fu">n</span>(), <span class="at">mean_forces =</span> <span class="fu">mean</span>(fr_forces_mean))</span></code></pre></div>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>## # A tibble: 3 x 3
+##      yr count mean_forces
+##   &lt;dbl&gt; &lt;int&gt;       &lt;dbl&gt;
+## 1  1970  8571       0.441
+## 2  1971  2989       0.429
+## 3  1972   647       0.464</code></pre>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="reading-analysing-and-manipulating-data.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Combining both of these to do some powerful summarising</span></span>
+<span id="cb127-2"><a href="reading-analysing-and-manipulating-data.html#cb127-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb127-3"><a href="reading-analysing-and-manipulating-data.html#cb127-3" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">select</span>(usid, yr, fr_forces_mean, fr_strikes_mean, naval_attack) <span class="sc">%&gt;%</span></span>
+<span id="cb127-4"><a href="reading-analysing-and-manipulating-data.html#cb127-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="fu">as.factor</span>(yr)) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">count=</span><span class="fu">n</span>(), <span class="at">mean_forces =</span> <span class="fu">mean</span>(fr_forces_mean),</span>
+<span id="cb127-5"><a href="reading-analysing-and-manipulating-data.html#cb127-5" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">mean_airstrikes =</span> <span class="fu">mean</span>(fr_strikes_mean),</span>
+<span id="cb127-6"><a href="reading-analysing-and-manipulating-data.html#cb127-6" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">mean_naval_attack =</span> <span class="fu">mean</span>(naval_attack)) </span></code></pre></div>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>## # A tibble: 3 x 5
+##   `as.factor(yr)` count mean_forces mean_airstrikes mean_naval_attack
+##   &lt;fct&gt;           &lt;int&gt;       &lt;dbl&gt;           &lt;dbl&gt;             &lt;dbl&gt;
+## 1 1970             8571       0.441           0.255                NA
+## 2 1971             2989       0.429           0.269                NA
+## 3 1972              647       0.464           0.327                NA</code></pre>
+<p>ggplot2 is the most common way to make plots in R. It is an easier
+way to make beautiful plots than using the base <code>plot</code> and <code>hist</code> functions.
+ggplot2 uses its own syntax, called the ‘grammar of graphics.’
+In short, you create a base plot object, and then add additional things to it
+using <code>+</code> signs afterwards.</p>
+<p>In any ggplot, we start by passing <code>ggplot()</code>. This sets up the coordinate
+system for what we want to summarise.
+Next, we pass how we want to summarise it.
+This can be in a lineplot, scatterplot, heatplot and so on. Each have their own
+ggplot2 commands. Within that, or the <code>ggplot()</code> command, we have to specify a
+mapping from the values in our dataset to the things on the plot.</p>
+<p>We do this
+with the <code>mapping</code> argument. We always pair this with an <code>aes</code> wrapper, within
+which we specify the aesthetics for this plot - what is on the x axis, what is
+on the y axis, and some other possible arguments. We can use these to colour the
+points by characteristics, put them into different shapes, and so on as long as
+these things map from the values of the points. There are other arguments, such
+as general size colour, that are properties of the points but not of their values.
+These go outside of the mapping argument.</p>
+<p>This is the base ggplot uses to build the plots. Next, we can add arguments and layer up
+commands to build the type of the plot we want to make. There are many different
+ways that we can do this to make some incredibly clean and beautiful plots. For
+examples, see <a href="http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html#Histogram" class="uri">http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html#Histogram</a>.</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="reading-analysing-and-manipulating-data.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lets start with the simplest thing - a scatter plot</span></span>
+<span id="cb130-2"><a href="reading-analysing-and-manipulating-data.html#cb130-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb130-3"><a href="reading-analysing-and-manipulating-data.html#cb130-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df[df[[<span class="st">&quot;yr&quot;</span>]]<span class="sc">==</span><span class="dv">1972</span>,]) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span>fr_strikes_mean, <span class="at">y=</span>en_prop))</span></code></pre></div>
+<pre><code>## Warning: Removed 21 rows containing missing values (geom_point).</code></pre>
+<p><img src="03--Working_with_data_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="reading-analysing-and-manipulating-data.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lets change the colour of all of the points</span></span>
+<span id="cb132-2"><a href="reading-analysing-and-manipulating-data.html#cb132-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb132-3"><a href="reading-analysing-and-manipulating-data.html#cb132-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df[df[[<span class="st">&quot;yr&quot;</span>]]<span class="sc">==</span><span class="dv">1972</span>,]) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span>fr_strikes_mean, <span class="at">y=</span>en_prop), <span class="at">colour=</span><span class="st">&quot;orange&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: Removed 21 rows containing missing values (geom_point).</code></pre>
+<p><img src="03--Working_with_data_files/figure-html/unnamed-chunk-14-2.png" width="672" /></p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="reading-analysing-and-manipulating-data.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="co"># now lets colour some points</span></span>
+<span id="cb134-2"><a href="reading-analysing-and-manipulating-data.html#cb134-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-3"><a href="reading-analysing-and-manipulating-data.html#cb134-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df[df[[<span class="st">&quot;yr&quot;</span>]]<span class="sc">==</span><span class="dv">1972</span>,]) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span>fr_strikes_mean, <span class="at">y=</span>en_prop, <span class="at">color =</span> fr_forces_mean))</span></code></pre></div>
+<pre><code>## Warning: Removed 21 rows containing missing values (geom_point).</code></pre>
+<p><img src="03--Working_with_data_files/figure-html/unnamed-chunk-14-3.png" width="672" /></p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="reading-analysing-and-manipulating-data.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we could also do this with, for example, size</span></span>
+<span id="cb136-2"><a href="reading-analysing-and-manipulating-data.html#cb136-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-3"><a href="reading-analysing-and-manipulating-data.html#cb136-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df[df[[<span class="st">&quot;yr&quot;</span>]]<span class="sc">==</span><span class="dv">1972</span>,]) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span>fr_strikes_mean, <span class="at">y=</span>en_prop, <span class="at">size =</span> fr_forces_mean))</span></code></pre></div>
+<pre><code>## Warning: Removed 21 rows containing missing values (geom_point).</code></pre>
+<p><img src="03--Working_with_data_files/figure-html/unnamed-chunk-14-4.png" width="672" /></p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="reading-analysing-and-manipulating-data.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="co"># now lets build up by adding a smoothed line through all of the points</span></span>
+<span id="cb138-2"><a href="reading-analysing-and-manipulating-data.html#cb138-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb138-3"><a href="reading-analysing-and-manipulating-data.html#cb138-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> df[df[[<span class="st">&quot;yr&quot;</span>]]<span class="sc">==</span><span class="dv">1972</span>,], <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span>fr_strikes_mean, <span class="at">y=</span>en_prop)) <span class="sc">+</span> </span>
+<span id="cb138-4"><a href="reading-analysing-and-manipulating-data.html#cb138-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb138-5"><a href="reading-analysing-and-manipulating-data.html#cb138-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## Warning: Removed 21 rows containing non-finite values (stat_smooth).
+
+## Warning: Removed 21 rows containing missing values (geom_point).</code></pre>
+<p><img src="03--Working_with_data_files/figure-html/unnamed-chunk-14-5.png" width="672" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="foundations.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="estimating-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Introduction to R for Econometrics.pdf", "Introduction to R for Econometrics.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
